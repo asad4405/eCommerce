@@ -49,14 +49,14 @@
 <body class="bg-effect">
 
     <!-- Loader Start -->
-    <div class="fullpage-loader">
+    {{-- <div class="fullpage-loader">
         <span></span>
         <span></span>
         <span></span>
         <span></span>
         <span></span>
         <span></span>
-    </div>
+    </div> --}}
     <!-- Loader End -->
 
     <!-- Header Start -->
@@ -110,7 +110,7 @@
                                     <i class="fa-solid fa-bars"></i>
                                 </span>
                             </button>
-                            <a href="index.html" class="web-logo nav-logo">
+                            <a href="{{ route('index') }}" class="web-logo nav-logo">
                                 <img src="{{ asset('frontend_assets') }}/images/logo/1.png" class="img-fluid blur-up lazyload"
                                     alt="">
                             </a>
@@ -359,15 +359,15 @@
                                     <div class="offcanvas-body">
                                         <ul class="navbar-nav">
                                             <li class="nav-item ">
-                                                <a class="nav-link" href="index.html">Home</a>
+                                                <a class="nav-link" href="{{ route('index') }}">Home</a>
                                             </li>
 
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link" href="shop-top-filter.html">Shop</a>
+                                                <a class="nav-link" href="{{ route('about') }}">About</a>
                                             </li>
 
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link" href="product-left-thumbnail.html">Product</a>
+                                                <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -392,7 +392,7 @@
     <div class="mobile-menu d-md-none d-block mobile-cart">
         <ul>
             <li class="active">
-                <a href="index.html">
+                <a href="{{ route('index') }}">
                     <span>Home</span>
                 </a>
             </li>
@@ -486,7 +486,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="footer-logo">
                             <div class="theme-logo">
-                                <a href="index.html">
+                                <a href="{{ route('index') }}">
                                     <img src="{{ asset('frontend_assets') }}/images/logo/1.png" class="blur-up lazyload"
                                         alt="">
                                 </a>
@@ -547,7 +547,7 @@
                         <div class="footer-contain">
                             <ul>
                                 <li>
-                                    <a href="index.html" class="text-content">Home</a>
+                                    <a href="{{ route('index') }}" class="text-content">Home</a>
                                 </li>
                                 <li>
                                     <a href="shop-top-filter.html" class="text-content">Shop</a>
