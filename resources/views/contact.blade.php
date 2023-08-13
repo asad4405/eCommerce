@@ -115,64 +115,83 @@
                         <h2>Contact Us</h2>
                     </div>
                     <div class="right-sidebar-box">
-                        <div class="row">
-                            <div class="col-xxl-6 col-lg-12 col-sm-6">
-                                <div class="mb-md-4 mb-3 custom-form">
-                                    <label for="exampleFormControlInput" class="form-label">First Name</label>
-                                    <div class="custom-input">
-                                        <input type="text" class="form-control" id="exampleFormControlInput"
-                                            placeholder="Enter First Name">
-                                        <i class="fa-solid fa-user"></i>
+                        <form action="{{ route('contact.post') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                @if (session('contact-success'))
+                                    <div class="alert alert-success">{{ session('contact-success') }}</div>
+                                @endif
+                                <div class="col-xxl-6 col-lg-12 col-sm-6">
+                                    <div class="mb-md-4 mb-3 custom-form">
+                                        <label for="exampleFormControlInput" class="form-label">First Name</label>
+                                        <div class="custom-input">
+                                            <input type="text" class="form-control" id="" name="first_name"
+                                                placeholder="Enter First Name">
+                                            <i class="fa-solid fa-user"></i>
+                                        </div>
+                                        @error('first_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-xxl-6 col-lg-12 col-sm-6">
-                                <div class="mb-md-4 mb-3 custom-form">
-                                    <label for="exampleFormControlInput1" class="form-label">Last Name</label>
-                                    <div class="custom-input">
-                                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="Enter Last Name">
-                                        <i class="fa-solid fa-user"></i>
+                                <div class="col-xxl-6 col-lg-12 col-sm-6">
+                                    <div class="mb-md-4 mb-3 custom-form">
+                                        <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                                        <div class="custom-input">
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter Last Name" name="last_name">
+                                            <i class="fa-solid fa-user"></i>
+                                        </div>
+                                        @error('last_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-xxl-6 col-lg-12 col-sm-6">
-                                <div class="mb-md-4 mb-3 custom-form">
-                                    <label for="exampleFormControlInput2" class="form-label">Email Address</label>
-                                    <div class="custom-input">
-                                        <input type="email" class="form-control" id="exampleFormControlInput2"
-                                            placeholder="Enter Email Address">
-                                        <i class="fa-solid fa-envelope"></i>
+                                <div class="col-xxl-6 col-lg-12 col-sm-6">
+                                    <div class="mb-md-4 mb-3 custom-form">
+                                        <label for="exampleFormControlInput2" class="form-label">Email Address</label>
+                                        <div class="custom-input">
+                                            <input type="email" class="form-control" id="exampleFormControlInput2"
+                                                placeholder="Enter Email Address" name="email">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </div>
+                                        @error('email')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-xxl-6 col-lg-12 col-sm-6">
-                                <div class="mb-md-4 mb-3 custom-form">
-                                    <label for="exampleFormControlInput3" class="form-label">Phone Number</label>
-                                    <div class="custom-input">
-                                        <input type="tel" class="form-control" id="exampleFormControlInput3"
-                                            placeholder="Enter Your Phone Number" maxlength="10"
-                                            oninput="javascript: if (this.value.length > this.maxLength) this.value =
-                                            this.value.slice(0, this.maxLength);">
-                                        <i class="fa-solid fa-mobile-screen-button"></i>
+                                <div class="col-xxl-6 col-lg-12 col-sm-6">
+                                    <div class="mb-md-4 mb-3 custom-form">
+                                        <label for="exampleFormControlInput2" class="form-label">Subject</label>
+                                        <div class="custom-input">
+                                            <input type="email" class="form-control" id="exampleFormControlInput2"
+                                                placeholder="Subject" name="subject">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </div>
+                                        @error('subject')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-12">
-                                <div class="mb-md-4 mb-3 custom-form">
-                                    <label for="exampleFormControlTextarea" class="form-label">Message</label>
-                                    <div class="custom-textarea">
-                                        <textarea class="form-control" id="exampleFormControlTextarea" placeholder="Enter Your Message" rows="6"></textarea>
-                                        <i class="fa-solid fa-message"></i>
+                                <div class="col-12">
+                                    <div class="mb-md-4 mb-3 custom-form">
+                                        <label for="exampleFormControlTextarea" class="form-label">Message</label>
+                                        <div class="custom-textarea">
+                                            <textarea class="form-control" name="message" rows="6"></textarea>
+                                            <i class="fa-solid fa-message"></i>
+                                        </div>
+                                        @error('message')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <button class="btn btn-animation btn-md fw-bold ms-auto">Send Message</button>
+                            <button class="btn btn-animation btn-md fw-bold ms-auto">Send Message</button>
+                        </form>
                     </div>
                 </div>
             </div>

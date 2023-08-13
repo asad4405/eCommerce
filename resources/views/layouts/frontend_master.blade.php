@@ -23,7 +23,8 @@
         rel="stylesheet">
 
     <!-- bootstrap css -->
-    <link id="rtl-link" rel="stylesheet" type="text/css" href="{{ asset('frontend_assets') }}/css/vendors/bootstrap.css">
+    <link id="rtl-link" rel="stylesheet" type="text/css"
+        href="{{ asset('frontend_assets') }}/css/vendors/bootstrap.css">
 
     <!-- wow css -->
     <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/animate.min.css" />
@@ -111,8 +112,8 @@
                                 </span>
                             </button>
                             <a href="{{ route('index') }}" class="web-logo nav-logo">
-                                <img src="{{ asset('frontend_assets') }}/images/logo/1.png" class="img-fluid blur-up lazyload"
-                                    alt="">
+                                <img src="{{ asset('frontend_assets') }}/images/logo/1.png"
+                                    class="img-fluid blur-up lazyload" alt="">
                             </a>
 
                             <div class="middle-box">
@@ -241,24 +242,29 @@
                                             </div>
                                             <div class="delivery-detail">
                                                 <h6>Hello,</h6>
+                                                @guest
                                                 <h5>My Account</h5>
+                                                @else
+                                                <h5>{{ auth()->user()->name }}</h5>
+                                                @endguest
                                             </div>
                                         </div>
 
                                         <div class="onhover-div onhover-div-login">
                                             <ul class="user-box-name">
-                                                <li class="product-box-contain">
-                                                    <i></i>
-                                                    <a href="login.html">Log In</a>
-                                                </li>
+                                                @guest
+                                                    <li class="product-box-contain">
+                                                        <a href="{{ route('login') }}">Login</a>
+                                                    </li>
 
-                                                <li class="product-box-contain">
-                                                    <a href="sign-up.html">Register</a>
-                                                </li>
-
-                                                <li class="product-box-contain">
-                                                    <a href="forgot.html">Forgot Password</a>
-                                                </li>
+                                                    <li class="product-box-contain">
+                                                        <a href="{{ route('register') }}">Register</a>
+                                                    </li>
+                                                @else
+                                                    <li class="product-box-contain">
+                                                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                                                    </li>
+                                                @endguest
                                             </ul>
                                         </div>
                                     </li>
@@ -291,7 +297,8 @@
                                 <ul class="category-list">
                                     <li class="onhover-category-list">
                                         <a href="shop-top-filter.html" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/vegetable.svg" alt="">
+                                            <img src="{{ asset('frontend_assets') }}/svg/1/vegetable.svg"
+                                                alt="">
                                             <h6>Vegetables & Fruit</h6>
 
                                         </a>
@@ -315,7 +322,8 @@
 
                                     <li class="onhover-category-list">
                                         <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/breakfast.svg" alt="">
+                                            <img src="{{ asset('frontend_assets') }}/svg/1/breakfast.svg"
+                                                alt="">
                                             <h6>Breakfast & Dairy</h6>
 
                                         </a>
@@ -323,7 +331,8 @@
 
                                     <li class="onhover-category-list">
                                         <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/frozen.svg" alt="">
+                                            <img src="{{ asset('frontend_assets') }}/svg/1/frozen.svg"
+                                                alt="">
                                             <h6>Frozen Foods</h6>
 
                                         </a>
@@ -331,7 +340,8 @@
 
                                     <li class="onhover-category-list">
                                         <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/biscuit.svg" alt="">
+                                            <img src="{{ asset('frontend_assets') }}/svg/1/biscuit.svg"
+                                                alt="">
                                             <h6>Biscuits & Snacks</h6>
 
                                         </a>
@@ -339,7 +349,8 @@
 
                                     <li class="onhover-category-list">
                                         <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/grocery.svg" alt="">
+                                            <img src="{{ asset('frontend_assets') }}/svg/1/grocery.svg"
+                                                alt="">
                                             <h6>Grocery & Staples</h6>
 
                                         </a>
@@ -439,7 +450,8 @@
                         <div class="service-contain">
                             <div class="service-box">
                                 <div class="service-image">
-                                    <img src="{{ asset('frontend_assets') }}/svg/product.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{ asset('frontend_assets') }}/svg/product.svg"
+                                        class="blur-up lazyload" alt="">
                                 </div>
 
                                 <div class="service-detail">
@@ -449,7 +461,8 @@
 
                             <div class="service-box">
                                 <div class="service-image">
-                                    <img src="{{ asset('frontend_assets') }}/svg/delivery.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{ asset('frontend_assets') }}/svg/delivery.svg"
+                                        class="blur-up lazyload" alt="">
                                 </div>
 
                                 <div class="service-detail">
@@ -459,7 +472,8 @@
 
                             <div class="service-box">
                                 <div class="service-image">
-                                    <img src="{{ asset('frontend_assets') }}/svg/discount.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{ asset('frontend_assets') }}/svg/discount.svg"
+                                        class="blur-up lazyload" alt="">
                                 </div>
 
                                 <div class="service-detail">
@@ -469,7 +483,8 @@
 
                             <div class="service-box">
                                 <div class="service-image">
-                                    <img src="{{ asset('frontend_assets') }}/svg/market.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{ asset('frontend_assets') }}/svg/market.svg" class="blur-up lazyload"
+                                        alt="">
                                 </div>
 
                                 <div class="service-detail">
@@ -487,8 +502,8 @@
                         <div class="footer-logo">
                             <div class="theme-logo">
                                 <a href="{{ route('index') }}">
-                                    <img src="{{ asset('frontend_assets') }}/images/logo/1.png" class="blur-up lazyload"
-                                        alt="">
+                                    <img src="{{ asset('frontend_assets') }}/images/logo/1.png"
+                                        class="blur-up lazyload" alt="">
                                 </a>
                             </div>
 
@@ -623,14 +638,14 @@
                                     <ul>
                                         <li class="mb-0">
                                             <a href="https://play.google.com/store/apps" target="_blank">
-                                                <img src="{{ asset('frontend_assets') }}/images/playstore.svg" class="blur-up lazyload"
-                                                    alt="">
+                                                <img src="{{ asset('frontend_assets') }}/images/playstore.svg"
+                                                    class="blur-up lazyload" alt="">
                                             </a>
                                         </li>
                                         <li class="mb-0">
                                             <a href="https://www.apple.com/in/app-store/" target="_blank">
-                                                <img src="{{ asset('frontend_assets') }}/images/appstore.svg" class="blur-up lazyload"
-                                                    alt="">
+                                                <img src="{{ asset('frontend_assets') }}/images/appstore.svg"
+                                                    class="blur-up lazyload" alt="">
                                             </a>
                                         </li>
                                     </ul>
@@ -647,7 +662,8 @@
                 </div>
 
                 <div class="payment">
-                    <img src="{{ asset('frontend_assets') }}/images/payment/1.png" class="blur-up lazyload" alt="">
+                    <img src="{{ asset('frontend_assets') }}/images/payment/1.png" class="blur-up lazyload"
+                        alt="">
                 </div>
 
                 <div class="social-link">
@@ -681,8 +697,8 @@
     <!-- Footer Section End -->
 
     <!-- Quick View Modal Box Start -->
-    <div class="modal fade theme-modal view-modal" id="view" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade theme-modal view-modal" id="view" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
             <div class="modal-content">
                 <div class="modal-header p-0">
@@ -790,7 +806,8 @@
     <div class="cookie-bar-box">
         <div class="cookie-box">
             <div class="cookie-image">
-                <img src="{{ asset('frontend_assets') }}/images/cookie-bar.png" class="blur-up lazyload" alt="">
+                <img src="{{ asset('frontend_assets') }}/images/cookie-bar.png" class="blur-up lazyload"
+                    alt="">
                 <h2>Cookies!</h2>
             </div>
 
@@ -807,8 +824,8 @@
     <!-- Cookie Bar Box End -->
 
     <!-- Deal Box Modal Start -->
-    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
             <div class="modal-content">
                 <div class="modal-header">
