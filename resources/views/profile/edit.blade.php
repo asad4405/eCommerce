@@ -64,14 +64,23 @@
                                     <div class="title-header option-title">
                                         <h5>Update Profile Photo</h5>
                                     </div>
-                                    <form class="theme-form theme-form-2 mega-form">
+                                    @if (session('photo-success'))
+                                        <div class="alert alert-success">{{ session('photo-success') }}</div>
+                                    @endif
+                                    <form class="theme-form theme-form-2 mega-form"
+                                        action="{{ route('change.profile.photo') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
                                         <div class="row">
                                             <div class="mb-4 row align-items-center">
                                                 <label class="col-sm-2 col-form-label form-label-title">Profile
                                                     Photo</label>
                                                 <div class="col-sm-10">
                                                     <input class="form-control form-choose" type="file"
-                                                        id="formFileMultiple">
+                                                        id="formFileMultiple" name="profile_photo">
+                                                    @error('profile_photo')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -134,7 +143,8 @@
                                                     Password</label>
                                                 <div class="col-sm-10">
                                                     <input class="form-control" type="password" id="password_three"
-                                                        placeholder="Enter Your Confirm Passowrd" name="password_confirmation">
+                                                        placeholder="Enter Your Confirm Passowrd"
+                                                        name="password_confirmation">
                                                     <input type="checkbox" id="showPassword_three"> Show Password
                                                 </div>
                                             </div>

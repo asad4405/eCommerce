@@ -153,8 +153,14 @@
                         </li>
                         <li class="profile-nav onhover-dropdown pe-0 me-0">
                             <div class="media profile-media">
-                                <img class="user-profile rounded-circle"
-                                    src="{{ asset('backend_assets') }}/images/users/4.jpg" alt="">
+                                @if (auth()->user()->profile_photo)
+                                    <img class="user-profile rounded-circle"
+                                        src="{{ asset('uploads/profile_photos') }}/{{ auth()->user()->profile_photo }}"
+                                        alt="not found">
+                                @else
+                                    <img class="user-profile rounded-circle"
+                                        src="{{ Avatar::create(auth()->user()->name)->toBase64() }}" alt="">
+                                @endif
                                 <div class="user-name-hide media-body">
                                     <span>{{ auth()->user()->name }}</span>
                                     <p class="mb-0 font-roboto">Admin<i class="middle ri-arrow-down-s-line"></i></p>
@@ -460,7 +466,7 @@
     <!-- Theme js -->
     <script src="{{ asset('backend_assets') }}/js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     @yield('footer_script')
 </body>
 
