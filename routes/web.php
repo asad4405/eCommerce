@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
 // category
 Route::resource('category',CategoryController::class);
+Route::get('category/restore/{id}',[CategoryController::class,'category_restore'])->name('category.restore');
+Route::get('category/delete/{id}',[CategoryController::class,'category_delete'])->name('category.delete');
 
 // vendor
 Route::get('/vendor/register',[VendorController::class, 'vendor_register'])->name('vendor.register');

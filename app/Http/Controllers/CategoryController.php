@@ -16,8 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $deleted_categories = Category::onlyTrashed()->get();
         $categories = Category::all();
-        return view('backend.category.index',compact('categories'));
+        return view('backend.category.index', compact('categories','deleted_categories'));
     }
 
     /**
@@ -34,9 +35,9 @@ class CategoryController extends Controller
     public function store(CategoryPostRequest $request)
     {
         // photo upload start
-        $category_img = 'Category_'.date('d_m_Y_').Str::random(5).'.'.$request->file('category_icon')->getClientOriginalExtension();
+        $category_img = 'Category_' . date('d_m_Y_') . Str::random(5) . '.' . $request->file('category_icon')->getClientOriginalExtension();
 
-        Image::make($request->file('category_icon'))->save(base_path('public/uploads/category_icons/'.$category_img));
+        Image::make($request->file('category_icon'))->save(base_path('public/uploads/category_icons/' . $category_img));
         // slug
         $slug = Str::slug($request->category_name);
         // photo upload end
@@ -47,7 +48,7 @@ class CategoryController extends Controller
             'category_icon' => $category_img,
             'created_at' => Carbon::now(),
         ]);
-        return back()->with('category-success','New Category Added Successfull!');
+        return back()->with('category-success', 'New Category Added Successfull!');
     }
 
     /**
@@ -55,7 +56,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('backend.category.show',compact('category'));
+        return view('backend.category.show', compact('category'));
     }
 
     /**
@@ -63,7 +64,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('backend.category.edit',compact('category'));
+        return view('backend.category.edit', compact('category'));
     }
 
     /**
@@ -71,7 +72,32 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        return $request;
+        if ($request->hasFile('category_icon')) {
+            unlink(base_path('public/uploads/category_icons/').$category->category_icon);
+            // photo upload start
+            $category_img = 'Category_' . date('d_m_Y_') . Str::random(5) . '.' . $request->file('category_icon')->getClientOriginalExtension();
+
+            Image::make($request->file('category_icon'))->save(base_path('public/uploads/category_icons/' . $category_img));
+            // slug
+            $slug = Str::slug($request->category_name);
+            // photo upload end
+            $category->category_name = $request->category_name;
+            $category->category_details = $request->category_details;
+            $category->slug = $slug;
+            $category->category_icon = $category_img;
+            $category->created_at = Carbon::now();
+            $category->save();
+            return redirect('category')->with('category-success', 'New Category Added Successfull!');
+        } else {
+            $slug = Str::slug($request->category_name);
+
+            $category->category_name = $request->category_name;
+            $category->category_details = $request->category_details;
+            $category->slug = $slug;
+            $category->created_at = Carbon::now();
+            $category->save();
+            return redirect('category')->with('category-success', 'New Category Added Successfull!');
+        }
     }
 
     /**
@@ -79,6 +105,22 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        // unlink(base_path('public/uploads/category_icons/').$category->category_icon);
+        $category->delete();
+        return back();
+    }
+
+    public function category_restore($id)
+    {
+        Category::onlyTrashed()->where('id',$id)->restore();
+        return back();
+    }
+
+    public function category_delete ($id)
+    {
+        unlink(base_path('public/uploads/category_icons/'). Category::onlyTrashed()->where('id',$id)->first()->category_icon);
+        
+        Category::onlyTrashed()->where('id',$id)->forceDelete();
+        return back();
     }
 }

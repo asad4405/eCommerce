@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('category_icon');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
