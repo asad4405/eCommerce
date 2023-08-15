@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryPostRequest;
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('backend.category.index',compact('categories'));
     }
 
     /**
@@ -31,12 +34,20 @@ class CategoryController extends Controller
     public function store(CategoryPostRequest $request)
     {
         // photo upload start
-        return $category_img = 'Category_'.date('d_m_Y_').Str::random(5).'.'.$request->file('category_icon')->getClientOriginalExtension() ;
+        $category_img = 'Category_'.date('d_m_Y_').Str::random(5).'.'.$request->file('category_icon')->getClientOriginalExtension();
+
+        Image::make($request->file('category_icon'))->save(base_path('public/uploads/category_icons/'.$category_img));
+        // slug
+        $slug = Str::slug($request->category_name);
         // photo upload end
-        // Category::insert([
-        //     'category_name' => $request->category_name,
-        //     'category_details' => $request->category_details,
-        // ]);
+        Category::insert([
+            'category_name' => $request->category_name,
+            'category_details' => $request->category_details,
+            'slug' => $slug,
+            'category_icon' => $category_img,
+            'created_at' => Carbon::now(),
+        ]);
+        return back()->with('category-success','New Category Added Successfull!');
     }
 
     /**
@@ -44,7 +55,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('backend.category.show',compact('category'));
     }
 
     /**
@@ -52,7 +63,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('backend.category.edit',compact('category'));
     }
 
     /**
@@ -60,7 +71,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        return $request;
     }
 
     /**

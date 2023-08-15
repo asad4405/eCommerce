@@ -14,6 +14,10 @@
                                         <h5>Category Information</h5>
                                     </div>
 
+                                    @if (session('category-success'))
+                                        <div class="alert alert-success">{{ session('category-success') }}</div>
+                                    @endif
+
                                     <form class="theme-form theme-form-2 mega-form" action="{{ route('category.store') }}"
                                         method="POST" enctype="multipart/form-data">
                                         @csrf

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('category_name')->unique();
             $table->longText('category_details');
+            $table->string('slug');
             $table->string('category_icon');
             $table->timestamps();
         });
