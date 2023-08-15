@@ -3,6 +3,7 @@
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,5 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/change/profile/photo', [ProfileController::class, 'change_profile_photo'])->name('change.profile.photo');
 });
+
+// vendor
+Route::get('/vendor/register',[VendorController::class, 'vendor_register'])->name('vendor.register');
+Route::post('/vendor/register/post',[VendorController::class, 'vendor_register_post'])->name('vendor.register.post');
 
 require __DIR__.'/auth.php';

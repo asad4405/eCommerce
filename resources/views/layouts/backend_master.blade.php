@@ -163,7 +163,7 @@
                                 @endif
                                 <div class="user-name-hide media-body">
                                     <span>{{ auth()->user()->name }}</span>
-                                    <p class="mb-0 font-roboto">Admin<i class="middle ri-arrow-down-s-line"></i></p>
+                                    <p class="mb-0 font-roboto">{{ auth()->user()->role }}<i class="middle ri-arrow-down-s-line"></i></p>
                                 </div>
                             </div>
                             <ul class="profile-dropdown onhover-show-div">
