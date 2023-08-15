@@ -163,7 +163,8 @@
                                 @endif
                                 <div class="user-name-hide media-body">
                                     <span>{{ auth()->user()->name }}</span>
-                                    <p class="mb-0 font-roboto">{{ auth()->user()->role }}<i class="middle ri-arrow-down-s-line"></i></p>
+                                    <p class="mb-0 font-roboto">{{ auth()->user()->role }}<i
+                                            class="middle ri-arrow-down-s-line"></i></p>
                                 </div>
                             </div>
                             <ul class="profile-dropdown onhover-show-div">
@@ -246,53 +247,76 @@
                                     </a>
                                 </li>
 
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-store-3-line"></i>
-                                        <span>Product</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="products.html">Prodcts</a>
-                                        </li>
+                                @if (auth()->user()->role == 'Admin')
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title"
+                                            href="javascript:void(0)">
+                                            <i class="ri-list-check-2"></i>
+                                            <span>Category</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="{{ route('category.create') }}">Add New Category</a>
+                                            </li>
 
-                                        <li>
-                                            <a href="add-new-product.html">Add New Products</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                            <li>
+                                                <a href="{{ route('category.index') }}">Category List</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
 
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-check-2"></i>
-                                        <span>Category</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="category.html">Category List</a>
-                                        </li>
+                                @if (auth()->user()->role == 'Vendor')
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title"
+                                            href="javascript:void(0)">
+                                            <i class="ri-store-3-line"></i>
+                                            <span>Product</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="add-new-product.html">Add New Products</a>
+                                            </li>
 
-                                        <li>
-                                            <a href="add-new-category.html">Add New Category</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                            <li>
+                                                <a href="products.html">Products</a>
+                                            </li>
+                                        </ul>
+                                    </li>
 
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-settings-line"></i>
-                                        <span>Attributes</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="attributes.html">Attributes</a>
-                                        </li>
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title"
+                                            href="javascript:void(0)">
+                                            <i class="ri-list-settings-line"></i>
+                                            <span>Attributes</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="add-new-attributes.html">Add Attributes</a>
+                                            </li>
 
-                                        <li>
-                                            <a href="add-new-attributes.html">Add Attributes</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                            <li>
+                                                <a href="attributes.html">Attributes</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                            <i class="ri-price-tag-3-line"></i>
+                                            <span>Coupons</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="create-coupon.html">Create Coupon</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="coupon-list.html">Coupon List</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
 
                                 <li class="sidebar-list">
                                     <a class="sidebar-link sidebar-title" href="javascript:void(0)">
@@ -325,21 +349,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-price-tag-3-line"></i>
-                                        <span>Coupons</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="coupon-list.html">Coupon List</a>
-                                        </li>
 
-                                        <li>
-                                            <a href="create-coupon.html">Create Coupon</a>
-                                        </li>
-                                    </ul>
-                                </li>
                                 <li class="sidebar-list">
                                     <a class="sidebar-link sidebar-title link-nav" href="product-review.html">
                                         <i class="ri-star-line"></i>

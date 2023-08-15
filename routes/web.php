@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -26,6 +27,7 @@ Route::post('/contact/post',[FrontendController::class, 'contact_post'])->name('
 
 
 Route::get('/dashboard',[HomeController::class ,'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
+Route::get('/vendor/approve/{id}',[HomeController::class ,'vendor_appreve'])->name('vendor.approve')->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -33,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/change/profile/photo', [ProfileController::class, 'change_profile_photo'])->name('change.profile.photo');
 });
+
+// category
+Route::resource('category',CategoryController::class);
 
 // vendor
 Route::get('/vendor/register',[VendorController::class, 'vendor_register'])->name('vendor.register');
