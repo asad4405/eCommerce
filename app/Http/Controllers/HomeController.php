@@ -10,8 +10,9 @@ class HomeController extends Controller
     public function dashboard ()
     {
         if(auth()->user()->role == 'Admin'){
+            $users = User::withTrashed()->get();
             $applied_vendors = User::onlyTrashed()->get();
-            return view('dashboard.admin',compact('applied_vendors'));
+            return view('dashboard.admin',compact('applied_vendors','users'));
         }else if(auth()->user()->role == 'Vendor'){
             return view('dashboard.vendor');
         }else{

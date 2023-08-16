@@ -44,7 +44,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
     // product
     Route::resource('product',ProductController::class)->middleware('vendor.checker');
-    // Route::
+    
 });
 
 // vendor

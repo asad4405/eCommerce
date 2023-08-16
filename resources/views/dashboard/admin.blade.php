@@ -10,6 +10,82 @@
                         <div class="custome-1-bg b-r-4 card-body">
                             <div class="media align-items-center static-top-widget">
                                 <div class="media-body p-0">
+                                    <span class="m-0">Total Customers</span>
+                                    <h4 class="mb-0 counter">
+                                        {{ $users->where('role','Customer')->count() }}
+                                    </h4>
+                                </div>
+                                <div class="align-self-center text-center">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xxl-3 col-lg-6">
+                    <div class="main-tiles border-5 card-hover border-0 card o-hidden">
+                        <div class="custome-2-bg b-r-4 card-body">
+                            <div class="media static-top-widget">
+                                <div class="media-body p-0">
+                                    <span class="m-0">Total Admin</span>
+                                    <h4 class="mb-0 counter">
+                                        {{ $users->where('role','Admin')->count() }}
+                                        <a href="" class="badge badge-light-primary grow">
+                                            ADD NEW</a>
+                                    </h4>
+                                </div>
+                                <div class="align-self-center text-center">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xxl-3 col-lg-6">
+                    <div class="main-tiles border-5 card-hover border-0  card o-hidden">
+                        <div class="custome-3-bg b-r-4 card-body">
+                            <div class="media static-top-widget">
+                                <div class="media-body p-0">
+                                    <span class="m-0">Total Vendor Applied</span>
+                                    <h4 class="mb-0 counter">
+                                        {{ $users->where('role','Vendor')->whereNotNull('deleted_at')->count() }}
+                                    </h4>
+                                </div>
+
+                                <div class="align-self-center text-center">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xxl-3 col-lg-6">
+                    <div class="main-tiles border-5 card-hover border-0 card o-hidden">
+                        <div class="custome-4-bg b-r-4 card-body">
+                            <div class="media static-top-widget">
+                                <div class="media-body p-0">
+                                    <span class="m-0">Total Active Vendor</span>
+                                    <h4 class="mb-0 counter">
+                                        {{ $users->where('role','Vendor')->whereNull('deleted_at')->count() }}
+                                    </h4>
+                                </div>
+
+                                <div class="align-self-center text-center">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xxl-3 col-lg-6">
+                    <div class="main-tiles border-5 border-0  card-hover card o-hidden">
+                        <div class="custome-1-bg b-r-4 card-body">
+                            <div class="media align-items-center static-top-widget">
+                                <div class="media-body p-0">
                                     <span class="m-0">Total Revenue</span>
                                     <h4 class="mb-0 counter">$6659
                                         <span class="badge badge-light-primary grow">
@@ -135,7 +211,8 @@
                                         @empty
                                             <tr>
                                                 <td>
-                                                    <p class="text-center text-danger">Approve Vendor Request Not Available</p>
+                                                    <p class="text-center text-danger">Approve Vendor Request Not Available
+                                                    </p>
                                                 </td>
                                             </tr>
                                         @endforelse
