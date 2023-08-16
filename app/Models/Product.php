@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    function relationToCategory(){
+        return $this->hasOne(Category::class,'id','category_id');
+    }
 }

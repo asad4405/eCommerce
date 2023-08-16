@@ -18,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('backend.product.index');
+        $products = Product::latest()->get();
+        return view('backend.product.index',compact('products'));
     }
 
     /**
@@ -73,7 +74,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        return view('backend.product.edit',compact('product','categories'));
     }
 
     /**
@@ -81,7 +83,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        // if($request->hasFile('product_photos')){
+        // }else{
+        // }
+        $product->category_id = $request->category_id;
+            $product->product_name = $request->product_name;
+            $product->product_short_details = $request->product_short_details;
+            $product->product_long_details = $request->product_long_details;
+            $product->product_additional_info = $request->product_additional_info;
+            $product->product_care_instuctions = $request->product_care_instuctions;
+            $product->save();
+            return redirect('product');
     }
 
     /**
@@ -89,6 +101,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        // return unlink(base_path('public/uploads/product_photos/'));
+        // $product->delete();
     }
 }
