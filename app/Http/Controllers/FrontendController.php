@@ -13,14 +13,22 @@ class FrontendController extends Controller
     {
         return view('index');
     }
+
     public function about ()
     {
         return view('about');
     }
+
+    public function shop ()
+    {
+        return view('shop');
+    }
+
     public function contact ()
     {
         return view('contact');
     }
+
     public function contact_post (ContactPostRequest $request)
     {
         Contact::insert([

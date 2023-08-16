@@ -378,6 +378,10 @@
                                             </li>
 
                                             <li class="nav-item dropdown">
+                                                <a class="nav-link" href="{{ route('shop') }}">Shop</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
                                                 <a class="nav-link" href="{{ route('vendor.register') }}">Register as Vendor</a>
                                             </li>
 

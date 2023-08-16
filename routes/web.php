@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[FrontendController::class, 'index'])->name('index');
 Route::get('/about',[FrontendController::class, 'about'])->name('about');
+Route::get('/shop',[FrontendController::class, 'shop'])->name('shop');
 Route::get('/contact',[FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact/post',[FrontendController::class, 'contact_post'])->name('contact.post');
 
@@ -41,6 +43,8 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('category/delete/{id}',[CategoryController::class,'category_delete'])->name('category.delete')->middleware('admin.checker');
 
     // product
+    Route::resource('product',ProductController::class)->middleware('vendor.checker');
+    // Route::
 });
 
 // vendor
