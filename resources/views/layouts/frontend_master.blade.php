@@ -243,9 +243,9 @@
                                             <div class="delivery-detail">
                                                 <h6>Hello,</h6>
                                                 @guest
-                                                <h5>My Account</h5>
+                                                    <h5>My Account</h5>
                                                 @else
-                                                <h5>{{ auth()->user()->name }}</h5>
+                                                    <h5>{{ auth()->user()->name }}</h5>
                                                 @endguest
                                             </div>
                                         </div>
@@ -295,66 +295,19 @@
                                 </div>
 
                                 <ul class="category-list">
-                                    <li class="onhover-category-list">
-                                        <a href="shop-top-filter.html" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/vegetable.svg"
-                                                alt="">
-                                            <h6>Vegetables & Fruit</h6>
+                                    @php
+                                        $categories = App\Models\Category::all();
+                                    @endphp
+                                    @foreach ($categories as $category)
+                                        <li class="onhover-category-list">
+                                            <a href="{{ route('shop') }}" class="category-name">
+                                                <img src="{{ asset('uploads/category_icons') }}/{{ $category->category_icon }}"
+                                                    alt="">
+                                                <h6>{{ $category->category_name }}</h6>
 
-                                        </a>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/cup.svg" alt="">
-                                            <h6>Beverages</h6>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/meats.svg" alt="">
-                                            <h6>Meats & Seafood</h6>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/breakfast.svg"
-                                                alt="">
-                                            <h6>Breakfast & Dairy</h6>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/frozen.svg"
-                                                alt="">
-                                            <h6>Frozen Foods</h6>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/biscuit.svg"
-                                                alt="">
-                                            <h6>Biscuits & Snacks</h6>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/grocery.svg"
-                                                alt="">
-                                            <h6>Grocery & Staples</h6>
-
-                                        </a>
-                                    </li>
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -382,7 +335,8 @@
                                             </li>
 
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link" href="{{ route('vendor.register') }}">Register as Vendor</a>
+                                                <a class="nav-link" href="{{ route('vendor.register') }}">Register as
+                                                    Vendor</a>
                                             </li>
 
                                             <li class="nav-item dropdown">

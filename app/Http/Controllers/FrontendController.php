@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactPostRequest;
+use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -11,7 +13,9 @@ class FrontendController extends Controller
 {
     public function index ()
     {
-        return view('index');
+        $products = Product::latest()->get();
+        $categories = Category::all();
+        return view('index',compact('categories','products'));
     }
 
     public function about ()
