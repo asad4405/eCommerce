@@ -27,6 +27,8 @@ Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact/post', [FrontendController::class, 'contact_post'])->name('contact.post');
 
+Route::get('/product/details', [FrontendController::class, 'product_details'])->name('product.details');
+
 
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);

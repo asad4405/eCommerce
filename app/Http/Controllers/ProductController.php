@@ -18,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->get();
+        $products = Product::where('user_id',auth()->id())->latest()->get();
         return view('backend.product.index',compact('products'));
     }
 

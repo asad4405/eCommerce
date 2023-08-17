@@ -45,4 +45,9 @@ class FrontendController extends Controller
         ]);
         return back()->with('contact-success', 'Message Send Successfully!');
     }
+
+    public function product_details()
+    {
+        return view('product_details');
+    }
 }
