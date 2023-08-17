@@ -31,7 +31,7 @@
                                     <span class="m-0">Total Admin</span>
                                     <h4 class="mb-0 counter">
                                         {{ $users->where('role','Admin')->count() }}
-                                        <a href="" class="badge badge-light-primary grow">
+                                        <a href="{{ route('add.new.admin') }}" class="badge badge-light-primary grow">
                                             ADD NEW</a>
                                     </h4>
                                 </div>
