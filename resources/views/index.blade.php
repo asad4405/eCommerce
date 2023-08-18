@@ -229,14 +229,14 @@
                                 <ul class="product-list border-0 p-0 d-block">
                                     <li>
                                         <div class="offer-product">
-                                            <a href="{{ route('product.details') }}" class="offer-image">
+                                            <a href="" class="offer-image">
                                                 <img src="{{ asset('frontend_assets') }}/images/vegetable/product/23.png"
                                                     class="blur-up lazyload" alt="">
                                             </a>
 
                                             <div class="offer-detail">
                                                 <div>
-                                                    <a href="{{ route('product.details') }}" class="text-title">
+                                                    <a href="" class="text-title">
                                                         <h6 class="name">Meatigo Premium Goat Curry</h6>
                                                     </a>
                                                     <span>450 G</span>
@@ -248,14 +248,14 @@
 
                                     <li>
                                         <div class="offer-product">
-                                            <a href="{{ route('product.details') }}" class="offer-image">
+                                            <a href="" class="offer-image">
                                                 <img src="{{ asset('frontend_assets') }}/images/vegetable/product/24.png"
                                                     class="blur-up lazyload" alt="">
                                             </a>
 
                                             <div class="offer-detail">
                                                 <div>
-                                                    <a href="{{ route('product.details') }}" class="text-title">
+                                                    <a href="" class="text-title">
                                                         <h6 class="name">Dates Medjoul Premium Imported</h6>
                                                     </a>
                                                     <span>450 G</span>
@@ -267,14 +267,14 @@
 
                                     <li>
                                         <div class="offer-product">
-                                            <a href="{{ route('product.details') }}" class="offer-image">
+                                            <a href="" class="offer-image">
                                                 <img src="{{ asset('frontend_assets') }}/images/vegetable/product/25.png"
                                                     class="blur-up lazyload" alt="">
                                             </a>
 
                                             <div class="offer-detail">
                                                 <div>
-                                                    <a href="{{ route('product.details') }}" class="text-title">
+                                                    <a href="" class="text-title">
                                                         <h6 class="name">Good Life Walnut Kernels</h6>
                                                     </a>
                                                     <span>200 G</span>
@@ -286,14 +286,14 @@
 
                                     <li class="mb-0">
                                         <div class="offer-product">
-                                            <a href="{{ route('product.details') }}" class="offer-image">
+                                            <a href="" class="offer-image">
                                                 <img src="{{ asset('frontend_assets') }}/images/vegetable/product/26.png"
                                                     class="blur-up lazyload" alt="">
                                             </a>
 
                                             <div class="offer-detail">
                                                 <div>
-                                                    <a href="{{ route('product.details') }}" class="text-title">
+                                                    <a href="" class="text-title">
                                                         <h6 class="name">Apple Red Premium Imported</h6>
                                                     </a>
                                                     <span>1 KG</span>
@@ -356,7 +356,7 @@
                                                 $product_photos = App\Models\Product_photo::where('product_id',$product->id)->get();
                                             @endphp
 
-                                            <a href="{{ route('product.details') }}">
+                                            <a href="{{ route('product.details',$product->id) }}">
                                                 <img src="{{ asset('uploads/product_photos') }}/{{ $product_photos->random()->product_photos }}"
                                                     class="img-fluid blur-up lazyload" alt="">
                                             </a>
@@ -383,7 +383,7 @@
                                         </div>
 
                                         <div class="product-detail">
-                                            <a href="{{ route('product.details') }}">
+                                            <a href="{{ route('product.details',$product->id) }}">
                                                 <h6 class="name">{{ $product->product_name }}</h6>
                                             </a>
 
@@ -415,7 +415,7 @@
                                             </div>
 
                                             <div class="add-to-cart-box">
-                                                <a href="{{ route('product.details') }}" class="btn btn-add-cart">
+                                                <a href="{{ route('product.details',$product->id) }}" class="btn btn-add-cart">
                                                     Add
                                                 </a>
                                                 <div class="cart_qty qty-box">
@@ -518,7 +518,7 @@
                                     <div class="col-12 px-0">
                                         <div class="product-box">
                                             <div class="product-image">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/product/1.png"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
@@ -545,7 +545,7 @@
                                                 </ul>
                                             </div>
                                             <div class="product-detail">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <h6 class="name h-100">Chocalate Powder</h6>
                                                 </a>
 
@@ -608,7 +608,7 @@
                                     <div class="col-12 px-0">
                                         <div class="product-box">
                                             <div class="product-image">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/product/2.png"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
@@ -635,7 +635,7 @@
                                                 </ul>
                                             </div>
                                             <div class="product-detail">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <h6 class="name h-100">Sandwich Cookies</h6>
                                                 </a>
 
@@ -698,7 +698,7 @@
                                     <div class="col-12 px-0">
                                         <div class="product-box">
                                             <div class="product-image">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/product/3.png"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
@@ -725,7 +725,7 @@
                                                 </ul>
                                             </div>
                                             <div class="product-detail">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <h6 class="name h-100">Butter Croissant</h6>
                                                 </a>
 
@@ -788,7 +788,7 @@
                                     <div class="col-12 px-0">
                                         <div class="product-box">
                                             <div class="product-image">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/product/4.png"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
@@ -815,7 +815,7 @@
                                                 </ul>
                                             </div>
                                             <div class="product-detail">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <h6 class="name h-100">Dark Chocalate</h6>
                                                 </a>
 
@@ -878,7 +878,7 @@
                                     <div class="col-12 px-0">
                                         <div class="product-box">
                                             <div class="product-image">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/product/5.png"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
@@ -905,7 +905,7 @@
                                                 </ul>
                                             </div>
                                             <div class="product-detail">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <h6 class="name h-100">Mix-sweet-food</h6>
                                                 </a>
 
@@ -968,7 +968,7 @@
                                     <div class="col-12 px-0">
                                         <div class="product-box">
                                             <div class="product-image">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/product/4.png"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
@@ -995,7 +995,7 @@
                                                 </ul>
                                             </div>
                                             <div class="product-detail">
-                                                <a href="{{ route('product.details') }}">
+                                                <a href="">
                                                     <h6 class="name h-100">Dark Chocalate</h6>
                                                 </a>
 
@@ -1122,14 +1122,14 @@
                             <ul class="product-list">
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/11.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Tuffets Whole Wheat Bread</h6>
                                                 </a>
                                                 <span>500 G</span>
@@ -1141,14 +1141,14 @@
 
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/12.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Potato</h6>
                                                 </a>
                                                 <span>500 G</span>
@@ -1160,14 +1160,14 @@
 
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/13.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Green Chilli</h6>
                                                 </a>
                                                 <span>200 G</span>
@@ -1179,14 +1179,14 @@
 
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/14.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Muffets Burger Bun</h6>
                                                 </a>
                                                 <span>150 G</span>
@@ -1202,14 +1202,14 @@
                             <ul class="product-list">
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/15.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Tuffets Britannia Cheezza</h6>
                                                 </a>
                                                 <span>500 G</span>
@@ -1221,14 +1221,14 @@
 
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/16.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Long Life Toned Milk</h6>
                                                 </a>
                                                 <span>1 L</span>
@@ -1240,14 +1240,14 @@
 
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/17.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Organic Tomato</h6>
                                                 </a>
                                                 <span>1 KG</span>
@@ -1259,14 +1259,14 @@
 
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/18.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Organic Jam</h6>
                                                 </a>
                                                 <span>150 G</span>
@@ -1282,14 +1282,14 @@
                             <ul class="product-list">
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/19.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Good Life Refined Sunflower Oil</h6>
                                                 </a>
                                                 <span>1 L</span>
@@ -1301,14 +1301,14 @@
 
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/20.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Good Life Raw Peanuts</h6>
                                                 </a>
                                                 <span>500 G</span>
@@ -1320,14 +1320,14 @@
 
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/21.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">TufBest Farms Moong Dal</h6>
                                                 </a>
                                                 <span>1 KG</span>
@@ -1339,14 +1339,14 @@
 
                                 <li>
                                     <div class="offer-product">
-                                        <a href="{{ route('product.details') }}" class="offer-image">
+                                        <a href="" class="offer-image">
                                             <img src="{{ asset('frontend_assets') }}/images/vegetable/product/22.png"
                                                 class="blur-up lazyload" alt="">
                                         </a>
 
                                         <div class="offer-detail">
                                             <div>
-                                                <a href="{{ route('product.details') }}" class="text-title">
+                                                <a href="" class="text-title">
                                                     <h6 class="name">Frooti Mango Drink</h6>
                                                 </a>
                                                 <span>160 ML</span>

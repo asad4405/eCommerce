@@ -683,7 +683,7 @@
                                 // $products = App\Models\Product::all();
                             @endphp
                             {{-- {{ $products = App\Models\Product::find('user_id',auth()->id())->get() }} --}}
-                            @foreach ($products as $product)
+                            {{-- @foreach ($products as $product) --}}
                                 <div class="right-sidebar-modal">
                                     <h4 class="title-name"></h4>
                                     <h4 class="price">$36.99</h4>
@@ -763,7 +763,7 @@
                                             View More Details</button>
                                     </div>
                                 </div>
-                            @endforeach
+                            {{-- @endforeach --}}
                         </div>
                     </div>
                 </div>
