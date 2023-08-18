@@ -7,6 +7,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,10 +57,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // product
     Route::resource('product', ProductController::class)->middleware('vendor.checker');
 
+    // Product Stocks
+    Route::resource('stock',StockController::class);
+
     // Attribute
     Route::resource('attribute', AttributeController::class)->middleware('vendor.checker');
     Route::post('color/store', [AttributeController::class, 'color_store'])->name('color.store');
     Route::post('size/store', [AttributeController::class, 'size_store'])->name('size.store');
+    Route::delete('color/delete/{id}', [AttributeController::class, 'color_delete'])->name('color.delete');
+    Route::delete('size/delete/{id}', [AttributeController::class, 'size_delete'])->name('size.delete');
 });
 
 // vendor

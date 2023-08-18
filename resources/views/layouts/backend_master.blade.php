@@ -310,6 +310,23 @@
                                     <li class="sidebar-list">
                                         <a class="linear-icon-link sidebar-link sidebar-title"
                                             href="javascript:void(0)">
+                                            <i class="ri-store-3-line"></i>
+                                            <span>Products Stock</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="{{ route('stock.create') }}">Add New Stocks</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="{{ route('stock.index') }}">Product Inventory</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title"
+                                            href="javascript:void(0)">
                                             <i class="ri-price-tag-3-line"></i>
                                             <span>Coupons</span>
                                         </a>

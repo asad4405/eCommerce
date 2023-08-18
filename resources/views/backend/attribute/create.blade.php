@@ -78,7 +78,7 @@
                                         <div class="mb-4 row align-items-center">
                                             <label class="form-label-title col-sm-3 mb-0"></label>
                                             <div class="col-sm-9">
-                                                <button class="btn theme-bg-color text-white">Add New Color</button>
+                                                <button class="btn theme-bg-color text-white">Add New Size</button>
                                             </div>
                                         </div>
                                     </form>

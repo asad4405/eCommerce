@@ -17,7 +17,9 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        return view('backend.attribute.index');
+        $colors = Color::where('added_by',auth()->id())->latest()->paginate(5);
+        $sizes = Size::where('added_by',auth()->id())->latest()->paginate(5);
+        return view('backend.attribute.index',compact('colors','sizes'));
     }
 
     /**
@@ -72,6 +74,24 @@ class AttributeController extends Controller
             }
         }
         return back()->with('size-success','New Size Added Successfull!');
+    }
+
+    /**
+     * custome methods
+     */
+    public function color_delete($id)
+    {
+        Color::find($id)->delete();
+        return back()->with('color-delete','Delete Successfull!');
+    }
+
+    /**
+     * custome methods
+     */
+    public function size_delete($id)
+    {
+        Size::find($id)->delete();
+        return back()->with('size-delete','Delete Successfull!');
     }
 
     /**
