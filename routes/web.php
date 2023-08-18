@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
@@ -45,15 +46,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('category/restore/{id}', [CategoryController::class, 'category_restore'])->name('category.restore')->middleware('admin.checker');
     Route::get('category/delete/{id}', [CategoryController::class, 'category_delete'])->name('category.delete')->middleware('admin.checker');
 
-    // product
-    Route::resource('product', ProductController::class)->middleware('vendor.checker');
-
     // Admin
     Route::get('add/new/admin', [AdminController::class, 'add_new_admin'])->name('add.new.admin')->middleware('admin.checker');
     Route::post('add/new/admin/post', [AdminController::class, 'add_new_admin_post'])->name('add.new.admin.post')->middleware('admin.checker');
     Route::get('admin/active/{id}', [AdminController::class, 'admin_active'])->name('admin.active')->middleware('admin.checker');
     Route::get('admin/deactive/{id}', [AdminController::class, 'admin_deactive'])->name('admin.deactive')->middleware('admin.checker');
     Route::get('admin/delete/{id}', [AdminController::class, 'admin_delete'])->name('admin.delete')->middleware('admin.checker');
+
+    // product
+    Route::resource('product', ProductController::class)->middleware('vendor.checker');
+
+    // Attribute
+    Route::resource('attribute', AttributeController::class)->middleware('vendor.checker');
+    Route::post('color/store', [AttributeController::class, 'color_store'])->name('color.store');
+    Route::post('size/store', [AttributeController::class, 'size_store'])->name('size.store');
 });
 
 // vendor

@@ -52,6 +52,12 @@
 
     <!-- App css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/style.css">
+
+    {{-- Selectize --}}
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+        integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -292,17 +298,18 @@
                                         </a>
                                         <ul class="sidebar-submenu">
                                             <li>
-                                                <a href="add-new-attributes.html">Add Attributes</a>
+                                                <a href="{{ route('attribute.create') }}">Add Attributes</a>
                                             </li>
 
                                             <li>
-                                                <a href="attributes.html">Attributes</a>
+                                                <a href="{{ route('attribute.index') }}">Attributes</a>
                                             </li>
                                         </ul>
                                     </li>
 
                                     <li class="sidebar-list">
-                                        <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <a class="linear-icon-link sidebar-link sidebar-title"
+                                            href="javascript:void(0)">
                                             <i class="ri-price-tag-3-line"></i>
                                             <span>Coupons</span>
                                         </a>
@@ -476,6 +483,11 @@
     <!-- Theme js -->
     <script src="{{ asset('backend_assets') }}/js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {{-- selectize --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+        integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     @yield('footer_script')
 </body>
