@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Color;
+use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Size;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -14,7 +16,8 @@ class StockController extends Controller
      */
     public function index()
     {
-        return view('backend.product_stock.index');
+        $inventories = Inventory::where('vendor_id',auth()->id())->latest()->get();
+        return view('backend.product_stock.index', compact('inventories'));
     }
 
     /**
@@ -22,10 +25,10 @@ class StockController extends Controller
      */
     public function create()
     {
-        $products = Product::where('user_id',auth()->id())->get();
-        $colors = Color::where('added_by',auth()->id())->get();
-        $sizes = Size::where('added_by',auth()->id())->get();
-        return view('backend.product_stock.create',compact('products','colors','sizes'));
+        $products = Product::where('user_id', auth()->id())->get();
+        $colors = Color::where('added_by', auth()->id())->get();
+        $sizes = Size::where('added_by', auth()->id())->get();
+        return view('backend.product_stock.create', compact('products', 'colors', 'sizes'));
     }
 
     /**
@@ -33,7 +36,32 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            '*' => 'required',
+        ]);
+        if($request->product_regular_price < $request->product_discount_price){
+            return back()->with('stock-error', 'Regular Price can not be less then discount price');
+        }
+        if (Inventory::where([
+            'vendor_id' => auth()->id(),
+            'product_id' => $request->product_id,
+            'color_id' => $request->color_id,
+            'size_id' => $request->size_id,
+        ])->exists()){
+            return back()->with('stock-error','New Stock Already Exists!!');
+        } else {
+            Inventory::insert([
+                'vendor_id' => auth()->id(),
+                'product_id' => $request->product_id,
+                'color_id' => $request->color_id,
+                'size_id' => $request->size_id,
+                'product_quantity' => $request->product_quantity,
+                'product_regular_price' => $request->product_regular_price,
+                'product_discount_price' => $request->product_discount_price,
+                'created_at' => Carbon::now(),
+            ]);
+            return back()->with('stock-success','New Stock Added Successfull!');
+        }
     }
 
     /**
@@ -49,7 +77,11 @@ class StockController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $stock = Inventory::find($id);
+        $products = Product::where('user_id', auth()->id())->get();
+        $colors = Color::where('added_by', auth()->id())->get();
+        $sizes = Size::where('added_by', auth()->id())->get();
+        return view('backend.product_stock.edit', compact('stock', 'products', 'colors', 'sizes'));
     }
 
     /**
@@ -57,7 +89,7 @@ class StockController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // 
     }
 
     /**
@@ -65,6 +97,7 @@ class StockController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Inventory::find($id)->delete();
+        return back();
     }
 }
