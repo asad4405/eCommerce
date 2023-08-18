@@ -8,6 +8,7 @@
     <meta name="description" content="Fastkart">
     <meta name="keywords" content="Fastkart">
     <meta name="author" content="Fastkart">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('frontend_assets') }}/images/favicon/1.png" type="image/x-icon">
     <title>On-demand last-mile delivery</title>
 

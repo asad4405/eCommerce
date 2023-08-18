@@ -53,12 +53,12 @@
                                     <div class="col-xxl-2 col-lg-12 col-md-2 order-xxl-1 order-lg-2 order-md-1">
                                         <div class="left-slider-image-2 left-slider no-arrow slick-top">
                                             @foreach ($product_photos as $product_photo)
-                                            <div>
-                                                <div class="sidebar-image">
-                                                    <img src="{{ asset('uploads/product_photos') }}/{{ $product_photo->product_photos }}"
-                                                        class="img-fluid blur-up lazyload" alt="">
+                                                <div>
+                                                    <div class="sidebar-image">
+                                                        <img src="{{ asset('uploads/product_photos') }}/{{ $product_photo->product_photos }}"
+                                                            class="img-fluid blur-up lazyload" alt="">
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endforeach
                                         </div>
                                     </div>
@@ -105,20 +105,18 @@
                                     <div class="product-title">
                                         <h4>Color</h4>
                                     </div>
-                                    <select name="" class="form-control">
-                                        <option value="">red</option>
-                                        <option value="">green</option>
-                                        <option value="">yellow</option>
+                                    <select name="" class="form-control" id="color_dropdown">
+                                        <option value="">-Choose One Color-</option>
+                                        @foreach ($colors as $color)
+                                            <option value="{{ $color->color_id }}">
+                                                {{ App\Models\Color::find($color->color_id)->color_name }}</option>
+                                        @endforeach
                                     </select>
                                     <div class="product-title">
                                         <h4>Size</h4>
                                     </div>
-                                    <select name="" class="form-control">
-                                        <option value="">S</option>
-                                        <option value="">M</option>
-                                        <option value="">L</option>
-                                        <option value="">XL</option>
-                                        <option value="">XXL</option>
+                                    <select name="" class="form-control" id="size_dropdown">
+                                        <option value="">-Select Color First-</option>
                                     </select>
                                 </div>
                                 <div class="note-box product-packege">
@@ -1446,4 +1444,36 @@
         </div>
     </section>
     <!-- Releted Product Section End -->
+@endsection
+@section('footer_script')
+    <script>
+        $(document).ready(function() {
+            $('#color_dropdown').change(function() {
+                var product_id = "{{ $product->id }}";
+                var color_id = $(this).val();
+
+                // alert(color_id);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                // ajax code start
+                $.ajax({
+                    type: 'POST',
+                    url: '/get/size/lists',
+                    data: {
+                        product_id: product_id,
+                        color_id: color_id
+                    },
+                    success: function(data) {
+                        $('#size_dropdown').html(data);
+                    }
+                })
+                // ajax code end
+            });
+        });
+    </script>
 @endsection

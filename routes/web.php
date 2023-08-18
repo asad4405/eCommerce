@@ -31,6 +31,8 @@ Route::post('/contact/post', [FrontendController::class, 'contact_post'])->name(
 
 Route::get('/product/details/{id}', [FrontendController::class, 'product_details'])->name('product.details');
 
+Route::post('/get/size/lists', [FrontendController::class, 'get_size_lists'])->name('get.size.lists');
+
 
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
