@@ -71,8 +71,11 @@
                                 <h6 class="offer-top">30% Off</h6>
                                 <h2 class="name">{{ $product->product_name }}</h2>
                                 <div class="price-rating">
-                                    <h3 class="theme-color price">$49.50 <del class="text-content">$58.46</del> <span
-                                            class="offer theme-color">(8% off)</span></h3>
+                                    <h3 class="" id="discount_price">
+                                        100 taka
+                                    </h3>
+                                    <del class="text-content text-danger" id="regular_price">$58.46</del>
+                                    <span class="offer theme-color">(8% off)</span>
                                     <div class="product-rating custom-rate">
                                         <ul class="rating">
                                             <li>
@@ -122,19 +125,23 @@
                                 <div class="note-box product-packege">
                                     <div class="cart_qty qty-box product-qty">
                                         <div class="input-group">
-                                            <button type="button" class="qty-right-plus" data-type="plus" data-field="">
-                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                            </button>
-                                            <input class="form-control input-number qty-input" type="text"
-                                                name="quantity" value="0">
                                             <button type="button" class="qty-left-minus" data-type="minus" data-field="">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </button>
+                                            <input class="form-control input-number qty-input" type="text"
+                                                name="quantity" value="1" id="user_input">
+                                            <button type="button" class="qty-right-plus" data-type="plus" data-field="">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                            </button>
                                         </div>
                                     </div>
-
-                                    <button onclick="location.href = 'cart.html';"
-                                        class="btn btn-md bg-dark cart-button text-white w-100">Add To Cart</button>
+                                    @auth
+                                        <button id="add_to_cart"
+                                            class="d-none btn btn-md bg-dark cart-button text-white w-100">Add To Cart</button>
+                                    @else
+                                        <button onclick="location.href = '{{ route('login') }}';" id="add_to_cart"
+                                            class="d-none btn btn-md bg-dark cart-button text-white w-100">Login</button>
+                                    @endauth
                                 </div>
 
                                 <div class="buy-box">
@@ -156,12 +163,12 @@
 
                                     <div class="product-info">
                                         <ul class="product-info-list product-info-list-2">
-                                            <li>Type : <a href="javascript:void(0)">Black Forest</a></li>
+                                            {{-- <li>Type : <a href="javascript:void(0)">Black Forest</a></li>
                                             <li>SKU : <a href="javascript:void(0)">SDFVW65467</a></li>
-                                            <li>MFG : <a href="javascript:void(0)">Jun 4, 2022</a></li>
-                                            <li>Stock : <a href="javascript:void(0)">2 Items Left</a></li>
-                                            <li>Tags : <a href="javascript:void(0)">Cake,</a> <a
-                                                    href="javascript:void(0)">Backery</a></li>
+                                            <li>MFG : <a href="javascript:void(0)">Jun 4, 2022</a></li> --}}
+                                            <li>Stock : <a href="" id="product_stock">Select Color & Size</a></li>
+                                            {{-- <li>Tags : <a href="javascript:void(0)">Cake,</a> <a
+                                                    href="javascript:void(0)">Backery</a></li> --}}
                                         </ul>
                                     </div>
                                 </div>
@@ -1469,9 +1476,93 @@
                         color_id: color_id
                     },
                     success: function(data) {
+                        $('#add_to_cart').addClass('d-none');
+                        $('#discount_price').removeClass('text-danger');
+                        $('#discount_price').html('100 taka');
                         $('#size_dropdown').html(data);
                     }
                 })
+                // ajax code end
+            });
+            $('#size_dropdown').change(function() {
+                var product_id = "{{ $product->id }}";
+                var color_id = $('#color_dropdown').val();
+                var size_id = $(this).val();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                // ajax code start
+                $.ajax({
+                    type: 'POST',
+                    url: '/get/price/quantity',
+                    data: {
+                        product_id: product_id,
+                        color_id: color_id,
+                        size_id: size_id,
+                    },
+                    success: function(data) {
+                        if (data.split('#')[2] == 0) {
+                            $('#add_to_cart').addClass('d-none');
+
+                            $('#discount_price').addClass('text-danger price');
+                            $('#product_stock').addClass('text-danger price');
+
+                            $('#discount_price').html(' Stock Out');
+                            $('#product_stock').html(' Stock Out!!');
+                        } else {
+                            $('#add_to_cart').removeClass('d-none');
+
+                            $('#discount_price').addClass('text-success price');
+
+                            $('#discount_price').html(data.split('#')[0] + ' taka');
+                            $('#regular_price').html(data.split('#')[1] + ' taka');
+                            $('#product_stock').html(data.split('#')[2] + ' Pics Available');
+                        }
+                    }
+                });
+                // ajax code end
+            });
+            $('#add_to_cart').click(function() {
+                var user_input = $('#user_input').val();
+                var stock = $('#product_stock').html();
+
+                if (parseInt(user_input) > parseInt(stock)) {
+                    Swal.fire(
+                        'Warning!',
+                        'Stock not Available!',
+                        'warning'
+                    )
+                } else {
+                    var product_id = "{{ $product->id }}";
+                    var color_id = $('#color_dropdown').val();
+                    var size_id = $('#size_dropdown').val();
+                    var user_input = user_input;
+                }
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                // ajax code start
+                $.ajax({
+                    type: 'POST',
+                    url: '/add/to/cart',
+                    data: {
+                        product_id: product_id,
+                        color_id: color_id,
+                        size_id: size_id,
+                        user_input: user_input,
+                    },
+                    success: function(data) {
+                        alert(data)
+                    }
+                });
                 // ajax code end
             });
         });

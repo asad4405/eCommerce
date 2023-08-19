@@ -32,6 +32,8 @@ Route::post('/contact/post', [FrontendController::class, 'contact_post'])->name(
 Route::get('/product/details/{id}', [FrontendController::class, 'product_details'])->name('product.details');
 
 Route::post('/get/size/lists', [FrontendController::class, 'get_size_lists'])->name('get.size.lists');
+Route::post('/get/price/quantity', [FrontendController::class, 'get_price_quantity'])->name('get.price.quantity');
+Route::post('/add/to/cart', [FrontendController::class, 'add_to_cart'])->name('add.to.cart');
 
 
 
@@ -60,7 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('product', ProductController::class)->middleware('vendor.checker');
 
     // Product Stocks
-    Route::resource('stock',StockController::class);
+    Route::resource('stock', StockController::class);
 
     // Attribute
     Route::resource('attribute', AttributeController::class)->middleware('vendor.checker');

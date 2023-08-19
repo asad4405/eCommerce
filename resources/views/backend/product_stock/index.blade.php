@@ -39,9 +39,14 @@
                                                     <td>{{ $inventory->relationtoSize->size_name }}</td>
                                                     <td>{{ $inventory->product_quantity }}</td>
                                                     <td>
-                                                        <del class="text-danger">{{ $inventory->product_regular_price }} taka</del>
-                                                        &nbsp;&nbsp;&nbsp;
-                                                        {{ $inventory->product_discount_price }} taka
+                                                        @if ($inventory->product_regular_price == $inventory->product_discount_price)
+                                                            {{ $inventory->product_discount_price }} taka
+                                                        @else
+                                                            {{ $inventory->product_discount_price }} taka
+                                                            &nbsp;&nbsp;&nbsp;
+                                                            <del class="text-danger">{{ $inventory->product_regular_price }}
+                                                                taka</del>
+                                                        @endif
                                                     </td>
 
                                                     <td>
@@ -53,7 +58,8 @@
                                                             </li>
 
                                                             <li>
-                                                                <form action="{{ route('stock.destroy',$inventory->id) }}" method="POST">
+                                                                <form action="{{ route('stock.destroy', $inventory->id) }}"
+                                                                    method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button class="btn text-danger">

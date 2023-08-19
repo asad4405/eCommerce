@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactPostRequest;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Contact;
@@ -56,7 +57,7 @@ class FrontendController extends Controller
         $product = Product::find($id);
         $product_photos = Product_photo::where('product_id', $product->id)->get();
         $vendor = User::find($product->user_id);
-        $colors = Inventory::where('product_id',$id)->select('color_id')->distinct()->get();
+        $colors = Inventory::where('product_id', $id)->select('color_id')->distinct()->get();
         return view('product_details', [
             'product' => $product,
             'product_photos' => $product_photos,
@@ -72,9 +73,33 @@ class FrontendController extends Controller
             'product_id' => $request->product_id,
             'color_id' => $request->color_id,
         ])->get();
-        foreach($sizes as $size){
-            $size_dropdown .="<option value='$size->size_id'>".Size::find($size->size_id)->size_name."</option>";
+        foreach ($sizes as $size) {
+            $size_dropdown .= "<option value='$size->size_id'>" . Size::find($size->size_id)->size_name . "</option>";
         }
         return $size_dropdown;
+    }
+
+    public function get_price_quantity(Request $request)
+    {
+        $inventory = Inventory::where([
+            'product_id' => $request->product_id,
+            'color_id' => $request->color_id,
+            'size_id' => $request->size_id,
+        ])->first();
+        return $inventory->product_discount_price.'#'. $inventory->product_regular_price.'#'. $inventory->product_quantity;
+    }
+
+    public function add_to_cart(Request $request)
+    {
+        Cart::insert([
+            'user_id' => auth()->id(),
+            'vendor_id' => Product::find($request->product_id)->user_id,
+            'product_id' => $request->product_id,
+            'color_id' => $request->color_id,
+            'size_id' => $request->size_id,
+            'user_input' => $request->user_input,
+            'created_at' => Carbon::now(),
+        ]);
+        return 'Add to Cart';
     }
 }
