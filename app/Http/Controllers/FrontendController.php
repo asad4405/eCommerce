@@ -86,20 +86,47 @@ class FrontendController extends Controller
             'color_id' => $request->color_id,
             'size_id' => $request->size_id,
         ])->first();
-        return $inventory->product_discount_price.'#'. $inventory->product_regular_price.'#'. $inventory->product_quantity;
+        return $inventory->product_discount_price . '#' . $inventory->product_regular_price . '#' . $inventory->product_quantity;
     }
 
     public function add_to_cart(Request $request)
     {
-        Cart::insert([
+        if(Cart::where('user_id',auth()->id())->exists()){
+            $vendor_id = Product::find($request->product_id)->user_id;
+            if($vendor_id != Cart::where('user_id',auth()->id())->first()->vendor_id){
+                Cart::where('user_id',auth()->id())->delete();
+            }
+        }
+        if (Cart::where([
             'user_id' => auth()->id(),
-            'vendor_id' => Product::find($request->product_id)->user_id,
             'product_id' => $request->product_id,
             'color_id' => $request->color_id,
             'size_id' => $request->size_id,
-            'user_input' => $request->user_input,
-            'created_at' => Carbon::now(),
-        ]);
-        return 'Add to Cart';
+        ])->exists()) {
+            Cart::where([
+                'user_id' => auth()->id(),
+                'product_id' => $request->product_id,
+                'color_id' => $request->color_id,
+                'size_id' => $request->size_id,
+            ])->increment('user_input',$request->user_input);
+            return 'Update to Cart';
+        } else {
+            Cart::insert([
+                'user_id' => auth()->id(),
+                'vendor_id' => Product::find($request->product_id)->user_id,
+                'product_id' => $request->product_id,
+                'color_id' => $request->color_id,
+                'size_id' => $request->size_id,
+                'user_input' => $request->user_input,
+                'created_at' => Carbon::now(),
+            ]);
+            return 'Add to Cart';
+        }
+    }
+
+    public function cart()
+    {
+        $carts = Cart::where('user_id',auth()->id())->get();
+        return view('cart',compact('carts'));
     }
 }

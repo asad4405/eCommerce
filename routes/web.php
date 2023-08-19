@@ -35,6 +35,7 @@ Route::post('/get/size/lists', [FrontendController::class, 'get_size_lists'])->n
 Route::post('/get/price/quantity', [FrontendController::class, 'get_price_quantity'])->name('get.price.quantity');
 Route::post('/add/to/cart', [FrontendController::class, 'add_to_cart'])->name('add.to.cart');
 
+Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
 
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
