@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'user_input'
+    ];
     function relationtoProduct(){
         return $this->hasOne(Product::class, 'id','product_id');
     }

@@ -141,4 +141,15 @@ class FrontendController extends Controller
         Cart::where('user_id',auth()->id())->delete();
         return back();
     }
+
+    public function cart_update (Request $request)
+    {
+        // return $request->quantity;
+        foreach($request->quantity as $cart_id => $user_input){
+            Cart::find($cart_id)->update([
+                'user_input' => $user_input,
+            ]);
+        }
+        return back();
+    }
 }

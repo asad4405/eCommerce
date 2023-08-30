@@ -109,9 +109,9 @@
                                                 <h4 class="table-title text-content">Price</h4>
                                                 <h5 class="text-success">{{ $inventory->product_discount_price }} taka
                                                     &nbsp;
-                                                    @if($inventory->product_discount_price != $inventory->product_regular_price)
-                                                    <del class="text-content text-danger">{{ $inventory->product_regular_price }}
-                                                        taka</del>
+                                                    @if ($inventory->product_discount_price != $inventory->product_regular_price)
+                                                        <del class="text-content text-danger">{{ $inventory->product_regular_price }}
+                                                            taka</del>
                                                     @endif
                                                 </h5>
                                                 <span class="badge bg-warning">Stock:
@@ -124,26 +124,35 @@
                                                 <h4 class="table-title text-content">
                                                     Qty
                                                     @if ($inventory->product_quantity < $cart->user_input)
+                                                        @php
+                                                            $flag = true;
+                                                        @endphp
                                                         <span class="badge bg-danger">Sold Out</span>
                                                     @endif
                                                 </h4>
+
                                                 <div class="quantity-price">
                                                     <div class="cart_qty">
-                                                        <div class="input-group">
-                                                            <button type="button" class="btn qty-left-minus"
-                                                                data-type="minus" data-field="">
-                                                                <i class="fa fa-minus ms-0" aria-hidden="true"></i>
-                                                            </button>
-                                                            <input class="form-control input-number qty-input"
-                                                                type="text" name="quantity"
-                                                                value="{{ $cart->user_input }}">
-                                                            <button type="button" class="btn qty-right-plus"
-                                                                data-type="plus" data-field="">
-                                                                <i class="fa fa-plus ms-0" aria-hidden="true"></i>
-                                                            </button>
-                                                        </div>
+                                                        <form action="{{ route('cart.update') }}" method="POST">
+                                                            @csrf
+                                                            <div class="input-group">
+                                                                <button type="submit" class="btn qty-left-minus"
+                                                                    data-type="minus" data-field="">
+                                                                    <i class="fa fa-minus ms-0" aria-hidden="true"></i>
+                                                                </button>
+                                                                <input class="form-control input-number qty-input"
+                                                                    type="text" name="quantity[{{ $cart->id }}]"
+                                                                    value="{{ $cart->user_input }}">
+
+                                                                <button type="submit" class="btn qty-right-plus"
+                                                                    data-type="plus" data-field="">
+                                                                    <i class="fa fa-plus ms-0" aria-hidden="true"></i>
+                                                                </button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
+
                                             </td>
 
                                             <td class="subtotal">
@@ -225,9 +234,15 @@
                         <div class="button-group cart-button">
                             <ul>
                                 @if ($carts->count() != 0)
+                                    @if ($flag)
+                                        <div class="alert alert-danger">
+                                            Please Check your cart for any sold out item.
+                                        </div>
+                                    @endif
                                     <li>
                                         <button onclick="location.href = 'checkout.html';"
-                                            class="btn btn-animation proceed-btn fw-bold">Process To Checkout</button>
+                                            class="btn btn-animation proceed-btn fw-bold @if ($flag) disabled @endif ">Process
+                                            To Checkout</button>
                                     </li>
                                 @endif
 
