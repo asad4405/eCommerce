@@ -198,14 +198,19 @@
                         </div>
 
                         <div class="summery-contain">
-                            <div class="coupon-cart">
-                                <h6 class="text-content mb-2">Coupon Apply</h6>
-                                <div class="mb-3 coupon-box input-group">
-                                    <input type="email" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="Enter Coupon Code Here...">
-                                    <button class="btn-apply">Apply</button>
+                            <form action="" method="GET">
+                                <div class="coupon-cart">
+                                    <h6 class="text-content mb-2">Coupon Apply</h6>
+                                    <div class="mb-3 coupon-box input-group">
+                                        <input type="text" class="form-control" id="" name="coupon_name"
+                                            placeholder="Enter Coupon Code Here..." value="{{ $coupon_name }}">
+                                        <button class="btn-apply">Apply</button>
+                                    </div>
+                                    @if (session('coupon-error'))
+                                        <div class="text-danger">{{ session('coupon-error') }}</div>
+                                    @endif
                                 </div>
-                            </div>
+                            </form>
                             <ul>
                                 <li>
                                     <h4>Subtotal</h4>
@@ -214,7 +219,21 @@
 
                                 <li>
                                     <h4>Coupon Discount</h4>
-                                    <h4 class="price">(-) 0.00</h4>
+                                    <h4 class="price">(-) {{ $coupon_discounts }}%</h4>
+                                </li>
+
+                                <li>
+                                    <h4>Coupon Discount Amount</h4>
+                                    @php
+                                        $calculated_discount = floor(($sub_total * $coupon_discounts) / 100);
+                                    @endphp
+                                    <h4 class="price">(-)
+                                        @if ($calculated_discount > $highest_discount)
+                                            {{ $highest_discount }}
+                                        @else
+                                            {{ $calculated_discount }}
+                                        @endif
+                                    </h4>
                                 </li>
 
                                 {{-- <li class="align-items-start">
@@ -227,7 +246,13 @@
                         <ul class="summery-total">
                             <li class="list-total border-top-0">
                                 <h4>Total</h4>
-                                <h4 class="price theme-color">{{ $sub_total }}</h4>
+                                <h4 class="price theme-color">
+                                    @if ($calculated_discount > $highest_discount)
+                                        {{ $sub_total - $highest_discount }}
+                                    @else
+                                        {{ $sub_total - $calculated_discount }}
+                                    @endif
+                                </h4>
                             </li>
                         </ul>
 

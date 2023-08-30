@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -74,6 +75,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('size/store', [AttributeController::class, 'size_store'])->name('size.store');
     Route::delete('color/delete/{id}', [AttributeController::class, 'color_delete'])->name('color.delete');
     Route::delete('size/delete/{id}', [AttributeController::class, 'size_delete'])->name('size.delete');
+
+    // coupon
+    Route::resource('coupon',CouponController::class);
 });
 
 // vendor

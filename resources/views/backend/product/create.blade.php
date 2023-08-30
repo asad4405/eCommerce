@@ -23,7 +23,7 @@
                                         <div class="mb-4 row align-items-center">
                                             <label class="col-sm-3 col-form-label form-label-title">Category</label>
                                             <div class="col-sm-9">
-                                                <select class="js-example-basic-single w-100" name="category_id">
+                                                <select class="js-example-basic-single w-100 form-select" name="category_id">
                                                     <option value="">- Select One Category -</option>
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}">{{ $category->category_name }}

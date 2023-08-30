@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Contact;
+use App\Models\Coupon;
 use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Product_photo;
@@ -124,10 +125,40 @@ class FrontendController extends Controller
         }
     }
 
-    public function cart()
+    public function cart(Request $request)
     {
+        $highest_discount = 0;
+        if($request->coupon_name){
+            $coupon_name = $request->coupon_name;
+            if(Coupon::where('coupon_name',$request->coupon_name)->exists()){
+                $coupon_info = Coupon::where('coupon_name',$request->coupon_name)->first();
+                if($coupon_info->user_id == carts()->first()->vendor_id){
+                    if(Carbon::today()->format('Y-m-d') < $coupon_info->validity){
+                        if($coupon_info->limit > 0){
+                            $coupon_discounts = $coupon_info->coupon_discount;
+                            $highest_discount = $coupon_info->highest_discount;
+                        }else{
+                            $coupon_discounts = 0;
+                            return redirect('cart')->with('coupon-error','This Coupon does not Limit!');
+                        }
+                    }else{
+                        $coupon_discounts = 0;
+                        return redirect('cart')->with('coupon-error','This Coupon does not Valid!');
+                    }
+                }else{
+                    $coupon_discounts = 0;
+                    return redirect('cart')->with('coupon-error','This Coupon does not belongs to this Vendor!');
+                }
+            }else{
+                $coupon_discounts = 0;
+                return redirect('cart')->with('coupon-error','This Coupon does not exists!');
+            }
+        }else{
+            $coupon_name = "";
+            $coupon_discounts = 0;
+        }
         $carts = Cart::where('user_id',auth()->id())->get();
-        return view('cart',compact('carts'));
+        return view('cart',compact('carts','coupon_name','coupon_discounts','highest_discount'));
     }
 
     public function cart_remove($id)
@@ -144,7 +175,6 @@ class FrontendController extends Controller
 
     public function cart_update (Request $request)
     {
-        // return $request->quantity;
         foreach($request->quantity as $cart_id => $user_input){
             Cart::find($cart_id)->update([
                 'user_input' => $user_input,

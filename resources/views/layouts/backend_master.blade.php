@@ -332,11 +332,11 @@
                                         </a>
                                         <ul class="sidebar-submenu">
                                             <li>
-                                                <a href="create-coupon.html">Create Coupon</a>
+                                                <a href="{{ route('coupon.create') }}">Create Coupon</a>
                                             </li>
 
                                             <li>
-                                                <a href="coupon-list.html">Coupon List</a>
+                                                <a href="{{ route('coupon.index') }}">Coupon List</a>
                                             </li>
                                         </ul>
                                     </li>
