@@ -36,6 +36,8 @@ Route::post('/get/price/quantity', [FrontendController::class, 'get_price_quanti
 Route::post('/add/to/cart', [FrontendController::class, 'add_to_cart'])->name('add.to.cart');
 
 Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
+Route::get('/cart/remove/{id}', [FrontendController::class, 'cart_remove'])->name('cart.remove');
+Route::get('/cart/clear', [FrontendController::class, 'cart_clear'])->name('cart.clear');
 
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);

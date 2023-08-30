@@ -174,64 +174,60 @@
                                         <div class="onhover-dropdown header-badge">
                                             <button type="button" class="btn p-0 position-relative header-wishlist">
                                                 <i data-feather="shopping-cart"></i>
-                                                <span
-                                                    class="position-absolute top-0 start-100 translate-middle badge">2
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">
+                                                    {{ cart_amount() }}
                                                     <span class="visually-hidden">unread messages</span>
                                                 </span>
                                             </button>
 
                                             <div class="onhover-div">
                                                 <ul class="cart-list">
-                                                    <li class="product-box-contain">
-                                                        <div class="drop-cart">
-                                                            <a href="product-left-thumbnail.html" class="drop-image">
-                                                                <img src="{{ asset('frontend_assets') }}/images/vegetable/product/1.png"
-                                                                    class="blur-up lazyload" alt="">
-                                                            </a>
-
-                                                            <div class="drop-contain">
-                                                                <a href="product-left-thumbnail.html">
-                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                    @php
+                                                        $popup_total = 0;
+                                                    @endphp
+                                                    @foreach (carts() as $cart)
+                                                        <li class="product-box-contain">
+                                                            <div class="drop-cart">
+                                                                <a href="{{ route('product.details', $cart->relationtoProduct->id) }}"
+                                                                    class="drop-image">
+                                                                    <img src="{{ asset('uploads/product_photos') }}/{{ $cart->relationtoProduct_photo->where('product_id', $cart->relationtoProduct->id)->first()->product_photos }}"
+                                                                        class="blur-up lazyload" alt="">
                                                                 </a>
-                                                                <h6><span>1 x</span> $80.58</h6>
-                                                                <button class="close-button close_button">
-                                                                    <i class="fa-solid fa-xmark"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </li>
 
-                                                    <li class="product-box-contain">
-                                                        <div class="drop-cart">
-                                                            <a href="product-left-thumbnail.html" class="drop-image">
-                                                                <img src="{{ asset('frontend_assets') }}/images/vegetable/product/2.png"
-                                                                    class="blur-up lazyload" alt="">
-                                                            </a>
-
-                                                            <div class="drop-contain">
-                                                                <a href="product-left-thumbnail.html">
-                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
-                                                                    </h5>
-                                                                </a>
-                                                                <h6><span>1 x</span> $25.68</h6>
-                                                                <button class="close-button close_button">
-                                                                    <i class="fa-solid fa-xmark"></i>
-                                                                </button>
+                                                                <div class="drop-contain">
+                                                                    <a href="{{ route('product.details', $cart->relationtoProduct->id) }}">
+                                                                        <h5>{{ $cart->relationtoProduct->product_name }}
+                                                                        </h5>
+                                                                    </a>
+                                                                    @php
+                                                                        $inventory = App\Models\Inventory::where([
+                                                                            'product_id' => $cart->product_id,
+                                                                            'color_id' => $cart->color_id,
+                                                                            'size_id' => $cart->size_id,
+                                                                        ])->first();
+                                                                    @endphp
+                                                                    <h6><span>{{ $cart->user_input }} x</span> {{ $inventory->product_discount_price }}
+                                                                    </h6>
+                                                                    @php
+                                                                        $popup_total += $inventory->product_discount_price * $cart->user_input
+                                                                    @endphp
+                                                                    <a href="{{ route('cart.remove', $cart->id) }}" class="close-button close_button">
+                                                                        <i class="fa-solid fa-xmark"></i>
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </li>
+                                                        </li>
+                                                    @endforeach
                                                 </ul>
 
                                                 <div class="price-box">
                                                     <h5>Total :</h5>
-                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                    <h4 class="theme-color fw-bold">{{ $popup_total }}</h4>
                                                 </div>
 
                                                 <div class="button-group">
-                                                    <a href="{{ route('cart') }}" class="btn btn-sm cart-button">View Cart</a>
-                                                    <a href="checkout.html"
-                                                        class="btn btn-sm cart-button theme-bg-color
-                                                    text-white">Checkout</a>
+                                                    <a href="{{ route('cart') }}" class="btn btn-sm cart-button">View
+                                                        Cart</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -776,7 +772,7 @@
 
 
     <!-- Cookie Bar Box Start -->
-    <div class="cookie-bar-box">
+    {{-- <div class="cookie-bar-box">
         <div class="cookie-box">
             <div class="cookie-image">
                 <img src="{{ asset('frontend_assets') }}/images/cookie-bar.png" class="blur-up lazyload"
@@ -793,7 +789,7 @@
             <button class="btn privacy-button">Privacy Policy</button>
             <button class="btn ok-button">OK</button>
         </div>
-    </div>
+    </div> --}}
     <!-- Cookie Bar Box End -->
 
     <!-- Deal Box Modal Start -->

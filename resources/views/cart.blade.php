@@ -33,6 +33,10 @@
                         <div class="table-responsive-xl">
                             <table class="table">
                                 <tbody>
+                                    @php
+                                        $sub_total = 0;
+                                        $flag = false;
+                                    @endphp
                                     @forelse ($carts as $cart)
                                         <tr class="product-box-contain">
                                             <td class="product-detail">
@@ -75,7 +79,7 @@
                                                                                 aria-hidden="true"></i>
                                                                         </button>
                                                                         <input class="form-control input-number qty-input"
-                                                                            type="text" name="quantity" value="0">
+                                                                            type="text" name="" value="0">
                                                                         <button type="button" class="btn qty-right-plus"
                                                                             data-type="plus" data-field="">
                                                                             <i class="fa fa-plus ms-0"
@@ -103,16 +107,26 @@
 
                                             <td class="price">
                                                 <h4 class="table-title text-content">Price</h4>
-                                                <h5 class="text-success">{{ $inventory->product_discount_price }} taka &nbsp;
-                                                    <del class="text-content text-danger">{{ $inventory->product_discount_price }} taka</del>
+                                                <h5 class="text-success">{{ $inventory->product_discount_price }} taka
+                                                    &nbsp;
+                                                    @if($inventory->product_discount_price != $inventory->product_regular_price)
+                                                    <del class="text-content text-danger">{{ $inventory->product_regular_price }}
+                                                        taka</del>
+                                                    @endif
                                                 </h5>
-                                                <span class="badge bg-warning">Stock: {{ $inventory->product_quantity }}</span>
+                                                <span class="badge bg-warning">Stock:
+                                                    {{ $inventory->product_quantity }}</span>
                                                 <h6 class="theme-color">Color : {{ $cart->relationtoColor->color_name }}
                                                 </h6>
                                             </td>
 
                                             <td class="quantity">
-                                                <h4 class="table-title text-content">Qty</h4>
+                                                <h4 class="table-title text-content">
+                                                    Qty
+                                                    @if ($inventory->product_quantity < $cart->user_input)
+                                                        <span class="badge bg-danger">Sold Out</span>
+                                                    @endif
+                                                </h4>
                                                 <div class="quantity-price">
                                                     <div class="cart_qty">
                                                         <div class="input-group">
@@ -121,7 +135,8 @@
                                                                 <i class="fa fa-minus ms-0" aria-hidden="true"></i>
                                                             </button>
                                                             <input class="form-control input-number qty-input"
-                                                                type="text" name="quantity" value="0">
+                                                                type="text" name="quantity"
+                                                                value="{{ $cart->user_input }}">
                                                             <button type="button" class="btn qty-right-plus"
                                                                 data-type="plus" data-field="">
                                                                 <i class="fa fa-plus ms-0" aria-hidden="true"></i>
@@ -133,20 +148,34 @@
 
                                             <td class="subtotal">
                                                 <h4 class="table-title text-content">Total</h4>
-                                                <h5>$35.10</h5>
+                                                <h5>{{ $inventory->product_discount_price * $cart->user_input }}</h5>
+                                                @php
+                                                    $sub_total += $inventory->product_discount_price * $cart->user_input;
+                                                @endphp
                                             </td>
 
                                             <td class="save-remove">
                                                 <h4 class="table-title text-content">Action</h4>
                                                 <a class="save notifi-wishlist" href="javascript:void(0)">Save for later</a>
-                                                <a class="remove close_button" href="javascript:void(0)">Remove</a>
+                                                <a class="remove close_button"
+                                                    href="{{ route('cart.remove', $cart->id) }}">Remove</a>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td>No Products Cart Avaiable!!</td>
+                                            <td class="text-danger">
+                                                <p class="text-center text-danger">No Products Cart Avaiable!!</p>
+                                            </td>
                                         </tr>
                                     @endforelse
+                                    @if ($carts->count() != 0)
+                                        <tr>
+                                            <td>
+                                                <a href="{{ route('cart.clear') }}"
+                                                    class="btn btn-sm bg-danger text-white">Clear Cart</a>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -171,7 +200,7 @@
                             <ul>
                                 <li>
                                     <h4>Subtotal</h4>
-                                    <h4 class="price">$125.65</h4>
+                                    <h4 class="price">{{ $sub_total }}</h4>
                                 </li>
 
                                 <li>
@@ -179,26 +208,28 @@
                                     <h4 class="price">(-) 0.00</h4>
                                 </li>
 
-                                <li class="align-items-start">
+                                {{-- <li class="align-items-start">
                                     <h4>Shipping</h4>
                                     <h4 class="price text-end">$6.90</h4>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
 
                         <ul class="summery-total">
                             <li class="list-total border-top-0">
-                                <h4>Total (USD)</h4>
-                                <h4 class="price theme-color">$132.58</h4>
+                                <h4>Total</h4>
+                                <h4 class="price theme-color">{{ $sub_total }}</h4>
                             </li>
                         </ul>
 
                         <div class="button-group cart-button">
                             <ul>
-                                <li>
-                                    <button onclick="location.href = 'checkout.html';"
-                                        class="btn btn-animation proceed-btn fw-bold">Process To Checkout</button>
-                                </li>
+                                @if ($carts->count() != 0)
+                                    <li>
+                                        <button onclick="location.href = 'checkout.html';"
+                                            class="btn btn-animation proceed-btn fw-bold">Process To Checkout</button>
+                                    </li>
+                                @endif
 
                                 <li>
                                     <button onclick="location.href = '{{ route('index') }}';"

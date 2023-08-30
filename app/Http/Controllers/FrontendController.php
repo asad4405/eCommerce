@@ -129,4 +129,16 @@ class FrontendController extends Controller
         $carts = Cart::where('user_id',auth()->id())->get();
         return view('cart',compact('carts'));
     }
+
+    public function cart_remove($id)
+    {
+        Cart::find($id)->delete();
+        return back();
+    }
+
+    public function cart_clear()
+    {
+        Cart::where('user_id',auth()->id())->delete();
+        return back();
+    }
 }
