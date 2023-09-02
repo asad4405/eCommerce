@@ -1034,57 +1034,66 @@
                                     </div>
 
                                     <div class="row g-sm-4 g-3">
-                                        <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-6">
-                                            <div class="address-box">
-                                                <div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="jack"
-                                                            id="flexRadioDefault2" checked>
+                                        @foreach ($addresses as $address)
+                                            <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-6">
+                                                <div class="address-box">
+                                                    <div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="jack"
+                                                                id="flexRadioDefault2" checked>
+                                                        </div>
+
+                                                        <div class="label">
+                                                            <label>{{ $address->tag }}</label>
+                                                        </div>
+
+                                                        <div class="table-responsive address-table">
+                                                            <table class="table">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td colspan="2">{{ $address->name }}</td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>Address :</td>
+                                                                        <td>
+                                                                            <p>{{ $address->address }} </p>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>City :</td>
+                                                                        <td>
+                                                                            <p>{{ $address->city }} </p>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+
+                                                                    <tr>
+                                                                        <td>Post Code :</td>
+                                                                        <td>{{ $address->post_code }}</td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>Phone Number : </td>
+                                                                        <td>{{ $address->phone_number }}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
 
-                                                    <div class="label">
-                                                        <label>Home</label>
+                                                    <div class="button-group">
+                                                        <button class="btn btn-sm add-button w-100" data-bs-toggle="modal"
+                                                            data-bs-target="#editProfile"><i data-feather="edit"></i>
+                                                            Edit</button>
+                                                        <button class="btn btn-sm add-button w-100" data-bs-toggle="modal"
+                                                            data-bs-target="#removeProfile"><i data-feather="trash-2"></i>
+                                                            Remove</button>
                                                     </div>
-
-                                                    <div class="table-responsive address-table">
-                                                        <table class="table">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td colspan="2">Jack Jennas</td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>Address :</td>
-                                                                    <td>
-                                                                        <p>8424 James Lane South San Francisco, CA 94080
-                                                                        </p>
-                                                                    </td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>Pin Code :</td>
-                                                                    <td>+380</td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>Phone :</td>
-                                                                    <td>+ 812-710-3798</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-                                                <div class="button-group">
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal"
-                                                        data-bs-target="#editProfile"><i data-feather="edit"></i>
-                                                        Edit</button>
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal"
-                                                        data-bs-target="#removeProfile"><i data-feather="trash-2"></i>
-                                                        Remove</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -1507,7 +1516,8 @@
                                 <option value="tag">Home</option>
                                 <option value="tag">Office</option>
                             </select> --}}
-                            <input type="text" class="form-control @error('tag') is-invalid @enderror" id="tag" name="tag">
+                            <input type="text" class="form-control @error('tag') is-invalid @enderror" id="tag"
+                                name="tag">
                             <label for="tag">Tag</label>
                             @error('tag')
                                 <div class="text-danger">{{ $message }}</div>
@@ -1515,7 +1525,8 @@
                         </div>
 
                         <div class="form-floating mb-4 theme-form-floating">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                name="name">
                             <label for="name">Name</label>
                             @error('name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -1525,7 +1536,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-floating mb-4 theme-form-floating">
-                                    <input type="text" name="city" class="form-control @error('city') is-invalid @enderror" id="city">
+                                    <input type="text" name="city"
+                                        class="form-control @error('city') is-invalid @enderror" id="city">
                                     <label for="city">City</label>
                                     @error('city')
                                         <div class="text-danger">{{ $message }}</div>
@@ -1534,7 +1546,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-floating mb-4 theme-form-floating">
-                                    <input type="text" name="country" class="form-control @error('country') is-invalid @enderror" id="country">
+                                    <input type="text" name="country"
+                                        class="form-control @error('country') is-invalid @enderror" id="country">
                                     <label for="country">Country</label>
                                     @error('country')
                                         <div class="text-danger">{{ $message }}</div>
@@ -1544,7 +1557,8 @@
                         </div>
 
                         <div class="form-floating mb-4 theme-form-floating">
-                            <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" style="height: 100px"></textarea>
+                            <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address"
+                                style="height: 100px"></textarea>
                             <label for="address">Enter Address</label>
                             @error('address')
                                 <div class="text-danger">{{ $message }}</div>
@@ -1552,7 +1566,8 @@
                         </div>
 
                         <div class="form-floating mb-4 theme-form-floating">
-                            <input type="text" class="form-control @error('post_code') is-invalid @enderror" name="post_code" id="post_code">
+                            <input type="text" class="form-control @error('post_code') is-invalid @enderror"
+                                name="post_code" id="post_code">
                             <label for="post_code">Post Code</label>
                             @error('post_code')
                                 <div class="text-danger">{{ $message }}</div>
@@ -1560,7 +1575,8 @@
                         </div>
 
                         <div class="form-floating mb-4 theme-form-floating">
-                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror" id="phone" name="phone_number">
+                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror"
+                                id="phone" name="phone_number">
                             <label for="phone">Phone Number</label>
                             @error('phone_number')
                                 <div class="text-danger">{{ $message }}</div>
@@ -1691,120 +1707,95 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="row g-4">
-                        <div class="col-xxl-12">
-                            <form>
-                                <div class="form-floating theme-form-floating">
-                                    <input type="text" class="form-control" id="pname" value="Jack Jennas">
-                                    <label for="pname">Full Name</label>
+                <form action="{{ route('edit.address',$address->id) }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row g-4">
+                            <div class="modal-body">
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    {{-- <select name="tag" id="" class="form-select">
+                                        <option value="tag">Home</option>
+                                        <option value="tag">Office</option>
+                                    </select> --}}
+                                    <input type="text" class="form-control @error('tag') is-invalid @enderror"
+                                        id="tag" name="tag" value="{{ $address }}">
+                                    <label for="tag">Tag</label>
+                                    @error('tag')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                            </form>
-                        </div>
 
-                        <div class="col-xxl-6">
-                            <form>
-                                <div class="form-floating theme-form-floating">
-                                    <input type="email" class="form-control" id="email1"
-                                        value="{{ auth()->user()->email }}">
-                                    <label for="email1">Email address</label>
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" name="name" value="{{ $address->name }}">
+                                    <label for="name">Name</label>
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                            </form>
-                        </div>
 
-                        <div class="col-xxl-6">
-                            <form>
-                                <div class="form-floating theme-form-floating">
-                                    <input class="form-control" type="tel" value="4567891234" name="mobile"
-                                        id="mobile" maxlength="10"
-                                        oninput="javascript: if (this.value.length > this.maxLength) this.value =
-                                            this.value.slice(0, this.maxLength);">
-                                    <label for="mobile">Email address</label>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-floating mb-4 theme-form-floating">
+                                            <input type="text" name="city" value="{{ $address->city }}"
+                                                class="form-control @error('city') is-invalid @enderror" id="city">
+                                            <label for="city">City</label>
+                                            @error('city')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating mb-4 theme-form-floating">
+                                            <input type="text" name="country" value="{{ $address->country }}"
+                                                class="form-control @error('country') is-invalid @enderror"
+                                                id="country">
+                                            <label for="country">Country</label>
+                                            @error('country')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
 
-                        <div class="col-12">
-                            <form>
-                                <div class="form-floating theme-form-floating">
-                                    <input type="text" class="form-control" id="address1"
-                                        value="8424 James Lane South San Francisco">
-                                    <label for="address1">Add Address</label>
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address"
+                                        style="height: 100px">{{ $address->address }}</textarea>
+                                    <label for="address">Enter Address</label>
+                                    @error('address')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                            </form>
-                        </div>
 
-                        <div class="col-12">
-                            <form>
-                                <div class="form-floating theme-form-floating">
-                                    <input type="text" class="form-control" id="address2" value="CA 94080">
-                                    <label for="address2">Add Address 2</label>
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    <input type="text" class="form-control @error('post_code') is-invalid @enderror"
+                                        name="post_code" id="post_code" value="{{ $address->post_code }}">
+                                    <label for="post_code">Post Code</label>
+                                    @error('post_code')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                            </form>
-                        </div>
 
-                        <div class="col-xxl-4">
-                            <form>
-                                <div class="form-floating theme-form-floating">
-                                    <select class="form-select" id="floatingSelect1"
-                                        aria-label="Floating label select example">
-                                        <option selected>Choose Your Country</option>
-                                        <option value="kindom">United Kingdom</option>
-                                        <option value="states">United States</option>
-                                        <option value="fra">France</option>
-                                        <option value="china">China</option>
-                                        <option value="spain">Spain</option>
-                                        <option value="italy">Italy</option>
-                                        <option value="turkey">Turkey</option>
-                                        <option value="germany">Germany</option>
-                                        <option value="russian">Russian Federation</option>
-                                        <option value="malay">Malaysia</option>
-                                        <option value="mexico">Mexico</option>
-                                        <option value="austria">Austria</option>
-                                        <option value="hong">Hong Kong SAR, China</option>
-                                        <option value="ukraine">Ukraine</option>
-                                        <option value="thailand">Thailand</option>
-                                        <option value="saudi">Saudi Arabia</option>
-                                        <option value="canada">Canada</option>
-                                        <option value="singa">Singapore</option>
-                                    </select>
-                                    <label for="floatingSelect">Country</label>
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    <input type="text"
+                                        class="form-control @error('phone_number') is-invalid @enderror" id="phone"
+                                        name="phone_number" value="{{ $address->phone_number }}">
+                                    <label for="phone">Phone Number</label>
+                                    @error('phone_number')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                            </form>
-                        </div>
+                            </div>
 
-                        <div class="col-xxl-4">
-                            <form>
-                                <div class="form-floating theme-form-floating">
-                                    <select class="form-select" id="floatingSelect">
-                                        <option selected>Choose Your City</option>
-                                        <option value="kindom">India</option>
-                                        <option value="states">Canada</option>
-                                        <option value="fra">Dubai</option>
-                                        <option value="china">Los Angeles</option>
-                                        <option value="spain">Thailand</option>
-                                    </select>
-                                    <label for="floatingSelect">City</label>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-xxl-4">
-                            <form>
-                                <div class="form-floating theme-form-floating">
-                                    <input type="text" class="form-control" id="address3" value="94080">
-                                    <label for="address3">Pin Code</label>
-                                </div>
-                            </form>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-animation btn-md fw-bold"
-                        data-bs-dismiss="modal">Close</button>
-                    <button type="button" data-bs-dismiss="modal"
-                        class="btn theme-bg-color btn-md fw-bold text-light">Save changes</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-animation btn-md fw-bold"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" data-bs-dismiss="modal"
+                            class="btn theme-bg-color btn-md fw-bold text-light">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -1889,8 +1880,11 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-animation btn-md fw-bold"
                         data-bs-dismiss="modal">No</button>
-                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light"
-                        data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
+                    <form action="{{ route('remove.address',$address->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn theme-bg-color btn-md fw-bold text-light"
+                            data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
+                    </form>
                 </div>
             </div>
         </div>

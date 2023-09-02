@@ -937,6 +937,9 @@
     <!-- jquery ui-->
     <script src="{{ asset('frontend_assets') }}/js/jquery-ui.min.js"></script>
 
+    <!-- Lordicon Js -->
+    <script src="{{ asset('frontend_assets') }}/js/lusqsztk.js"></script>
+
     <!-- Bootstrap js-->
     <script src="{{ asset('frontend_assets') }}/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/bootstrap/bootstrap-notify.min.js"></script>

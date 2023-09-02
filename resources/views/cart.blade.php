@@ -204,6 +204,7 @@
                                     <div class="mb-3 coupon-box input-group">
                                         <input type="text" class="form-control" id="" name="coupon_name"
                                             placeholder="Enter Coupon Code Here..." value="{{ $coupon_name }}">
+                                            {{ session(['S_coupon_name' => $coupon_name]) }}
                                         <button class="btn-apply">Apply</button>
                                     </div>
                                     @if (session('coupon-error'))
@@ -215,11 +216,13 @@
                                 <li>
                                     <h4>Subtotal</h4>
                                     <h4 class="price">{{ $sub_total }}</h4>
+                                    {{ session(['S_sub_total' => $sub_total]) }}
                                 </li>
 
                                 <li>
                                     <h4>Coupon Discount</h4>
                                     <h4 class="price">(-) {{ $coupon_discounts }}%</h4>
+                                    {{ session(['S_coupon_discount' => $coupon_discounts]) }}
                                 </li>
 
                                 <li>
@@ -230,16 +233,13 @@
                                     <h4 class="price">(-)
                                         @if ($calculated_discount > $highest_discount)
                                             {{ $highest_discount }}
+                                            {{ session(['S_coupon_discount_amount' => $highest_discount]) }}
                                         @else
                                             {{ $calculated_discount }}
+                                            {{ session(['S_coupon_discount_amount' => $calculated_discount]) }}
                                         @endif
                                     </h4>
                                 </li>
-
-                                {{-- <li class="align-items-start">
-                                    <h4>Shipping</h4>
-                                    <h4 class="price text-end">$6.90</h4>
-                                </li> --}}
                             </ul>
                         </div>
 
@@ -249,8 +249,10 @@
                                 <h4 class="price theme-color">
                                     @if ($calculated_discount > $highest_discount)
                                         {{ $sub_total - $highest_discount }}
+                                        {{ session(['S_total' => $sub_total - $highest_discount ]) }}
                                     @else
                                         {{ $sub_total - $calculated_discount }}
+                                        {{ session(['S_total' => $sub_total - $calculated_discount ]) }}
                                     @endif
                                 </h4>
                             </li>

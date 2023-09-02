@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactPostRequest;
+use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Color;
@@ -164,7 +165,8 @@ class FrontendController extends Controller
     public function checkout ()
     {
         if(strpos(url()->previous(), 'cart')){
-            return view('checkout');
+            $addresses = Address::where('customer_id',auth()->id())->get();
+            return view('checkout',compact('addresses'));
         }else{
             return redirect('cart');
         }

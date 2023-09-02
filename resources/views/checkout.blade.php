@@ -46,82 +46,60 @@
 
                                         <div class="checkout-detail">
                                             <div class="row g-4">
-                                                <div class="col-xxl-6 col-lg-12 col-md-6">
-                                                    <div class="delivery-address-box">
-                                                        <div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="jack" id="flexRadioDefault1">
+                                                @foreach ($addresses as $address)
+                                                    <div class="col-xxl-6 col-lg-12 col-md-6">
+                                                        <div class="delivery-address-box">
+                                                            <div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="jack" id="flexRadioDefault1">
+                                                                </div>
+
+                                                                <div class="label">
+                                                                    <label>{{ $address->tag }}</label>
+                                                                </div>
+
+                                                                <ul class="delivery-address-detail">
+                                                                    <li>
+                                                                        <h4 class="fw-500">{{ $address->name }}</h4>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p class="text-content"><span
+                                                                                class="text-title">Address
+                                                                                : </span>{{ $address->address }}</p>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p class="text-content"><span
+                                                                                class="text-title">City
+                                                                                : </span>{{ $address->city }}</p>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <h6 class="text-content"><span
+                                                                                class="text-title">Post
+                                                                                Code
+                                                                                :</span> {{ $address->post_code }}</h6>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <h6 class="text-content mb-0"><span
+                                                                                class="text-title">Phone Number
+                                                                                :</span> {{ $address->phone_number }}</h6>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
-
-                                                            <div class="label">
-                                                                <label>Home</label>
-                                                            </div>
-
-                                                            <ul class="delivery-address-detail">
-                                                                <li>
-                                                                    <h4 class="fw-500">Jack Jennas</h4>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p class="text-content"><span class="text-title">Address
-                                                                            : </span>8424 James Lane South San
-                                                                        Francisco, CA 94080</p>
-                                                                </li>
-
-                                                                <li>
-                                                                    <h6 class="text-content"><span class="text-title">Pin
-                                                                            Code
-                                                                            :</span> +380</h6>
-                                                                </li>
-
-                                                                <li>
-                                                                    <h6 class="text-content mb-0"><span
-                                                                            class="text-title">Phone
-                                                                            :</span> + 380 (0564) 53 - 29 - 68</h6>
-                                                                </li>
-                                                            </ul>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endforeach
 
-                                                <div class="col-xxl-6 col-lg-12 col-md-6">
+                                                <div class="col-xxl-12 col-lg-12 col-md-12">
                                                     <div class="delivery-address-box">
-                                                        <div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="jack" id="flexRadioDefault2" checked="checked">
-                                                            </div>
-
-                                                            <div class="label">
-                                                                <label>Office</label>
-                                                            </div>
-
-                                                            <ul class="delivery-address-detail">
-                                                                <li>
-                                                                    <h4 class="fw-500">Jack Jennas</h4>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p class="text-content"><span class="text-title">Address
-                                                                            :</span>Nakhimovskiy R-N / Lastovaya Ul.,
-                                                                        bld. 5/A, appt. 12
-                                                                    </p>
-                                                                </li>
-
-                                                                <li>
-                                                                    <h6 class="text-content"><span class="text-title">Pin
-                                                                            Code :</span>
-                                                                        +380</h6>
-                                                                </li>
-
-                                                                <li>
-                                                                    <h6 class="text-content mb-0"><span
-                                                                            class="text-title">Phone
-                                                                            :</span> + 380 (0564) 53 - 29 - 68</h6>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                        <a href="{{ route('dashboard') }}"
+                                                            class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0 mt-3">
+                                                            <i data-feather="plus" class="me-2"></i> Add New
+                                                            Address</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -542,7 +520,8 @@
                                                 'size_id' => $cart->size_id,
                                             ])->first();
                                         @endphp
-                                        <h4 class="price">{{ $inventory->product_discount_price * $cart->user_input }}</h4>
+                                        <h4 class="price">{{ $inventory->product_discount_price * $cart->user_input }}
+                                        </h4>
                                     </li>
                                 @endforeach
                             </ul>
@@ -550,27 +529,28 @@
                             <ul class="summery-total">
                                 <li>
                                     <h4>Subtotal</h4>
-                                    <h4 class="price">$111.81</h4>
+                                    <h4 class="price">{{ session('S_sub_total') }}</h4>
+                                </li>
+
+                                <li>
+                                    <h4>Coupon Discount
+                                        ({{ session('S_coupon_discount') ? session('S_coupon_discount') : 'N/A' }}) </h4>
+                                    <h4 class="price">(-) {{ session('S_coupon_discount') }}%</h4>
+                                </li>
+
+                                <li>
+                                    <h4>Coupon Discount Amount</h4>
+                                    <h4 class="price">(-) {{ session('S_coupon_discount_amount') }}</h4>
                                 </li>
 
                                 <li>
                                     <h4>Shipping</h4>
-                                    <h4 class="price">$8.90</h4>
-                                </li>
-
-                                <li>
-                                    <h4>Tax</h4>
-                                    <h4 class="price">$29.498</h4>
-                                </li>
-
-                                <li>
-                                    <h4>Coupon/Code</h4>
-                                    <h4 class="price">$-23.10</h4>
+                                    <h4 class="price">(+) </h4>
                                 </li>
 
                                 <li class="list-total">
-                                    <h4>Total (USD)</h4>
-                                    <h4 class="price">$19.28</h4>
+                                    <h4>Total </h4>
+                                    <h4 class="price">{{ session('S_total') }}</h4>
                                 </li>
                             </ul>
                         </div>
