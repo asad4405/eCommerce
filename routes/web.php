@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -83,6 +84,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // coupon
     Route::resource('coupon',CouponController::class);
+
+    // Delivery Option
+    Route::resource('delivery',DeliveryController::class)->middleware('admin.checker');
 });
 
 // vendor

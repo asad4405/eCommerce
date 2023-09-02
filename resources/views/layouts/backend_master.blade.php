@@ -270,6 +270,23 @@
                                             </li>
                                         </ul>
                                     </li>
+
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title"
+                                            href="javascript:void(0)">
+                                            <i class="ri-list-check-2"></i>
+                                            <span>Delivery Cost Option</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="{{ route('delivery.create') }}">Add New Delivery</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="{{ route('delivery.index') }}">Delivery Cost List</a>
+                                            </li>
+                                        </ul>
+                                    </li>
                                 @endif
 
                                 @if (auth()->user()->role == 'Vendor')

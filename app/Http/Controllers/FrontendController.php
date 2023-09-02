@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Contact;
 use App\Models\Coupon;
+use App\Models\Delivery;
 use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Product_photo;
@@ -166,7 +167,8 @@ class FrontendController extends Controller
     {
         if(strpos(url()->previous(), 'cart')){
             $addresses = Address::where('customer_id',auth()->id())->get();
-            return view('checkout',compact('addresses'));
+            $deliveries = Delivery::all();
+            return view('checkout',compact('addresses','deliveries'));
         }else{
             return redirect('cart');
         }
