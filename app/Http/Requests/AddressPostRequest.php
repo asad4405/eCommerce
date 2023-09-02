@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CouponPostRequest extends FormRequest
+class AddressPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class CouponPostRequest extends FormRequest
     {
         return [
             '*' => 'required',
-            'coupon_name' => 'required|unique:coupons,coupon_name',
+            'post_code' => 'required|integer',
         ];
     }
 }

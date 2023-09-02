@@ -155,7 +155,7 @@
                                         </div>
                                     </li>
                                     <li class="right-side">
-                                        <a href="contact-us.html" class="delivery-login-box">
+                                        <a href="{{ route('contact') }}" class="delivery-login-box">
                                             <div class="delivery-icon">
                                                 <i data-feather="phone-call"></i>
                                             </div>
@@ -172,13 +172,13 @@
                                     </li>
                                     <li class="right-side">
                                         <div class="onhover-dropdown header-badge">
-                                            <button type="button" class="btn p-0 position-relative header-wishlist">
+                                            <a href="{{ route('cart') }}" class="btn p-0 position-relative header-wishlist">
                                                 <i data-feather="shopping-cart"></i>
                                                 <span class="position-absolute top-0 start-100 translate-middle badge">
                                                     {{ cart_amount() }}
                                                     <span class="visually-hidden">unread messages</span>
                                                 </span>
-                                            </button>
+                                            </a>
 
                                             <div class="onhover-div">
                                                 <ul class="cart-list">
@@ -531,7 +531,7 @@
                                     <a href="about-us.html" class="text-content">About Us</a>
                                 </li>
                                 <li>
-                                    <a href="contact-us.html" class="text-content">Contact Us</a>
+                                    <a href="{{ route('contact') }}" class="text-content">Contact Us</a>
                                 </li>
                             </ul>
                         </div>
