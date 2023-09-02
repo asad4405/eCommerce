@@ -265,7 +265,7 @@
                                         </div>
                                     @endif
                                     <li>
-                                        <button onclick="location.href = 'checkout.html';"
+                                        <button onclick="location.href = '{{ route('checkout') }}';"
                                             class="btn btn-animation proceed-btn fw-bold @if ($flag) disabled @endif ">Process
                                             To Checkout</button>
                                     </li>

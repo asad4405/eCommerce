@@ -41,6 +41,7 @@ Route::get('/cart/remove/{id}', [FrontendController::class, 'cart_remove'])->nam
 Route::get('/cart/clear', [FrontendController::class, 'cart_clear'])->name('cart.clear');
 Route::post('/cart/update', [FrontendController::class, 'cart_update'])->name('cart.update');
 
+Route::get('checkout',[FrontendController::class, 'checkout'])->name('checkout');
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
 Route::get('/vendor/approve/{id}', [HomeController::class, 'vendor_appreve'])->name('vendor.approve')->middleware(['auth', 'verified']);

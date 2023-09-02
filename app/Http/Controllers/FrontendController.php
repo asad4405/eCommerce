@@ -161,6 +161,15 @@ class FrontendController extends Controller
         return view('cart',compact('carts','coupon_name','coupon_discounts','highest_discount'));
     }
 
+    public function checkout ()
+    {
+        if(strpos(url()->previous(), 'cart')){
+            return view('checkout');
+        }else{
+            return redirect('cart');
+        }
+    }
+
     public function cart_remove($id)
     {
         Cart::find($id)->delete();
