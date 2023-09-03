@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressPostRequest;
 use App\Models\Address;
+use App\Models\Invoice;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class HomeController extends Controller
 {
@@ -20,7 +22,8 @@ class HomeController extends Controller
             return view('dashboard.vendor');
         } else {
             $addresses = Address::where('customer_id', auth()->id())->get();
-            return view('dashboard.customer', compact('addresses'));
+            $invoices = Invoice::where('customer_id', auth()->id())->latest()->paginate(5);
+            return view('dashboard.customer', compact('addresses', 'invoices'));
         }
     }
     public function vendor_appreve($id)
@@ -61,5 +64,11 @@ class HomeController extends Controller
     {
         Address::find($id)->delete();
         return back();
+    }
+    public function download_invoice($id)
+    {
+        $invoice = Invoice::find($id);
+        $pdf = Pdf::loadView('pdf.invoice',compact('invoice'));
+        return $pdf->download('invoice_'.Carbon::now()->format('Y_m_d').'.'.'pdf');
     }
 }

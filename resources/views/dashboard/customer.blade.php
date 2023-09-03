@@ -692,6 +692,57 @@
                             <div class="tab-pane fade show" id="pills-order" role="tabpanel"
                                 aria-labelledby="pills-order-tab">
                                 <div class="dashboard-order">
+
+                                    <div class="title">
+                                        <h2>My Orders Invoice</h2>
+                                        <span class="title-leaf title-leaf-gray">
+                                            <svg class="icon-width bg-gray">
+                                                <use xlink:href="{{ asset('frontend_assets') }}/svg/leaf.svg#leaf"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-xxl-12 mb-5">
+                                        <div class="table-responsive dashboard-bg-box">
+
+                                            <table class="table product-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Invoice/Order ID</th>
+                                                        <th scope="col">Total Amount</th>
+                                                        <th scope="col">Delivery Charge</th>
+                                                        <th scope="col">Payment Option</th>
+                                                        <th scope="col">Payment Status</th>
+                                                        <th scope="col">Order Time</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse ($invoices as $invoice)
+                                                    <tr>
+                                                        <td>#{{ $invoice->id }}</td>
+                                                        <td>{{ $invoice->total_amount }}</td>
+                                                        <td>{{ $invoice->delivery_cost }}</td>
+                                                        <td>{{ $invoice->delivery_option }}</td>
+                                                        <td>{{ $invoice->delivery_status }}</td>
+                                                        <td>{{ $invoice->created_at->diffForHumans() }}</td>
+                                                        <td>
+                                                            <a href="{{ route('download.invoice',$invoice->id) }}">Download <i class="fa fa-download"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    @empty
+                                                    <tr class="text-danger">
+                                                        <td colspan="7">Invoice Not Yet !!</td>
+                                                    </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                            <span class="text-center my-3">
+                                                {{ $invoices->links() }}
+                                            </span>
+                                        </div>
+                                    </div>
+
                                     <div class="title">
                                         <h2>My Orders History</h2>
                                         <span class="title-leaf title-leaf-gray">
