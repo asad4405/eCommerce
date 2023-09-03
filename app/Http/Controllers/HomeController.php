@@ -20,7 +20,6 @@ class HomeController extends Controller
             return view('dashboard.vendor');
         } else {
             $addresses = Address::where('customer_id', auth()->id())->get();
-            // $address = Address::where('id',$addresses->id);
             return view('dashboard.customer', compact('addresses'));
         }
     }

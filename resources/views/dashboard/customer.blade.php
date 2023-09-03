@@ -1034,13 +1034,13 @@
                                     </div>
 
                                     <div class="row g-sm-4 g-3">
-                                        @foreach ($addresses as $address)
+                                        @forelse ($addresses as $address)
                                             <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-6">
                                                 <div class="address-box">
                                                     <div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="jack"
-                                                                id="flexRadioDefault2" checked>
+                                                            <input class="form-check-input" type="radio" name="address_id"
+                                                                id="flexRadioDefault2" value="{{ $address->id }}" {{ $loop->first ? 'checked' : '' }}>
                                                         </div>
 
                                                         <div class="label">
@@ -1093,7 +1093,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <button class="btn bg-danger text-white btn-sm fw-bold mt-lg-0 mt-3"
+                                                    data-bs-toggle="modal"> No Available Address!! Click Here Add New
+                                                    Address</button>
+                                            </tr>
+                                        @endforelse
                                     </div>
                                 </div>
                             </div>
@@ -1512,12 +1518,12 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-floating mb-4 theme-form-floating">
-                            {{-- <select name="tag" id="" class="form-select">
-                                <option value="tag">Home</option>
-                                <option value="tag">Office</option>
-                            </select> --}}
-                            <input type="text" class="form-control @error('tag') is-invalid @enderror" id="tag"
-                                name="tag">
+                            <select name="tag" id="" class="form-select">
+                                <option value="Home">Home</option>
+                                <option value="Office">Office</option>
+                            </select>
+                            {{-- <input type="text" class="form-control @error('tag') is-invalid @enderror" id="tag"
+                                name="tag"> --}}
                             <label for="tag">Tag</label>
                             @error('tag')
                                 <div class="text-danger">{{ $message }}</div>
@@ -1707,18 +1713,16 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <form action="{{ route('edit.address',$address->id) }}" method="POST">
+                <form action="{{ route('edit.address') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row g-4">
                             <div class="modal-body">
                                 <div class="form-floating mb-4 theme-form-floating">
-                                    {{-- <select name="tag" id="" class="form-select">
-                                        <option value="tag">Home</option>
-                                        <option value="tag">Office</option>
-                                    </select> --}}
-                                    <input type="text" class="form-control @error('tag') is-invalid @enderror"
-                                        id="tag" name="tag" value="{{ $address }}">
+                                    <select name="tag" id="" class="form-select">
+                                        <option value="Home">Home</option>
+                                        <option value="Office">Office</option>
+                                    </select>
                                     <label for="tag">Tag</label>
                                     @error('tag')
                                         <div class="text-danger">{{ $message }}</div>
@@ -1727,7 +1731,7 @@
 
                                 <div class="form-floating mb-4 theme-form-floating">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="name" name="name" value="{{ $address->name }}">
+                                        id="name" name="name" value="{{ $address->customer_id }}">
                                     <label for="name">Name</label>
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -1882,8 +1886,9 @@
                         data-bs-dismiss="modal">No</button>
                     <form action="{{ route('remove.address',$address->id) }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn theme-bg-color btn-md fw-bold text-light"
-                            data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
+                        {{ $address->id }}
+                    <button type="submit" class="btn theme-bg-color btn-md fw-bold text-light"
+                        data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
                     </form>
                 </div>
             </div>

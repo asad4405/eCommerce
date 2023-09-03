@@ -174,6 +174,11 @@ class FrontendController extends Controller
         }
     }
 
+    public function final_checkout (Request $request)
+    {
+        return $request;
+    }
+
     public function cart_remove($id)
     {
         Cart::find($id)->delete();

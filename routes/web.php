@@ -42,13 +42,14 @@ Route::get('/cart/remove/{id}', [FrontendController::class, 'cart_remove'])->nam
 Route::get('/cart/clear', [FrontendController::class, 'cart_clear'])->name('cart.clear');
 Route::post('/cart/update', [FrontendController::class, 'cart_update'])->name('cart.update');
 
-Route::get('checkout',[FrontendController::class, 'checkout'])->name('checkout');
+Route::get('/checkout',[FrontendController::class, 'checkout'])->name('checkout');
+Route::post('/final/checkout',[FrontendController::class, 'final_checkout'])->name('final.checkout');
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
 Route::get('/vendor/approve/{id}', [HomeController::class, 'vendor_appreve'])->name('vendor.approve')->middleware(['auth', 'verified']);
 // Address
 Route::post('/add/address', [HomeController::class, 'add_address'])->name('add.address')->middleware(['auth', 'verified', 'customer.checker']);
-Route::post('/edit/address/{id}', [HomeController::class, 'edit_address'])->name('edit.address')->middleware(['auth', 'verified', 'customer.checker']);
+Route::post('/edit/address', [HomeController::class, 'edit_address'])->name('edit.address')->middleware(['auth', 'verified', 'customer.checker']);
 Route::post('/remove/address/{id}', [HomeController::class, 'remove_address'])->name('remove.address')->middleware(['auth', 'verified', 'customer.checker']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
