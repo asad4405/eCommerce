@@ -209,7 +209,7 @@
                                                                 <div class="custom-form-check form-check mb-0">
                                                                     <label class="form-check-label" for="cash"><input
                                                                             class="form-check-input mt-0" type="radio"
-                                                                            name="online_payment" value="cod" id="cash"
+                                                                            name="payment_option" value="cod" id="cash"
                                                                             checked> Cash On Delivery</label>
                                                                 </div>
                                                             </div>
@@ -299,7 +299,7 @@
 
                                     <li>
                                         <h4>Coupon Discount
-                                            ({{ session('S_coupon_discount') ? session('S_coupon_discount') : 'N/A' }})
+                                            ({{ session('S_coupon_discount') ? session('S_coupon_name') : 'N/A' }})
                                         </h4>
                                         <h4 class="price">(-) {{ session('S_coupon_discount') }}%</h4>
                                     </li>

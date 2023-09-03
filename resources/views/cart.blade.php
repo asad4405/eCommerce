@@ -29,6 +29,9 @@
         <div class="container-fluid-lg">
             <div class="row g-sm-5 g-3">
                 <div class="col-xxl-9">
+                    @if (session('final-checkout-success'))
+                        <div class="alert alert-success">{{ session('final-checkout-success') }}</div>
+                    @endif
                     <div class="cart-table">
                         <div class="table-responsive-xl">
                             <table class="table">
@@ -204,7 +207,7 @@
                                     <div class="mb-3 coupon-box input-group">
                                         <input type="text" class="form-control" id="" name="coupon_name"
                                             placeholder="Enter Coupon Code Here..." value="{{ $coupon_name }}">
-                                            {{ session(['S_coupon_name' => $coupon_name]) }}
+                                        {{ session(['S_coupon_name' => $coupon_name]) }}
                                         <button class="btn-apply">Apply</button>
                                     </div>
                                     @if (session('coupon-error'))
@@ -249,10 +252,10 @@
                                 <h4 class="price theme-color">
                                     @if ($calculated_discount > $highest_discount)
                                         {{ $sub_total - $highest_discount }}
-                                        {{ session(['S_total' => $sub_total - $highest_discount ]) }}
+                                        {{ session(['S_total' => $sub_total - $highest_discount]) }}
                                     @else
                                         {{ $sub_total - $calculated_discount }}
-                                        {{ session(['S_total' => $sub_total - $calculated_discount ]) }}
+                                        {{ session(['S_total' => $sub_total - $calculated_discount]) }}
                                     @endif
                                 </h4>
                             </li>

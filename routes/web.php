@@ -49,7 +49,7 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 Route::get('/vendor/approve/{id}', [HomeController::class, 'vendor_appreve'])->name('vendor.approve')->middleware(['auth', 'verified']);
 // Address
 Route::post('/add/address', [HomeController::class, 'add_address'])->name('add.address')->middleware(['auth', 'verified', 'customer.checker']);
-Route::post('/edit/address', [HomeController::class, 'edit_address'])->name('edit.address')->middleware(['auth', 'verified', 'customer.checker']);
+Route::post('/edit/address/{id}', [HomeController::class, 'edit_address'])->name('edit.address')->middleware(['auth', 'verified', 'customer.checker']);
 Route::post('/remove/address/{id}', [HomeController::class, 'remove_address'])->name('remove.address')->middleware(['auth', 'verified', 'customer.checker']);
 
 Route::middleware(['auth', 'verified'])->group(function () {

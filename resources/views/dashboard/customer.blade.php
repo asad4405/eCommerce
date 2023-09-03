@@ -1039,8 +1039,10 @@
                                                 <div class="address-box">
                                                     <div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="address_id"
-                                                                id="flexRadioDefault2" value="{{ $address->id }}" {{ $loop->first ? 'checked' : '' }}>
+                                                            <input class="form-check-input" type="radio"
+                                                                name="address_id" id="flexRadioDefault2"
+                                                                value="{{ $address->id }}"
+                                                                {{ $loop->first ? 'checked' : '' }}>
                                                         </div>
 
                                                         <div class="label">
@@ -1601,6 +1603,164 @@
     </div>
     <!-- Add address modal box end -->
 
+    <!-- Edit Profile Start -->
+    <div class="modal fade theme-modal" id="editProfile" tabindex="-1" aria-labelledby="exampleModalLabel2"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <form action="{{ route('edit.address', $address->id) }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row g-4">
+                            <div class="modal-body">
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    <select name="tag" id="" class="form-select">
+                                        <option value="Home">Home</option>
+                                        <option value="Office">Office</option>
+                                    </select>
+                                    <label for="tag">Tag</label>
+                                    @error('tag')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" name="name" value="{{ $address->customer_id }}">
+                                    <label for="name">Name</label>
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-floating mb-4 theme-form-floating">
+                                            <input type="text" name="city" value="{{ $address->city }}"
+                                                class="form-control @error('city') is-invalid @enderror" id="city">
+                                            <label for="city">City</label>
+                                            @error('city')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating mb-4 theme-form-floating">
+                                            <input type="text" name="country" value="{{ $address->country }}"
+                                                class="form-control @error('country') is-invalid @enderror"
+                                                id="country">
+                                            <label for="country">Country</label>
+                                            @error('country')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address"
+                                        style="height: 100px">{{ $address->address }}</textarea>
+                                    <label for="address">Enter Address</label>
+                                    @error('address')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    <input type="text" class="form-control @error('post_code') is-invalid @enderror"
+                                        name="post_code" id="post_code" value="{{ $address->post_code }}">
+                                    <label for="post_code">Post Code</label>
+                                    @error('post_code')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-floating mb-4 theme-form-floating">
+                                    <input type="text"
+                                        class="form-control @error('phone_number') is-invalid @enderror" id="phone"
+                                        name="phone_number" value="{{ $address->phone_number }}">
+                                    <label for="phone">Phone Number</label>
+                                    @error('phone_number')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-animation btn-md fw-bold"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" data-bs-dismiss="modal"
+                            class="btn theme-bg-color btn-md fw-bold text-light">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Profile End -->
+    <!-- Remove Profile Modal Start -->
+    <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>The permission for the use/group, preview is inherited from the object, object will create a
+                            new permission for this object</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold"
+                        data-bs-dismiss="modal">No</button>
+
+                    <form action="{{ route('remove.address', $address->id) }}" method="POST">
+                        @csrf
+                        {{ $address->id }}
+                        <button type="submit" class="btn theme-bg-color btn-md fw-bold text-light"
+                            data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade theme-modal remove-profile" id="removeAddress" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box text-center">
+                        <h4 class="text-content">It's Removed.</h4>
+                    </div>
+                </div>
+                <div class="modal-footer pt-0">
+                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Remove Profile Modal End -->
+
     <!-- Location Modal Start -->
     <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1702,109 +1862,6 @@
     </div>
     <!-- Location Modal End -->
 
-    <!-- Edit Profile Start -->
-    <div class="modal fade theme-modal" id="editProfile" tabindex="-1" aria-labelledby="exampleModalLabel2"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel2">Edit Profile</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <form action="{{ route('edit.address') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row g-4">
-                            <div class="modal-body">
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <select name="tag" id="" class="form-select">
-                                        <option value="Home">Home</option>
-                                        <option value="Office">Office</option>
-                                    </select>
-                                    <label for="tag">Tag</label>
-                                    @error('tag')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="name" name="name" value="{{ $address->customer_id }}">
-                                    <label for="name">Name</label>
-                                    @error('name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-floating mb-4 theme-form-floating">
-                                            <input type="text" name="city" value="{{ $address->city }}"
-                                                class="form-control @error('city') is-invalid @enderror" id="city">
-                                            <label for="city">City</label>
-                                            @error('city')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-floating mb-4 theme-form-floating">
-                                            <input type="text" name="country" value="{{ $address->country }}"
-                                                class="form-control @error('country') is-invalid @enderror"
-                                                id="country">
-                                            <label for="country">Country</label>
-                                            @error('country')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address"
-                                        style="height: 100px">{{ $address->address }}</textarea>
-                                    <label for="address">Enter Address</label>
-                                    @error('address')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <input type="text" class="form-control @error('post_code') is-invalid @enderror"
-                                        name="post_code" id="post_code" value="{{ $address->post_code }}">
-                                    <label for="post_code">Post Code</label>
-                                    @error('post_code')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <input type="text"
-                                        class="form-control @error('phone_number') is-invalid @enderror" id="phone"
-                                        name="phone_number" value="{{ $address->phone_number }}">
-                                    <label for="phone">Phone Number</label>
-                                    @error('phone_number')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-animation btn-md fw-bold"
-                            data-bs-dismiss="modal">Close</button>
-                        <button type="submit" data-bs-dismiss="modal"
-                            class="btn theme-bg-color btn-md fw-bold text-light">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Edit Profile End -->
-
     <!-- Edit Card Start -->
     <div class="modal fade theme-modal" id="editCard" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -1863,58 +1920,4 @@
         </div>
     </div>
     <!-- Edit Card End -->
-
-    <!-- Remove Profile Modal Start -->
-    <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header d-block text-center">
-                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box">
-                        <p>The permission for the use/group, preview is inherited from the object, object will create a
-                            new permission for this object</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-animation btn-md fw-bold"
-                        data-bs-dismiss="modal">No</button>
-                    <form action="{{ route('remove.address',$address->id) }}" method="POST">
-                        @csrf
-                        {{ $address->id }}
-                    <button type="submit" class="btn theme-bg-color btn-md fw-bold text-light"
-                        data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade theme-modal remove-profile" id="removeAddress" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box text-center">
-                        <h4 class="text-content">It's Removed.</h4>
-                    </div>
-                </div>
-                <div class="modal-footer pt-0">
-                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light"
-                        data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Remove Profile Modal End -->
 @endsection

@@ -11,6 +11,8 @@ use App\Models\Contact;
 use App\Models\Coupon;
 use App\Models\Delivery;
 use App\Models\Inventory;
+use App\Models\Invoice;
+use App\Models\Invoice_detail;
 use App\Models\Product;
 use App\Models\Product_photo;
 use App\Models\Size;
@@ -94,10 +96,10 @@ class FrontendController extends Controller
 
     public function add_to_cart(Request $request)
     {
-        if(Cart::where('user_id',auth()->id())->exists()){
+        if (Cart::where('user_id', auth()->id())->exists()) {
             $vendor_id = Product::find($request->product_id)->user_id;
-            if($vendor_id != Cart::where('user_id',auth()->id())->first()->vendor_id){
-                Cart::where('user_id',auth()->id())->delete();
+            if ($vendor_id != Cart::where('user_id', auth()->id())->first()->vendor_id) {
+                Cart::where('user_id', auth()->id())->delete();
             }
         }
         if (Cart::where([
@@ -111,7 +113,7 @@ class FrontendController extends Controller
                 'product_id' => $request->product_id,
                 'color_id' => $request->color_id,
                 'size_id' => $request->size_id,
-            ])->increment('user_input',$request->user_input);
+            ])->increment('user_input', $request->user_input);
             return 'Update to Cart';
         } else {
             Cart::insert([
@@ -130,53 +132,92 @@ class FrontendController extends Controller
     public function cart(Request $request)
     {
         $highest_discount = 0;
-        if($request->coupon_name){
+        if ($request->coupon_name) {
             $coupon_name = $request->coupon_name;
-            if(Coupon::where('coupon_name',$request->coupon_name)->exists()){
-                $coupon_info = Coupon::where('coupon_name',$request->coupon_name)->first();
-                if($coupon_info->user_id == carts()->first()->vendor_id){
-                    if(Carbon::today()->format('Y-m-d') < $coupon_info->validity){
-                        if($coupon_info->limit > 0){
+            if (Coupon::where('coupon_name', $request->coupon_name)->exists()) {
+                $coupon_info = Coupon::where('coupon_name', $request->coupon_name)->first();
+                if ($coupon_info->user_id == carts()->first()->vendor_id) {
+                    if (Carbon::today()->format('Y-m-d') < $coupon_info->validity) {
+                        if ($coupon_info->limit > 0) {
                             $coupon_discounts = $coupon_info->coupon_discount;
                             $highest_discount = $coupon_info->highest_discount;
-                        }else{
+                        } else {
                             $coupon_discounts = 0;
-                            return redirect('cart')->with('coupon-error','This Coupon does not Limit!');
+                            return redirect('cart')->with('coupon-error', 'This Coupon does not Limit!');
                         }
-                    }else{
+                    } else {
                         $coupon_discounts = 0;
-                        return redirect('cart')->with('coupon-error','This Coupon does not Valid!');
+                        return redirect('cart')->with('coupon-error', 'This Coupon does not Valid!');
                     }
-                }else{
+                } else {
                     $coupon_discounts = 0;
-                    return redirect('cart')->with('coupon-error','This Coupon does not belongs to this Vendor!');
+                    return redirect('cart')->with('coupon-error', 'This Coupon does not belongs to this Vendor!');
                 }
-            }else{
+            } else {
                 $coupon_discounts = 0;
-                return redirect('cart')->with('coupon-error','This Coupon does not exists!');
+                return redirect('cart')->with('coupon-error', 'This Coupon does not exists!');
             }
-        }else{
+        } else {
             $coupon_name = "";
             $coupon_discounts = 0;
         }
-        $carts = Cart::where('user_id',auth()->id())->get();
-        return view('cart',compact('carts','coupon_name','coupon_discounts','highest_discount'));
+        $carts = Cart::where('user_id', auth()->id())->get();
+        return view('cart', compact('carts', 'coupon_name', 'coupon_discounts', 'highest_discount'));
     }
 
-    public function checkout ()
+    public function checkout()
     {
-        if(strpos(url()->previous(), 'cart')){
-            $addresses = Address::where('customer_id',auth()->id())->get();
+        if (strpos(url()->previous(), 'cart')) {
+            $addresses = Address::where('customer_id', auth()->id())->get();
             $deliveries = Delivery::all();
-            return view('checkout',compact('addresses','deliveries'));
-        }else{
+            return view('checkout', compact('addresses', 'deliveries'));
+        } else {
             return redirect('cart');
         }
     }
 
-    public function final_checkout (Request $request)
+    public function final_checkout(Request $request)
     {
-        return $request;
+        $invoice_id = Invoice::insert([
+            'customer_id' => auth()->id(),
+            'vendor_id' => carts()->first()->vendor_id,
+            'sub_total' => session('S_sub_total'),
+            'coupon_name' => session('S_coupon_name'),
+            'coupon_discount' => session('S_coupon_discount'),
+            'coupon_discount_amount' => session('S_coupon_discount_amount'),
+            'total_amount' => session('S_total'),
+            'address_id' => $request->address_id,
+            'delivery_cost' => $request->delivery_cost,
+            'delivery_option' => $request->payment_option,
+            'created_at' => Carbon::now(),
+        ]);
+        foreach(carts() as $cart){
+            Invoice_detail::insert([
+                'invoice_id' => $invoice_id,
+                'product_id' => $cart->product_id,
+                'color_id' => $cart->color_id,
+                'size_id' => $cart->size_id,
+                'user_input' => $cart->user_input,
+                'created_at' => Carbon::now(),
+            ]);
+            // decrement from inventory
+            Inventory::where([
+                'product_id' => $cart->product_id,
+                'color_id' => $cart->color_id,
+                'size_id' => $cart->size_id,
+            ])->decrement('product_quantity',$cart->user_input);
+            // cart empty
+            $cart->delete();
+        }
+        // decrement from coupon limit
+        if(session('S_coupon_name')){
+            Coupon::where('coupon_name',session('S_coupon_name'))->decrement('limit');
+        }
+        return redirect('cart')->with('final-checkout-success','Your Order Submitted Successfull!');
+
+        if ($request->payment_option == 'online') {
+            echo "online payment taka payment korte hobe";
+        }
     }
 
     public function cart_remove($id)
@@ -187,13 +228,13 @@ class FrontendController extends Controller
 
     public function cart_clear()
     {
-        Cart::where('user_id',auth()->id())->delete();
+        Cart::where('user_id', auth()->id())->delete();
         return back();
     }
 
-    public function cart_update (Request $request)
+    public function cart_update(Request $request)
     {
-        foreach($request->quantity as $cart_id => $user_input){
+        foreach ($request->quantity as $cart_id => $user_input) {
             Cart::find($cart_id)->update([
                 'user_input' => $user_input,
             ]);
