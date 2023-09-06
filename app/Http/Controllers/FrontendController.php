@@ -178,7 +178,7 @@ class FrontendController extends Controller
 
     public function final_checkout(Request $request)
     {
-        $invoice_id = Invoice::insert([
+        $invoice_id = Invoice::insertGetId([
             'customer_id' => auth()->id(),
             'vendor_id' => carts()->first()->vendor_id,
             'sub_total' => session('S_sub_total'),

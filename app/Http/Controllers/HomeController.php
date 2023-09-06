@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddressPostRequest;
 use App\Models\Address;
 use App\Models\Invoice;
+use App\Models\Invoice_detail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,11 +27,13 @@ class HomeController extends Controller
             return view('dashboard.customer', compact('addresses', 'invoices'));
         }
     }
+
     public function vendor_appreve($id)
     {
         User::onlyTrashed()->where('id', $id)->restore();
         return back();
     }
+
     public function add_address(AddressPostRequest $request)
     {
         Address::insert([
@@ -46,6 +49,7 @@ class HomeController extends Controller
         ]);
         return back();
     }
+
     public function edit_address(Request $request, $id)
     {
         Address::find($id)->update([
@@ -60,15 +64,19 @@ class HomeController extends Controller
         ]);
         return back();
     }
+
     public function remove_address($id)
     {
         Address::find($id)->delete();
         return back();
     }
+
     public function download_invoice($id)
     {
         $invoice = Invoice::find($id);
-        $pdf = Pdf::loadView('pdf.invoice',compact('invoice'));
-        return $pdf->download('invoice_'.Carbon::now()->format('Y_m_d').'.'.'pdf');
+        $invoice_details = Invoice_detail::where('invoice_id',$id)->get();
+        return view('pdf.invoice',compact('invoice','invoice_details'));
+        // $pdf = Pdf::loadView('pdf.invoice',compact('invoice'));
+        // return $pdf->download('invoice_'.Carbon::now()->format('Y_m_d').'.'.'pdf');
     }
 }
