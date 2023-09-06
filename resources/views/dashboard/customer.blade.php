@@ -1655,7 +1655,7 @@
     <!-- Add address modal box end -->
 
     <!-- Edit Profile Start -->
-    <div class="modal fade theme-modal" id="editProfile" tabindex="-1" aria-labelledby="exampleModalLabel2"
+    {{-- <div class="modal fade theme-modal" id="editProfile" tabindex="-1" aria-labelledby="exampleModalLabel2"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down">
             <div class="modal-content">
@@ -1755,7 +1755,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Edit Profile End -->
     <!-- Remove Profile Modal Start -->
     <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1"
@@ -1778,12 +1778,12 @@
                     <button type="button" class="btn btn-animation btn-md fw-bold"
                         data-bs-dismiss="modal">No</button>
 
-                    <form action="{{ route('remove.address', $address->id) }}" method="POST">
+                    {{-- <form action="{{ route('remove.address', $address->id) }}" method="POST">
                         @csrf
                         {{ $address->id }}
                         <button type="submit" class="btn theme-bg-color btn-md fw-bold text-light"
                             data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>

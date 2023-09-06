@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\SslCommerzPaymentController;
@@ -98,6 +99,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/vendor/register', [VendorController::class, 'vendor_register'])->name('vendor.register');
 Route::post('/vendor/register/post', [VendorController::class, 'vendor_register_post'])->name('vendor.register.post');
 
+
+// Gmail Login & Register Start
+Route::get('google/redirect',[SocialiteController::class,'google_redirect'])->name('google.redirect');
+Route::get('google/callback',[SocialiteController::class,'google_callback'])->name('google.callback');
+// Gmail Login & Register End
 
 // SSLCOMMERZ Start
 

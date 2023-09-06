@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>Register</h2>
+                        <h2>Customer Register</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -14,7 +14,7 @@
                                         <i class="fa-solid fa-house"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item active">Register</li>
+                                <li class="breadcrumb-item active">Customer Register</li>
                             </ol>
                         </nav>
                     </div>
@@ -112,19 +112,19 @@
                         <div class="log-in-button">
                             <ul>
                                 <li>
-                                    <a href="https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+                                    <a href="{{ route('google.redirect') }}"
                                         class="btn google-button w-100">
                                         <img src="{{ asset('frontend_assets') }}/images/inner-page/google.png"
                                             class="blur-up lazyload" alt="">
-                                        Sign up with Google
+                                        Register with Google
                                     </a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="https://www.facebook.com/" class="btn google-button w-100">
                                         <img src="{{ asset('frontend_assets') }}/images/inner-page/facebook.png"
                                             class="blur-up lazyload" alt=""> Sign up with Facebook
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
 
