@@ -119,12 +119,18 @@
                                         Register with Google
                                     </a>
                                 </li>
-                                {{-- <li>
+                                <li>
                                     <a href="https://www.facebook.com/" class="btn google-button w-100">
-                                        <img src="{{ asset('frontend_assets') }}/images/inner-page/facebook.png"
-                                            class="blur-up lazyload" alt=""> Sign up with Facebook
+                                        <img src="{{ asset('frontend_assets') }}/images/inner-page/github.png"
+                                            class="blur-up lazyload" alt=""> Register with Github
                                     </a>
-                                </li> --}}
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com/" class="btn google-button w-100">
+                                        <img src="{{ asset('frontend_assets') }}/images/inner-page/linkedin.png"
+                                            class="blur-up lazyload" alt=""> Register with Linked In
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 

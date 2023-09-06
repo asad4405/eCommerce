@@ -99,6 +99,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/vendor/register', [VendorController::class, 'vendor_register'])->name('vendor.register');
 Route::post('/vendor/register/post', [VendorController::class, 'vendor_register_post'])->name('vendor.register.post');
 
+// forgot password Start
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+// forgot password End
 
 // Gmail Login & Register Start
 Route::get('google/redirect',[SocialiteController::class,'google_redirect'])->name('google.redirect');
