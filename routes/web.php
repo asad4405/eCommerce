@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -96,5 +97,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // vendor
 Route::get('/vendor/register', [VendorController::class, 'vendor_register'])->name('vendor.register');
 Route::post('/vendor/register/post', [VendorController::class, 'vendor_register_post'])->name('vendor.register.post');
+
+
+// SSLCOMMERZ Start
+
+Route::get('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
+
 
 require __DIR__ . '/auth.php';

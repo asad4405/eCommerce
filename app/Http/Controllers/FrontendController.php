@@ -213,11 +213,14 @@ class FrontendController extends Controller
         if(session('S_coupon_name')){
             Coupon::where('coupon_name',session('S_coupon_name'))->decrement('limit');
         }
-        return redirect('cart')->with('final-checkout-success','Your Order Submitted Successfull!');
 
         if ($request->payment_option == 'online') {
-            echo "online payment taka payment korte hobe";
+            session(['S_delivery_cost' => $request->delivery_cost]);
+            session(['S_invoice_id' => $invoice_id]);
+            return redirect('pay');
         }
+
+        return redirect('cart')->with('final-checkout-success','Your Order Submitted Successfull!');
     }
 
     public function cart_remove($id)

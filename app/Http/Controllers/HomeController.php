@@ -75,8 +75,7 @@ class HomeController extends Controller
     {
         $invoice = Invoice::find($id);
         $invoice_details = Invoice_detail::where('invoice_id',$id)->get();
-        return view('pdf.invoice',compact('invoice','invoice_details'));
-        // $pdf = Pdf::loadView('pdf.invoice',compact('invoice'));
-        // return $pdf->download('invoice_'.Carbon::now()->format('Y_m_d').'.'.'pdf');
+        $pdf = Pdf::loadView('pdf.invoice',compact('invoice','invoice_details'));
+        return $pdf->download('invoice_'.Carbon::now()->format('Y_m_d').'.'.'pdf');
     }
 }
