@@ -97,13 +97,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://www.facebook.com/" class="btn google-button w-100">
+                                    <a href="{{ route('github.redirect') }}" class="btn google-button w-100">
                                         <img src="{{ asset('frontend_assets') }}/images/inner-page/github.png" class="blur-up lazyload"
                                             alt=""> Login with Github
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://www.facebook.com/" class="btn google-button w-100">
+                                    <a href="{{ route('linkedin.redirect') }}" class="btn google-button w-100">
                                         <img src="{{ asset('frontend_assets') }}/images/inner-page/linkedin.png" class="blur-up lazyload"
                                             alt=""> Login with Linked In
                                     </a>

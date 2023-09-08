@@ -55,7 +55,8 @@
                                                                 <div>
                                                                     <div class="form-check">
                                                                         <input class="form-check-input" type="radio"
-                                                                            name="address_id" value="{{ $address->id }}" id="flexRadioDefault1"
+                                                                            name="address_id" value="{{ $address->id }}"
+                                                                            id="flexRadioDefault1"
                                                                             {{ $loop->first ? 'checked' : '' }}>
                                                                     </div>
 
@@ -97,6 +98,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     @endforeach
 
                                                     <div class="col-xxl-12 col-lg-12 col-md-12">
@@ -107,6 +109,7 @@
                                                                 Address</a>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -209,8 +212,9 @@
                                                                 <div class="custom-form-check form-check mb-0">
                                                                     <label class="form-check-label" for="cash"><input
                                                                             class="form-check-input mt-0" type="radio"
-                                                                            name="payment_option" value="cod" id="cash"
-                                                                            checked> Cash On Delivery</label>
+                                                                            name="payment_option" value="cod"
+                                                                            id="cash" checked> Cash On
+                                                                        Delivery</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -234,7 +238,8 @@
                                                                 <div class="custom-form-check form-check mb-0">
                                                                     <label class="form-check-label" for="credit"><input
                                                                             class="form-check-input mt-0" type="radio"
-                                                                            name="payment_option" value="online" id="credit">
+                                                                            name="payment_option" value="online"
+                                                                            id="credit">
                                                                         Online Delivery</label>
                                                                 </div>
                                                             </div>
@@ -348,7 +353,8 @@
                                 </ul>
                             </div>
 
-                            <button type="submit" class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Place Order</button>
+                            <button type="submit" class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Place
+                                Order</button>
                         </div>
                     </div>
                 </div>

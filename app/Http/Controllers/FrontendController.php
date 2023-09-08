@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactPostRequest;
+use App\Http\Requests\FinalCheckoutPostRequest;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Category;
@@ -178,6 +179,9 @@ class FrontendController extends Controller
 
     public function final_checkout(Request $request)
     {
+        $request->validate([
+            '*' => 'required',
+        ]);
         $invoice_id = Invoice::insertGetId([
             'customer_id' => auth()->id(),
             'vendor_id' => carts()->first()->vendor_id,

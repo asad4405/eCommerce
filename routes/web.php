@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\VendorController;
@@ -47,7 +48,13 @@ Route::post('/cart/update', [FrontendController::class, 'cart_update'])->name('c
 Route::get('/checkout',[FrontendController::class, 'checkout'])->name('checkout');
 Route::post('/final/checkout',[FrontendController::class, 'final_checkout'])->name('final.checkout');
 
+// Review
+Route::get('/give/review/{invoice_id}',[ReviewController::class, 'give_review'])->name('give.review')->middleware(['auth','verified','customer.checker']);
+Route::post('/insert/review/{invoice_details_id}',[ReviewController::class, 'insert_review'])->name('insert.review')->middleware(['auth','verified','customer.checker']);
 
+
+
+// Dashboard
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
 Route::get('/vendor/approve/{id}', [HomeController::class, 'vendor_appreve'])->name('vendor.approve')->middleware(['auth', 'verified']);
 // Address
@@ -105,10 +112,21 @@ Route::get('/forgot-password', function () {
 })->middleware('guest')->name('password.request');
 // forgot password End
 
-// Gmail Login & Register Start
+// Socialite Login & Register Start
+
+// Gmail
 Route::get('google/redirect',[SocialiteController::class,'google_redirect'])->name('google.redirect');
 Route::get('google/callback',[SocialiteController::class,'google_callback'])->name('google.callback');
-// Gmail Login & Register End
+
+// Github
+Route::get('github/redirect',[SocialiteController::class,'github_redirect'])->name('github.redirect');
+Route::get('github/callback',[SocialiteController::class,'github_callback'])->name('github.callback');
+
+// LinkedIn
+Route::get('linkedin/redirect',[SocialiteController::class,'linkedin_redirect'])->name('linkedin.redirect');
+Route::get('linkedin/callback',[SocialiteController::class,'linkedin_callback'])->name('linkedin.callback');
+
+// Socialite Login & Register  End
 
 // SSLCOMMERZ Start
 

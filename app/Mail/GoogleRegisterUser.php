@@ -33,7 +33,7 @@ class GoogleRegisterUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Congratulations Account Create Successfull!!',
+            subject: 'Account Create Notification',
         );
     }
 

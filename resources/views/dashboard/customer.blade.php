@@ -719,21 +719,29 @@
                                                 </thead>
                                                 <tbody>
                                                     @forelse ($invoices as $invoice)
-                                                    <tr>
-                                                        <td>#{{ $invoice->id }}</td>
-                                                        <td>{{ $invoice->total_amount }}</td>
-                                                        <td>{{ $invoice->delivery_cost }}</td>
-                                                        <td>{{ $invoice->delivery_option }}</td>
-                                                        <td>{{ $invoice->delivery_status }}</td>
-                                                        <td>{{ $invoice->created_at->diffForHumans() }}</td>
-                                                        <td>
-                                                            <a href="{{ route('download.invoice',$invoice->id) }}">Download <i class="fa fa-download"></i></a>
-                                                        </td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td>#{{ $invoice->id }}</td>
+                                                            <td>{{ $invoice->total_amount }}</td>
+                                                            <td>{{ $invoice->delivery_cost }}</td>
+                                                            <td>{{ $invoice->delivery_option }}</td>
+                                                            <td>{{ $invoice->delivery_status }}</td>
+                                                            <td>{{ $invoice->created_at->diffForHumans() }}</td>
+                                                            <td>
+                                                                <a href="{{ route('download.invoice', $invoice->id) }}">Download
+                                                                    <i class="fa fa-download"></i></a>
+                                                                @if ($invoice->delivery_status == 'paid')
+                                                                    ||
+                                                                    <a href="{{ route('give.review', $invoice->id) }}">
+                                                                        Review
+                                                                        <i class="fa fa-star"></i>
+                                                                    </a>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
                                                     @empty
-                                                    <tr class="text-danger">
-                                                        <td colspan="7">Invoice Not Yet !!</td>
-                                                    </tr>
+                                                        <tr class="text-danger">
+                                                            <td colspan="7">Invoice Not Yet !!</td>
+                                                        </tr>
                                                     @endforelse
                                                 </tbody>
                                             </table>

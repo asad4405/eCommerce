@@ -32,7 +32,7 @@ class NotifyAdmin extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Notify Admin',
+            subject: 'New Admin Notification',
         );
     }
 
