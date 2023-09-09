@@ -161,6 +161,91 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="col-sm-12">
+                            <!-- Details Start -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="title-header option-title">
+                                        <h5>Add New Address</h5>
+                                    </div>
+                                    @if (session('address-success'))
+                                        <div class="alert alert-success">{{ session('address-success') }}</div>
+                                    @endif
+                                    <form class="theme-form theme-form-2 mega-form" action="{{ route('add.address') }}"
+                                        method="POST">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-2 mb-0">Tag</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-select" name="tag" id="">
+                                                        <option value="Home">Home</option>
+                                                        <option value="Office">Office</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-2 mb-0">Name</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="text" id="name"
+                                                        placeholder="Enter Your Name" name="name">
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-2 mb-0">City</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="text" id="city"
+                                                        placeholder="Enter Your City" name="city">
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-2 mb-0">Country</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="text" id="country"
+                                                        placeholder="Enter Your Country" name="country">
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-2 mb-0">Address</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" name="address" id="" rows="4"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-2 mb-0">Post Code</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="text" id="post_code"
+                                                        placeholder="Enter Your Post Code" name="post_code">
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-2 mb-0">Phone Number</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="text" id="phone_number"
+                                                        placeholder="Enter Your Phone Number" name="phone_number">
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-2 mb-0"></label>
+                                                <div class="col-sm-10">
+                                                    <button type="submit" class="btn btn-animation">Add
+                                                        New Address</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Details End -->
 
                         <!-- Address Start -->
@@ -172,87 +257,36 @@
 
                                 <div class="save-details-box">
                                     <div class="row g-4">
+                                        @forelse ($addresses as $address)
                                         <div class="col-xl-4 col-md-6">
                                             <div class="save-details">
                                                 <div class="save-name">
-                                                    <h5>Mark Jugal</h5>
+                                                    <h5>{{ $address->name }}</h5>
                                                 </div>
 
                                                 <div class="save-position">
-                                                    <h6>Home</h6>
+                                                    <h6>{{ $address->tag }}</h6>
                                                 </div>
 
                                                 <div class="save-address">
-                                                    <p>549 Sulphur Springs Road</p>
-                                                    <p>Downers Grove, IL</p>
-                                                    <p>60515</p>
+                                                    <p>Address: {{ $address->address }}</p>
+                                                    <p>City: {{ $address->city }}</p>
+                                                    <p>Post Code: {{ $address->post_code }}</p>
                                                 </div>
 
                                                 <div class="mobile">
-                                                    <p class="mobile">Mobile No. +1-123-456-7890</p>
+                                                    <p class="mobile">Mobile No. {{ $address->phone_number }}</p>
                                                 </div>
 
-                                                <div class="button">
+                                                {{-- <div class="button">
                                                     <a href="javascript:void(0)" class="btn btn-sm">Edit</a>
                                                     <a href="javascript:void(0)" class="btn btn-sm">Remove</a>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
+                                        @empty
 
-                                        <div class="col-xl-4 col-md-6">
-                                            <div class="save-details">
-                                                <div class="save-name">
-                                                    <h5>Method Zaki</h5>
-                                                </div>
-
-                                                <div class="save-position">
-                                                    <h6>Office</h6>
-                                                </div>
-
-                                                <div class="save-address">
-                                                    <p>549 Sulphur Springs Road</p>
-                                                    <p>Downers Grove, IL</p>
-                                                    <p>60515</p>
-                                                </div>
-
-                                                <div class="mobile">
-                                                    <p class="mobile">Mobile No. +1-123-456-7890</p>
-                                                </div>
-
-                                                <div class="button">
-                                                    <a href="javascript:void(0)" class="btn btn-sm">Edit</a>
-                                                    <a href="javascript:void(0)" class="btn btn-sm">
-                                                        Remove</a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-4 col-md-6">
-                                            <div class="save-details">
-                                                <div class="save-name">
-                                                    <h5>Mark Jugal</h5>
-                                                </div>
-
-                                                <div class="save-position">
-                                                    <h6>Home</h6>
-                                                </div>
-
-                                                <div class="save-address">
-                                                    <p>549 Sulphur Springs Road</p>
-                                                    <p>Downers Grove, IL</p>
-                                                    <p>60515</p>
-                                                </div>
-
-                                                <div class="mobile">
-                                                    <p class="mobile">Mobile No. +1-123-456-7890</p>
-                                                </div>
-
-                                                <div class="button">
-                                                    <a href="javascript:void(0)" class="btn btn-sm">Edit</a>
-                                                    <a href="javascript:void(0)" class="btn btn-sm">Remove</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforelse
                                     </div>
                                 </div>
                             </div>

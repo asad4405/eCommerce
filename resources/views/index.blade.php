@@ -350,13 +350,13 @@
                         <div class="row">
                             @foreach ($products as $product)
                                 <div class="col-3 px-0">
-                                    <div class="product-box">
+                                    <div class="product-box" style="border-right: 0px">
                                         <div class="product-image">
                                             @php
-                                                $product_photos = App\Models\Product_photo::where('product_id',$product->id)->get();
+                                                $product_photos = App\Models\Product_photo::where('product_id', $product->id)->get();
                                             @endphp
 
-                                            <a href="{{ route('product.details',$product->id) }}">
+                                            <a href="{{ route('product.details', $product->id) }}">
                                                 <img src="{{ asset('uploads/product_photos') }}/{{ $product_photos->random()->product_photos }}"
                                                     class="img-fluid blur-up lazyload" alt="">
                                             </a>
@@ -383,39 +383,44 @@
                                         </div>
 
                                         <div class="product-detail">
-                                            <a href="{{ route('product.details',$product->id) }}">
+                                            <a href="{{ route('product.details', $product->id) }}">
                                                 <h6 class="name">{{ $product->product_name }}</h6>
                                             </a>
 
                                             <h5 class="sold text-content">
-                                                <span class="theme-color price">$26.69</span>
-                                                <del>28.56</del>
+                                                <span class="theme-color price">{{ lowest_discount_price($product->id) }}
+                                                    taka</span>
+                                                <del class="text-danger">{{ lowest_regular_price($product->id) }}
+                                                    taka</del>
                                             </h5>
 
                                             <div class="product-rating mt-sm-2 mt-1">
-                                                <ul class="rating">
-                                                    <li>
-                                                        <i data-feather="star" class="fill"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i data-feather="star" class="fill"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i data-feather="star" class="fill"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i data-feather="star" class="fill"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i data-feather="star"></i>
-                                                    </li>
-                                                </ul>
+                                                @if (review_checker($product->id))
+                                                    <ul class="rating">
+                                                        @for ($i = 1; $i <= round(reviews($product->id)->average('rating')); $i++)
+                                                            <li>
+                                                                <i data-feather="star" class="fill"></i>
+                                                            </li>
+                                                        @endfor
+                                                        @for ($i = 1; $i <= 5 - round(reviews($product->id)->average('rating')); $i++)
+                                                            <li>
+                                                                <i data-feather="star"></i>
+                                                            </li>
+                                                        @endfor
+                                                    </ul>
+                                                    <span>({{ reviews($product->id)->average('rating') }})</span>
+                                                @endif
 
-                                                <h6 class="theme-color">In Stock</h6>
+                                                @if (stock_checker($product->id))
+                                                    <h6 class="text-success">In Stock</h6>
+                                                @else
+                                                    <h6 class="text-danger">Stock Out</h6>
+                                                @endif
                                             </div>
 
                                             <div class="add-to-cart-box">
-                                                <a href="{{ route('product.details',$product->id) }}" class="btn btn-add-cart">
+                                                <a href="{{ route('product.details', $product->id) }}"
+                                                    class="btn btn-add-cart">
                                                     Add
                                                 </a>
                                                 <div class="cart_qty qty-box">

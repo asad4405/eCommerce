@@ -47,7 +47,7 @@ class HomeController extends Controller
             'phone_number' => $request->phone_number,
             'created_at' => Carbon::now(),
         ]);
-        return back();
+        return back()->with('address-success','New Address Added Successfull!!');
     }
 
     public function edit_address(Request $request, $id)

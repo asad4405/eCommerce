@@ -404,7 +404,7 @@
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="profile-setting.html">Profile Setting</a>
+                                            <a href="{{ route('profile.edit') }}">Profile Setting</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -482,6 +482,10 @@
     <script src="{{ asset('backend_assets') }}/js/scrollbar/simplebar.js"></script>
     <script src="{{ asset('backend_assets') }}/js/scrollbar/custom.js"></script>
 
+    <!-- bootstrap tag-input js -->
+    <script src="{{ asset('backend_assets') }}/js/bootstrap-tagsinput.min.js"></script>
+    <script src="{{ asset('backend_assets') }}/js/sidebar-menu.js"></script>
+
     <!-- Sidebar jquery -->
     <script src="{{ asset('backend_assets') }}/js/config.js"></script>
 
@@ -517,6 +521,25 @@
     <!-- Theme js -->
     <script src="{{ asset('backend_assets') }}/js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+<!--Dropzon js -->
+<script src="{{ asset('backend_assets') }}/js/dropzone/dropzone.js"></script>
+<script src="{{ asset('backend_assets') }}/js/dropzone/dropzone-script.js"></script>
+
+<!-- ck editor js -->
+<script src="{{ asset('backend_assets') }}/js/ckeditor.js"></script>
+<script src="{{ asset('backend_assets') }}/js/ckeditor-custom.js"></script>
+
+<!-- select2 js -->
+<script src="{{ asset('backend_assets') }}/js/select2.min.js"></script>
+<script src="{{ asset('backend_assets') }}/js/select2-custom.js"></script>
+
+
+
 
     {{-- selectize --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"

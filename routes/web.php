@@ -58,9 +58,9 @@ Route::post('/insert/review/{invoice_details_id}',[ReviewController::class, 'ins
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
 Route::get('/vendor/approve/{id}', [HomeController::class, 'vendor_appreve'])->name('vendor.approve')->middleware(['auth', 'verified']);
 // Address
-Route::post('/add/address', [HomeController::class, 'add_address'])->name('add.address')->middleware(['auth', 'verified', 'customer.checker']);
-Route::post('/edit/address/{id}', [HomeController::class, 'edit_address'])->name('edit.address')->middleware(['auth', 'verified', 'customer.checker']);
-Route::post('/remove/address/{id}', [HomeController::class, 'remove_address'])->name('remove.address')->middleware(['auth', 'verified', 'customer.checker']);
+Route::post('/add/address', [HomeController::class, 'add_address'])->name('add.address')->middleware(['auth', 'verified']);
+Route::post('/edit/address/{id}', [HomeController::class, 'edit_address'])->name('edit.address')->middleware(['auth', 'verified']);
+Route::post('/remove/address/{id}', [HomeController::class, 'remove_address'])->name('remove.address')->middleware(['auth', 'verified']);
 // invoice
 Route::get('/download/invoice/{id}', [HomeController::class, 'download_invoice'])->name('download.invoice')->middleware(['auth', 'verified', 'customer.checker']);
 

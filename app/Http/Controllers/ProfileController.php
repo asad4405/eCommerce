@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfilePhotoRequest;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,8 +21,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $addresses = Address::where('customer_id',auth()->id())->get();
         return view('profile.edit', [
             'user' => $request->user(),
+            'addresses' => $addresses,
         ]);
     }
 
