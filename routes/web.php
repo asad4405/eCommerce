@@ -51,6 +51,8 @@ Route::post('/final/checkout',[FrontendController::class, 'final_checkout'])->na
 // Review
 Route::get('/give/review/{invoice_id}',[ReviewController::class, 'give_review'])->name('give.review')->middleware(['auth','verified','customer.checker']);
 Route::post('/insert/review/{invoice_details_id}',[ReviewController::class, 'insert_review'])->name('insert.review')->middleware(['auth','verified','customer.checker']);
+// Review show admin or vendor dashboard
+Route::get('/index/review/',[ReviewController::class, 'index_review'])->name('index.review')->middleware(['auth','verified']);
 
 
 

@@ -28,8 +28,8 @@
                                         <div class="mb-4 row align-items-center">
                                             <label class="col-sm-3 col-form-label form-label-title">Product</label>
                                             <div class="col-sm-9">
-                                                <select class="js-example-basic-single w-100" name="product_id">
-                                                    <option value="">- Select One Product -</option>
+                                                <select class="js-example-basic-single w-100 form-control" name="product_id">
+                                                    <option>- Select One Product -</option>
                                                     @foreach ($products as $product)
                                                         <option value="{{ $product->id }}">{{ $product->product_name }}
                                                         </option>
@@ -45,7 +45,7 @@
                                             <label class="col-sm-3 col-form-label form-label-title">Color</label>
                                             <div class="col-sm-9">
                                                 <select class="js-example-basic-single w-100" name="color_id">
-                                                    <option value="">- Select One Color -</option>
+                                                    <option>- Select & One Color -</option>
                                                     @foreach ($colors as $color)
                                                         <option value="{{ $color->id }}">{{ $color->color_name }}
                                                         </option>
@@ -61,7 +61,7 @@
                                             <label class="col-sm-3 col-form-label form-label-title">Size</label>
                                             <div class="col-sm-9">
                                                 <select class="js-example-basic-single w-100" name="size_id">
-                                                    <option value="">- Select One Size -</option>
+                                                    <option>- Select & One Size -</option>
                                                     @foreach ($sizes as $size)
                                                         <option value="{{ $size->id }}">{{ $size->size_name }}
                                                         </option>

@@ -388,10 +388,17 @@
                                             </a>
 
                                             <h5 class="sold text-content">
-                                                <span class="theme-color price">{{ lowest_discount_price($product->id) }}
-                                                    taka</span>
-                                                <del class="text-danger">{{ lowest_regular_price($product->id) }}
-                                                    taka</del>
+                                                @if (lowest_discount_price($product->id) == 0)
+                                                    <span class="theme-color price">Coming Soon !!</span>
+                                                @else
+                                                    <span
+                                                        class="theme-color price">{{ lowest_discount_price($product->id) }}
+                                                        taka</span>
+                                                    @if (lowest_discount_price($product->id) != lowest_regular_price($product->id))
+                                                        <del class="text-danger">{{ lowest_regular_price($product->id) }}
+                                                            taka</del>
+                                                    @endif
+                                                @endif
                                             </h5>
 
                                             <div class="product-rating mt-sm-2 mt-1">
@@ -414,7 +421,11 @@
                                                 @if (stock_checker($product->id))
                                                     <h6 class="text-success">In Stock</h6>
                                                 @else
-                                                    <h6 class="text-danger">Stock Out</h6>
+                                                    @if (lowest_discount_price($product->id) == 0)
+                                                        <h6 class="text-danger">Waiting!</h6>
+                                                    @else
+                                                        <h6 class="text-danger">Stock Out</h6>
+                                                    @endif
                                                 @endif
                                             </div>
 

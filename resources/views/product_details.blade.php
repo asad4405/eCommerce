@@ -68,35 +68,45 @@
 
                         <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="right-box-contain">
-                                <h6 class="offer-top">30% Off</h6>
+                                @if (lowest_discount_price($product->id) != 0)
+                                    <h6 class="offer-top">30% Off</h6>
+                                @endif
                                 <h2 class="name">{{ $product->product_name }}</h2>
                                 <div class="price-rating">
-                                    <h3 class="" id="discount_price">
-                                        {{ lowest_discount_price($product->id) }} taka
-                                    </h3>
-                                    <del class="text-content text-danger"
-                                        id="regular_price">{{ lowest_regular_price($product->id) }} taka</del>
-                                    <span class="offer theme-color">(8% off)</span>
-                                    <div class="product-rating custom-rate">
-                                        <ul class="rating">
-                                            @for ($i = 1; $i <= round(reviews($product->id)->average('rating')); $i++)
-                                                <li>
-                                                    <i data-feather="star" class="fill"></i>
-                                                </li>
-                                            @endfor
-                                            @for ($i = 1; $i <= 5 - round(reviews($product->id)->average('rating')); $i++)
-                                                <li>
-                                                    <i data-feather="star"></i>
-                                                </li>
-                                            @endfor
-                                        </ul>
-                                        @if (review_checker($product->id))
-                                            <span class="review">({{ reviews($product->id)->count() }} Customer
-                                                Review)</span>
-                                        @else
-                                            <span>(No Ratings)</span>
+                                    @if (lowest_discount_price($product->id) == 0)
+                                        <span class="theme-color price">Coming Soon !!</span>
+                                    @else
+                                        <h3 class="theme-color price" id="discount_price">
+                                            {{ lowest_discount_price($product->id) }} taka
+                                        </h3>
+                                        @if (lowest_discount_price($product->id) != lowest_regular_price($product->id))
+                                            <del class="text-content text-danger"
+                                                id="regular_price">{{ lowest_regular_price($product->id) }} taka</del>
                                         @endif
-                                    </div>
+                                    @endif
+                                    {{-- <span class="offer theme-color">(8% off)</span> --}}
+                                    @if (lowest_discount_price($product->id) != 0)
+                                        <div class="product-rating custom-rate">
+                                            <ul class="rating">
+                                                @for ($i = 1; $i <= round(reviews($product->id)->average('rating')); $i++)
+                                                    <li>
+                                                        <i data-feather="star" class="fill"></i>
+                                                    </li>
+                                                @endfor
+                                                @for ($i = 1; $i <= 5 - round(reviews($product->id)->average('rating')); $i++)
+                                                    <li>
+                                                        <i data-feather="star"></i>
+                                                    </li>
+                                                @endfor
+                                            </ul>
+                                            @if (review_checker($product->id))
+                                                <span class="review">({{ reviews($product->id)->count() }} Customer
+                                                    Review)</span>
+                                            @else
+                                                <span>(No Ratings)</span>
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="procuct-contain">
@@ -168,6 +178,9 @@
                                             <li>SKU : <a href="javascript:void(0)">SDFVW65467</a></li>
                                             <li>MFG : <a href="javascript:void(0)">Jun 4, 2022</a></li> --}}
                                             <li>Stock : <a href="" id="product_stock">Select Color & Size</a></li>
+                                            <li>Category : <a
+                                                    href="">{{ $product->relationToCategory->category_name }}</a>
+                                            </li>
                                             {{-- <li>Tags : <a href="javascript:void(0)">Cake,</a> <a
                                                     href="javascript:void(0)">Backery</a></li> --}}
                                         </ul>
@@ -686,26 +699,27 @@
                                                 <img src="{{ asset('uploads/product_photos') }}/{{ App\Models\product_photo::where('product_id', $product->id)->get()->random()->product_photos }}"
                                                     class="img-fluid blur-up lazyload" alt="Not found">
 
-                                            <ul class="product-option">
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#view">
-                                                        <i data-feather="eye"></i>
-                                                    </a>
-                                                </li>
+                                                <ul class="product-option">
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                            data-bs-target="#view">
+                                                            <i data-feather="eye"></i>
+                                                        </a>
+                                                    </li>
 
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                    <a href="compare.html">
-                                                        <i data-feather="refresh-cw"></i>
-                                                    </a>
-                                                </li>
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
+                                                        <a href="compare.html">
+                                                            <i data-feather="refresh-cw"></i>
+                                                        </a>
+                                                    </li>
 
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                                    <a href="wishlist.html" class="notifi-wishlist">
-                                                        <i data-feather="heart"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Wishlist">
+                                                        <a href="wishlist.html" class="notifi-wishlist">
+                                                            <i data-feather="heart"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                         </div>
                                     </div>
 
@@ -716,10 +730,17 @@
                                             </a>
 
                                             <h5 class="sold text-content">
-                                                <span class="theme-color price">{{ lowest_discount_price($product->id) }}
-                                                    taka</span>
-                                                <del class="text-danger">{{ lowest_regular_price($product->id) }}
-                                                    taka</del>
+                                                @if (lowest_discount_price($product->id) == 0)
+                                                    <span class="theme-color price">Coming Soon !!</span>
+                                                @else
+                                                    <span
+                                                        class="theme-color price">{{ lowest_discount_price($product->id) }}
+                                                        taka</span>
+                                                    @if (lowest_discount_price($product->id) != lowest_regular_price($product->id))
+                                                        <del class="text-danger">{{ lowest_regular_price($product->id) }}
+                                                            taka</del>
+                                                    @endif
+                                                @endif
                                             </h5>
 
                                             <div class="product-rating mt-sm-2 mt-1">
@@ -738,11 +759,16 @@
                                                     </ul>
                                                     <span>({{ reviews($product->id)->average('rating') }})</span>
                                                 @endif
-
                                                 @if (stock_checker($product->id))
+                                                    <br>&nbsp;
                                                     <h6 class="text-success">In Stock</h6>
                                                 @else
-                                                    <h6 class="text-danger">Stock Out</h6>
+                                                    @if (lowest_discount_price($product->id) == 0)
+                                                        <br><br>
+                                                        <h6 class="text-danger">Waiting!</h6>
+                                                    @else
+                                                        <h6 class="text-danger">Stock Out</h6>
+                                                    @endif
                                                 @endif
                                             </div>
                                             <div class="add-to-cart-box bg-white">

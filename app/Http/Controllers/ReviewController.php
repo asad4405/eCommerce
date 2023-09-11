@@ -6,6 +6,7 @@ use App\Http\Requests\ReviewPostRequest;
 use App\Models\Inventory;
 use App\Models\Invoice_detail;
 use App\Models\Review;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -27,5 +28,14 @@ class ReviewController extends Controller
             'created_at' => Carbon::now(),
         ]);
         return back()->with('review-success','Thanks your Feedback !!');
+    }
+
+    public function index_review ()
+    {
+        $reviews = Review::all();
+        $names = User::find('user_id');
+        return view('backend.product_review.product_review',[
+            'reviews' => $reviews,
+        ]);
     }
 }

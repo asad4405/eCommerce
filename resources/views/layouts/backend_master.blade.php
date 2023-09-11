@@ -34,15 +34,23 @@
     <!-- remixicon css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/remixicon.css">
 
+    <!-- Data Table css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/datatables.css">
+
     <!-- Feather icon css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/vendors/feather-icon.css">
 
     <!-- Plugins css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/vendors/scrollbar.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/vendors/animate.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/vendors/chartist.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/vendors/date-picker.css">
 
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/vendors/bootstrap.css">
+
+    <!-- Bootstrap-tag input css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/vendors/bootstrap-tagsinput.css">
 
     <!-- vector map css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/vector-map.css">
@@ -53,7 +61,13 @@
     <!-- App css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/style.css">
 
-    {{-- Selectize --}}
+    <!--Dropzon css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/vendors/dropzone.css">
+
+    <!-- Select2 css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets') }}/css/select2.min.css">
+
+    <!-- Selectize -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
         integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
@@ -392,7 +406,7 @@
                                 </li>
 
                                 <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="product-review.html">
+                                    <a class="sidebar-link sidebar-title link-nav" href="{{ route('index.review') }}">
                                         <i class="ri-star-line"></i>
                                         <span>Product Review</span>
                                     </a>
@@ -493,7 +507,7 @@
     <script src="{{ asset('backend_assets') }}/js/tooltip-init.js"></script>
 
     <!-- Plugins JS -->
-    <script src="{{ asset('backend_assets') }}/js/sidebar-menu.js"></script>
+    {{-- <script src="{{ asset('backend_assets') }}/js/sidebar-menu.js"></script> --}}
     <script src="{{ asset('backend_assets') }}/js/notify/bootstrap-notify.min.js"></script>
     <script src="{{ asset('backend_assets') }}/js/notify/index.js"></script>
 
@@ -522,26 +536,23 @@
     <script src="{{ asset('backend_assets') }}/js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!--Dropzon js -->
+    <script src="{{ asset('backend_assets') }}/js/dropzone/dropzone.js"></script>
+    <script src="{{ asset('backend_assets') }}/js/dropzone/dropzone-script.js"></script>
 
+    <!-- ck editor js -->
+    <script src="{{ asset('backend_assets') }}/js/ckeditor.js"></script>
+    <script src="{{ asset('backend_assets') }}/js/ckeditor-custom.js"></script>
 
+    <!-- select2 js -->
+    <script src="{{ asset('backend_assets') }}/js/select2.min.js"></script>
+    <script src="{{ asset('backend_assets') }}/js/select2-custom.js"></script>
 
+    <!-- Data table js -->
+    <script src="{{ asset('backend_assets') }}/js/jquery.dataTables.js"></script>
+    <script src="{{ asset('backend_assets') }}/js/custom-data-table.js"></script>
 
-<!--Dropzon js -->
-<script src="{{ asset('backend_assets') }}/js/dropzone/dropzone.js"></script>
-<script src="{{ asset('backend_assets') }}/js/dropzone/dropzone-script.js"></script>
-
-<!-- ck editor js -->
-<script src="{{ asset('backend_assets') }}/js/ckeditor.js"></script>
-<script src="{{ asset('backend_assets') }}/js/ckeditor-custom.js"></script>
-
-<!-- select2 js -->
-<script src="{{ asset('backend_assets') }}/js/select2.min.js"></script>
-<script src="{{ asset('backend_assets') }}/js/select2-custom.js"></script>
-
-
-
-
-    {{-- selectize --}}
+    <!-- selectize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
         integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

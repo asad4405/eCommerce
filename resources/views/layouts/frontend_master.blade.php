@@ -676,10 +676,11 @@
                         </div>
 
                         <div class="col-lg-6">
-                            @php
+                            {{-- @php
                                 // $products = App\Models\Product::where('id',$product->id)->get();
-                                // $products = App\Models\Product::all();
-                            @endphp
+                                $product = App\Models\Product::all();
+                            @endphp --}}
+                            {{-- {{ reviews($product) }} --}}
                             {{-- {{ $products = App\Models\Product::find('user_id',auth()->id())->get() }} --}}
                             {{-- @foreach ($products as $product) --}}
                             <div class="right-sidebar-modal">
