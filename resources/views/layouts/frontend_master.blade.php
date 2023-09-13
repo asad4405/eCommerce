@@ -946,6 +946,9 @@
     <script src="{{ asset('frontend_assets') }}/js/bootstrap/bootstrap-notify.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/bootstrap/popper.min.js"></script>
 
+    <!-- otp js-->
+    <script src="{{ asset('frontend_assets') }}/js/otp.js"></script>
+
     <!-- feather icon js-->
     <script src="{{ asset('frontend_assets') }}/js/feather/feather.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/feather/feather-icon.js"></script>

@@ -48,12 +48,21 @@ Route::post('/cart/update', [FrontendController::class, 'cart_update'])->name('c
 Route::get('/checkout',[FrontendController::class, 'checkout'])->name('checkout');
 Route::post('/final/checkout',[FrontendController::class, 'final_checkout'])->name('final.checkout');
 
+// Register with phone number start
+Route::post('/send/otp',[FrontendController::class, 'send_otp'])->name('send.otp');
+Route::get('/submit/otp',[FrontendController::class, 'submit_otp'])->name('submit.otp');
+Route::post('/validate/otp',[FrontendController::class, 'validate_otp'])->name('validate.otp');
+Route::get('/resend/otp',[FrontendController::class, 'resend_otp'])->name('resend.otp');
+Route::post('/login/otp',[FrontendController::class, 'login_otp'])->name('login.otp');
+Route::get('/submit/login/otp',[FrontendController::class, 'submit_login_otp'])->name('submit.login.otp');
+Route::post('/login/validate/otp',[FrontendController::class, 'login_validate_otp'])->name('login.validate.otp');
+// Register with phone number end
+
 // Review
 Route::get('/give/review/{invoice_id}',[ReviewController::class, 'give_review'])->name('give.review')->middleware(['auth','verified','customer.checker']);
 Route::post('/insert/review/{invoice_details_id}',[ReviewController::class, 'insert_review'])->name('insert.review')->middleware(['auth','verified','customer.checker']);
 // Review show admin or vendor dashboard
 Route::get('/index/review/',[ReviewController::class, 'index_review'])->name('index.review')->middleware(['auth','verified']);
-
 
 
 // Dashboard
@@ -119,6 +128,10 @@ Route::get('/forgot-password', function () {
 // Gmail
 Route::get('google/redirect',[SocialiteController::class,'google_redirect'])->name('google.redirect');
 Route::get('google/callback',[SocialiteController::class,'google_callback'])->name('google.callback');
+
+// Facebook
+Route::get('facebook/redirect',[SocialiteController::class,'facebook_redirect'])->name('facebook.redirect');
+Route::get('facebook/callback',[SocialiteController::class,'facebook_callback'])->name('facebook.callback');
 
 // Github
 Route::get('github/redirect',[SocialiteController::class,'github_redirect'])->name('github.redirect');

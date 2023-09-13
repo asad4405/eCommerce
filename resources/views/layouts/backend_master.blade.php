@@ -312,11 +312,11 @@
                                         </a>
                                         <ul class="sidebar-submenu">
                                             <li>
-                                                <a href="{{ route('product.create') }}">Add New Products</a>
+                                                <a href="{{ route('product.create') }}">Add New Product</a>
                                             </li>
 
                                             <li>
-                                                <a href="{{ route('product.index') }}">Products</a>
+                                                <a href="{{ route('product.index') }}">All Products</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -406,11 +406,13 @@
                                 </li>
 
                                 <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="{{ route('index.review') }}">
+                                    <a class="sidebar-link sidebar-title link-nav"
+                                        href="{{ route('index.review') }}">
                                         <i class="ri-star-line"></i>
                                         <span>Product Review</span>
                                     </a>
                                 </li>
+
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-settings-line"></i>

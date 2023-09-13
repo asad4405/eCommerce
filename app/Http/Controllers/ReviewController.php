@@ -32,8 +32,15 @@ class ReviewController extends Controller
 
     public function index_review ()
     {
-        $reviews = Review::all();
-        $names = User::find('user_id');
+        $reviews = Review::latest()->get();
+        return view('backend.product_review.product_review',[
+            'reviews' => $reviews,
+        ]);
+    }
+
+    public function index_review_admin ()
+    {
+        $reviews = Review::latest()->get();
         return view('backend.product_review.product_review',[
             'reviews' => $reviews,
         ]);

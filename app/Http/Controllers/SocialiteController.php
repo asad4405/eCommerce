@@ -50,6 +50,43 @@ class SocialiteController extends Controller
     }
 
     // google end //
+    
+    // facebook start //
+
+    public function facebook_redirect ()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+    public function facebook_callback ()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        if(User::where('email',$user->getEmail())->exists()){
+            Auth::login(User::where('email',$user->getEmail())->first());
+
+            return redirect('dashboard');
+        }else{
+            $random_password = Str::upper(Str::random(8));
+            User::create([
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'email_verified_at' => Carbon::now(),
+                'password' => Hash::make($random_password),
+                'created_at' => Carbon::now(),
+            ]);
+            if (Auth::attempt(['email' => $user->getEmail(), 'password' => $random_password])) {
+
+                // sending mail google register -> email & password
+                Mail::to($user->getEmail())->send(new GoogleRegisterUser($user->getName(),$user->getEmail(),$random_password));
+
+                return redirect('dashboard');
+            }else{
+                return "Something Wrong!!";
+            }
+        }
+    }
+
+    // facebook end //
 
     // github start //
 
