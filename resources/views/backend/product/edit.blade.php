@@ -93,7 +93,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="mb-4 row align-items-center">
+                                        {{-- <div class="mb-4 row align-items-center">
                                             <label class="form-label-title col-sm-3 mb-0">Product
                                                 Photos</label>
                                             <div class="col-sm-9">
@@ -102,7 +102,7 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="mb-4 row align-items-center">
                                             <label class="form-label-title col-sm-3 mb-0"></label>

@@ -78,4 +78,10 @@ class HomeController extends Controller
         $pdf = Pdf::loadView('pdf.invoice',compact('invoice','invoice_details'));
         return $pdf->download('invoice_'.Carbon::now()->format('Y_m_d').'.'.'pdf');
     }
+
+    public function all_users()
+    {
+        $users = User::all();
+        return view('backend.users.all_users',compact('users'));
+    }
 }

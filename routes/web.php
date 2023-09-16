@@ -111,6 +111,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Delivery Option
     Route::resource('delivery',DeliveryController::class)->middleware('admin.checker');
+
+    // all user
+    Route::get('/all/users',[HomeController::class,'all_users'])->name('all.users');
 });
 
 // vendor

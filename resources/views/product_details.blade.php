@@ -690,13 +690,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="slider-6_1 product-wrapper">
-                        @forelse ($related_products as $product)
+                        @forelse ($related_products as $related_product)
                             <div>
                                 <div class="product-box-3 wow fadeInUp">
                                     <div class="product-header">
                                         <div class="product-image">
-                                            <a href="{{ route('product.details', $product->id) }}">
-                                                <img src="{{ asset('uploads/product_photos') }}/{{ App\Models\product_photo::where('product_id', $product->id)->get()->random()->product_photos }}"
+                                            <a href="{{ route('product.details', $related_product->id) }}">
+                                                <img src="{{ asset('uploads/product_photos') }}/{{ App\Models\product_photo::where('product_id', $related_product->id)->get()->random()->product_photos }}"
                                                     class="img-fluid blur-up lazyload" alt="Not found">
 
                                                 <ul class="product-option">
@@ -725,45 +725,45 @@
 
                                     <div class="product-footer">
                                         <div class="product-detail">
-                                            <a href="{{ route('product.details', $product->id) }}">
-                                                <h6 class="name">{{ $product->product_name }}</h6>
+                                            <a href="{{ route('product.details', $related_product->id) }}">
+                                                <h6 class="name">{{ $related_product->product_name }}</h6>
                                             </a>
 
                                             <h5 class="sold text-content">
-                                                @if (lowest_discount_price($product->id) == 0)
+                                                @if (lowest_discount_price($related_product->id) == 0)
                                                     <span class="theme-color price">Coming Soon !!</span>
                                                 @else
                                                     <span
-                                                        class="theme-color price">{{ lowest_discount_price($product->id) }}
+                                                        class="theme-color price">{{ lowest_discount_price($related_product->id) }}
                                                         taka</span>
-                                                    @if (lowest_discount_price($product->id) != lowest_regular_price($product->id))
-                                                        <del class="text-danger">{{ lowest_regular_price($product->id) }}
+                                                    @if (lowest_discount_price($related_product->id) != lowest_regular_price($related_product->id))
+                                                        <del class="text-danger">{{ lowest_regular_price($related_product->id) }}
                                                             taka</del>
                                                     @endif
                                                 @endif
                                             </h5>
 
                                             <div class="product-rating mt-sm-2 mt-1">
-                                                @if (review_checker($product->id))
+                                                @if (review_checker($related_product->id))
                                                     <ul class="rating">
-                                                        @for ($i = 1; $i <= round(reviews($product->id)->average('rating')); $i++)
+                                                        @for ($i = 1; $i <= round(reviews($related_product->id)->average('rating')); $i++)
                                                             <li>
                                                                 <i data-feather="star" class="fill"></i>
                                                             </li>
                                                         @endfor
-                                                        @for ($i = 1; $i <= 5 - round(reviews($product->id)->average('rating')); $i++)
+                                                        @for ($i = 1; $i <= 5 - round(reviews($related_product->id)->average('rating')); $i++)
                                                             <li>
                                                                 <i data-feather="star"></i>
                                                             </li>
                                                         @endfor
                                                     </ul>
-                                                    <span>({{ reviews($product->id)->average('rating') }})</span>
+                                                    <span>({{ reviews($related_product->id)->average('rating') }})</span>
                                                 @endif
-                                                @if (stock_checker($product->id))
+                                                @if (stock_checker($related_product->id))
                                                     <br>&nbsp;
                                                     <h6 class="text-success">In Stock</h6>
                                                 @else
-                                                    @if (lowest_discount_price($product->id) == 0)
+                                                    @if (lowest_discount_price($related_product->id) == 0)
                                                         <br><br>
                                                         <h6 class="text-danger">Waiting!</h6>
                                                     @else
@@ -772,7 +772,7 @@
                                                 @endif
                                             </div>
                                             <div class="add-to-cart-box bg-white">
-                                                <a href="{{ route('product.details', $product->id) }}"
+                                                <a href="{{ route('product.details', $related_product->id) }}"
                                                     class="btn btn-add-cart">
                                                     Add
                                                 </a>

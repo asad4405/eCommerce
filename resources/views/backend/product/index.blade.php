@@ -53,8 +53,8 @@
                                                         <ul>
 
                                                             <li>
-                                                                <a href="{{ route('product.edit', $product->id) }}">
-                                                                    <i class="ri-pencil-line"></i>
+                                                                <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm bg-info">
+                                                                    Edit
                                                                 </a>
                                                             </li>
 
@@ -62,8 +62,8 @@
                                                                 <form action="{{ route('product.destroy',$product->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button class="btn text-danger">
-                                                                        <i class="ri-delete-bin-line"></i>
+                                                                    <button class="btn btn-sm btn-secondary">
+                                                                        Delete
                                                                     </button>
                                                                 </form>
                                                             </li>

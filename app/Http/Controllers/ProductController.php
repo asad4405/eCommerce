@@ -18,8 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('user_id',auth()->id())->latest()->get();
-        return view('backend.product.index',compact('products'));
+        $products = Product::where('user_id', auth()->id())->latest()->get();
+        return view('backend.product.index', compact('products'));
     }
 
     /**
@@ -28,7 +28,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('backend.product.create',compact('categories'));
+        return view('backend.product.create', compact('categories'));
     }
 
     /**
@@ -47,10 +47,10 @@ class ProductController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        foreach($request->file('product_photos') as $product_photo){
+        foreach ($request->file('product_photos') as $product_photo) {
             // photo upload start
-            $product_img = $product_id.'_'.'Product_photo_'.date('d_m_Y_').Str::random(5).'.'.$product_photo->extension();
-            Image::make($product_photo)->resize(750,750)->save(base_path('public/uploads/product_photos/'.$product_img));
+            $product_img = $product_id . '_' . 'Product_photo_' . date('d_m_Y_') . Str::random(5) . '.' . $product_photo->extension();
+            Image::make($product_photo)->resize(750, 750)->save(base_path('public/uploads/product_photos/' . $product_img));
             // photo upload end
             Product_photo::insert([
                 'product_id' => $product_id,
@@ -58,7 +58,7 @@ class ProductController extends Controller
                 'created_at' => Carbon::now(),
             ]);
         }
-        return back()->with('product-success','New Product Added Successfull!');
+        return back()->with('product-success', 'New Product Added Successfull!');
     }
 
     /**
@@ -75,7 +75,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('backend.product.edit',compact('product','categories'));
+        return view('backend.product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -83,17 +83,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        // if($request->hasFile('product_photos')){
-        // }else{
-        // }
         $product->category_id = $request->category_id;
-            $product->product_name = $request->product_name;
-            $product->product_short_details = $request->product_short_details;
-            $product->product_long_details = $request->product_long_details;
-            $product->product_additional_info = $request->product_additional_info;
-            $product->product_care_instuctions = $request->product_care_instuctions;
-            $product->save();
-            return redirect('product');
+        $product->product_name = $request->product_name;
+        $product->product_short_details = $request->product_short_details;
+        $product->product_long_details = $request->product_long_details;
+        $product->product_additional_info = $request->product_additional_info;
+        $product->product_care_instuctions = $request->product_care_instuctions;
+        $product->save();
+        return redirect('product');
     }
 
     /**
@@ -101,7 +98,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // return base_path('public/uploads/product_photos/').Product_photo::where('product_id',$product->id)->random()->product_photos;
         // return unlink(base_path('public/uploads/product_photos/'));
-        // $product->delete();
+        $product->delete();
+        return back();
     }
 }

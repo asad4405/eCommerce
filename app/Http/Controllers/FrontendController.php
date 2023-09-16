@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class FrontendController extends Controller
 {
@@ -326,10 +327,12 @@ class FrontendController extends Controller
                     'name' => session('S_otp_phone_number'),
                     'email' => session('S_otp_phone_number') . '@gmail.com',
                     'email_verified_at' => Carbon::now(),
-                    'password' => bcrypt('Asad'),
+                    'password' => Hash::make('new@pass1234'),
                     'phone_number' => session('S_otp_phone_number'),
                     'created_at' => Carbon::now(),
                 ]);
+                // session(['S_phone_number' => session('S_otp_phone_number')]);
+                // session(['S_password' => 'new@pass1234']);
                 // delete this otp
                 Otp::where('phone_number', session('S_otp_phone_number'))->delete();
                 // now login dashboard
