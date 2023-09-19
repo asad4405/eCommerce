@@ -32,7 +32,8 @@ class FrontendController extends Controller
     {
         $products = Product::latest()->get();
         $categories = Category::all();
-        return view('index', compact('categories', 'products'));
+        $modal_products = Product::all();
+        return view('index', compact('categories', 'products','modal_products'));
     }
 
     public function about()

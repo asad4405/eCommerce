@@ -172,7 +172,8 @@
                                     </li>
                                     <li class="right-side">
                                         <div class="onhover-dropdown header-badge">
-                                            <a href="{{ route('cart') }}" class="btn p-0 position-relative header-wishlist">
+                                            <a href="{{ route('cart') }}"
+                                                class="btn p-0 position-relative header-wishlist">
                                                 <i data-feather="shopping-cart"></i>
                                                 <span class="position-absolute top-0 start-100 translate-middle badge">
                                                     {{ cart_amount() }}
@@ -195,7 +196,8 @@
                                                                 </a>
 
                                                                 <div class="drop-contain">
-                                                                    <a href="{{ route('product.details', $cart->relationtoProduct->id) }}">
+                                                                    <a
+                                                                        href="{{ route('product.details', $cart->relationtoProduct->id) }}">
                                                                         <h5>{{ $cart->relationtoProduct->product_name }}
                                                                         </h5>
                                                                     </a>
@@ -206,12 +208,14 @@
                                                                             'size_id' => $cart->size_id,
                                                                         ])->first();
                                                                     @endphp
-                                                                    <h6><span>{{ $cart->user_input }} x</span> {{ $inventory->product_discount_price }}
+                                                                    <h6><span>{{ $cart->user_input }} x</span>
+                                                                        {{ $inventory->product_discount_price }}
                                                                     </h6>
                                                                     @php
-                                                                        $popup_total += $inventory->product_discount_price * $cart->user_input
+                                                                        $popup_total += $inventory->product_discount_price * $cart->user_input;
                                                                     @endphp
-                                                                    <a href="{{ route('cart.remove', $cart->id) }}" class="close-button close_button">
+                                                                    <a href="{{ route('cart.remove', $cart->id) }}"
+                                                                        class="close-button close_button">
                                                                         <i class="fa-solid fa-xmark"></i>
                                                                     </a>
                                                                 </div>
@@ -657,7 +661,7 @@
     <!-- Footer Section End -->
 
     <!-- Quick View Modal Box Start -->
-    <div class="modal fade theme-modal view-modal" id="view" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal fade theme-modal view-modal" id="view" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
             <div class="modal-content">
@@ -676,13 +680,6 @@
                         </div>
 
                         <div class="col-lg-6">
-                            {{-- @php
-                                // $products = App\Models\Product::where('id',$product->id)->get();
-                                $product = App\Models\Product::all();
-                            @endphp --}}
-                            {{-- {{ reviews($product) }} --}}
-                            {{-- {{ $products = App\Models\Product::find('user_id',auth()->id())->get() }} --}}
-                            {{-- @foreach ($products as $product) --}}
                             <div class="right-sidebar-modal">
                                 <h4 class="title-name"></h4>
                                 <h4 class="price">$36.99</h4>
@@ -704,7 +701,6 @@
                                             <i data-feather="star"></i>
                                         </li>
                                     </ul>
-                                    <span class="ms-2">8 Reviews</span>
                                     <span class="ms-2 text-danger">6 sold in last 16 hours</span>
                                 </div>
 
@@ -762,13 +758,12 @@
                                         View More Details</button>
                                 </div>
                             </div>
-                            {{-- @endforeach --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Quick View Modal Box End -->
 
 
@@ -986,7 +981,6 @@
 
     <!-- Include SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
-
     @yield('footer_script')
 </body>
 
