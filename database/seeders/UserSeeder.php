@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'created_at' => Carbon::now(),
             'role' => 'Admin',
+            'phone_number' => '01817824729',
         ]);
     }
 }

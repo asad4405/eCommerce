@@ -16,16 +16,6 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
@@ -72,8 +62,11 @@ Route::get('/vendor/approve/{id}', [HomeController::class, 'vendor_appreve'])->n
 Route::post('/add/address', [HomeController::class, 'add_address'])->name('add.address')->middleware(['auth', 'verified']);
 Route::post('/edit/address/{id}', [HomeController::class, 'edit_address'])->name('edit.address')->middleware(['auth', 'verified']);
 Route::post('/remove/address/{id}', [HomeController::class, 'remove_address'])->name('remove.address')->middleware(['auth', 'verified']);
-// invoice
+// invoice download
 Route::get('/download/invoice/{id}', [HomeController::class, 'download_invoice'])->name('download.invoice')->middleware(['auth', 'verified', 'customer.checker']);
+
+Route::get('/pay/now/{invoice_id}',[HomeController::class, 'pay_now'])->name('pay.now')->middleware(['auth','verified']);
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -120,6 +113,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/vendor/register', [VendorController::class, 'vendor_register'])->name('vendor.register');
 Route::post('/vendor/register/post', [VendorController::class, 'vendor_register_post'])->name('vendor.register.post');
 
+Route::get('/make/paid/{invoice_id}', [VendorController::class, 'make_paid'])->name('make.paid')->middleware(['auth','verified','vendor.checker']);
+Route::get('/order/cancel/{invoice_id}', [VendorController::class, 'order_cancel'])->name('order.cancel')->middleware(['auth','verified','vendor.checker']);
+
 // forgot password Start
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
@@ -127,23 +123,13 @@ Route::get('/forgot-password', function () {
 // forgot password End
 
 // Socialite Login & Register Start
-
 // Gmail
 Route::get('google/redirect',[SocialiteController::class,'google_redirect'])->name('google.redirect');
 Route::get('google/callback',[SocialiteController::class,'google_callback'])->name('google.callback');
 
-// Facebook
-Route::get('facebook/redirect',[SocialiteController::class,'facebook_redirect'])->name('facebook.redirect');
-Route::get('facebook/callback',[SocialiteController::class,'facebook_callback'])->name('facebook.callback');
-
 // Github
 Route::get('github/redirect',[SocialiteController::class,'github_redirect'])->name('github.redirect');
 Route::get('github/callback',[SocialiteController::class,'github_callback'])->name('github.callback');
-
-// LinkedIn
-Route::get('linkedin/redirect',[SocialiteController::class,'linkedin_redirect'])->name('linkedin.redirect');
-Route::get('linkedin/callback',[SocialiteController::class,'linkedin_callback'])->name('linkedin.callback');
-
 // Socialite Login & Register  End
 
 // SSLCOMMERZ Start

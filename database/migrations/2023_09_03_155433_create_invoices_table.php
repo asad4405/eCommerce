@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('delivery_option');
             $table->string('delivery_status')->default('unpaid');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

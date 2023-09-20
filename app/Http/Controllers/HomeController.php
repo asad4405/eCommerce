@@ -17,10 +17,11 @@ class HomeController extends Controller
     {
         if (auth()->user()->role == 'Admin') {
             $users = User::withTrashed()->get();
-            $applied_vendors = User::onlyTrashed()->get();
+            $applied_vendors = User::onlyTrashed()->paginate(5);
             return view('dashboard.admin', compact('applied_vendors', 'users'));
         } else if (auth()->user()->role == 'Vendor') {
-            return view('dashboard.vendor');
+            $orders = Invoice::where('vendor_id',auth()->id())->latest()->paginate(5);
+            return view('dashboard.vendor',compact('orders'));
         } else {
             $addresses = Address::where('customer_id', auth()->id())->get();
             $invoices = Invoice::where('customer_id', auth()->id())->latest()->paginate(5);
@@ -83,5 +84,13 @@ class HomeController extends Controller
     {
         $users = User::all();
         return view('backend.users.all_users',compact('users'));
+    }
+
+    public function pay_now ($invoice_id)
+    {
+        session(['S_invoice_id' => $invoice_id]);
+        session(['S_total' => Invoice::find($invoice_id)->total_amount]);
+        session(['S_delivery_cost' => Invoice::find($invoice_id)->delivery_cost]);
+        return redirect('pay');
     }
 }

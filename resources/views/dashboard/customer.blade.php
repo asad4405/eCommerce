@@ -727,6 +727,11 @@
                                                             <td>{{ $invoice->delivery_status }}</td>
                                                             <td>{{ $invoice->created_at->diffForHumans() }}</td>
                                                             <td>
+                                                                @if ($invoice->delivery_option == 'online' && $invoice->delivery_status == 'unpaid')
+                                                                    <a
+                                                                        href="{{ route('pay.now', $invoice->id) }}">Pay Now
+                                                                        <i class="fa-brands fa-amazon-pay"></i></a> ||
+                                                                @endif
                                                                 <a href="{{ route('download.invoice', $invoice->id) }}">Download
                                                                     <i class="fa fa-download"></i></a>
                                                                 @if ($invoice->delivery_status == 'paid')

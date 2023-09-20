@@ -185,11 +185,8 @@ class FrontendController extends Controller
         }
     }
 
-    public function final_checkout(Request $request)
+    public function final_checkout(FinalCheckoutPostRequest $request)
     {
-        $request->validate([
-            '*' => 'required',
-        ]);
         $invoice_id = Invoice::insertGetId([
             'customer_id' => auth()->id(),
             'vendor_id' => carts()->first()->vendor_id,

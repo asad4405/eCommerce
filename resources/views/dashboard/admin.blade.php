@@ -217,6 +217,9 @@
                                             </tr>
                                         @endforelse
                                     </table>
+                                    <span class="mt-3">
+                                        {{ $applied_vendors->links() }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
