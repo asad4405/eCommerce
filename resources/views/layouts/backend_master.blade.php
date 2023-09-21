@@ -304,6 +304,24 @@
                                 @endif
 
                                 @if (auth()->user()->role == 'Vendor')
+
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link sidebar-link sidebar-title"
+                                        href="javascript:void(0)">
+                                        <i class="ri-list-settings-line"></i>
+                                        <span>Attributes</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="{{ route('attribute.create') }}">Add Attributes</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{{ route('attribute.index') }}">Attributes</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                     <li class="sidebar-list">
                                         <a class="linear-icon-link sidebar-link sidebar-title"
                                             href="javascript:void(0)">
@@ -317,23 +335,6 @@
 
                                             <li>
                                                 <a href="{{ route('product.index') }}">All Products</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="sidebar-list">
-                                        <a class="linear-icon-link sidebar-link sidebar-title"
-                                            href="javascript:void(0)">
-                                            <i class="ri-list-settings-line"></i>
-                                            <span>Attributes</span>
-                                        </a>
-                                        <ul class="sidebar-submenu">
-                                            <li>
-                                                <a href="{{ route('attribute.create') }}">Add Attributes</a>
-                                            </li>
-
-                                            <li>
-                                                <a href="{{ route('attribute.index') }}">Attributes</a>
                                             </li>
                                         </ul>
                                     </li>

@@ -415,7 +415,7 @@
                                                             </li>
                                                         @endfor
                                                     </ul>
-                                                    <span>({{ reviews($product->id)->average('rating') }})</span>
+                                                    <span>({{ reviews($product->id)->count() }})</span>
                                                 @endif
 
                                                 @if (stock_checker($product->id))

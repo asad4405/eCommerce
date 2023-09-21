@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VendorRegisterRequest;
+use App\Models\Coupon;
 use App\Models\Inventory;
 use App\Models\Invoice;
 use App\Models\Invoice_detail;
@@ -42,14 +43,20 @@ class VendorController extends Controller
     public function order_cancel($invoice_id)
     {
         if (Invoice::find($invoice_id)) {
-            // Inventory::where([
-            //     'product_id' => Invoice_detail::find($invoice_id)->product_id,
-            //     'color_id' => Invoice_detail::find($invoice_id)->color_id,
-            //     'size_id' => Invoice_detail::find($invoice_id)->size_id,
-            // ])->increment('product_quantity', Invoice_detail::find($invoice_id)->user_input);
-            // Invoice::find($invoice_id)->delete();
-            return Invoice_detail::find($invoice_id);
+            foreach (Invoice_detail::where('invoice_id', $invoice_id)->get() as $invoice_detail) {
+                // increment from inventory
+                Inventory::where([
+                    'product_id' => $invoice_detail->product_id,
+                    'color_id' => $invoice_detail->color_id,
+                    'size_id' => $invoice_detail->size_id,
+                ])->increment('product_quantity', $invoice_detail->user_input);
+            }
+            Invoice::find($invoice_id)->delete();
         }
-        // return back();
+        // increment from coupon limit
+        if (session('S_coupon_name')) {
+            Coupon::where('coupon_name', session('S_coupon_name'))->increment('limit');
+        }
+        return back();
     }
 }

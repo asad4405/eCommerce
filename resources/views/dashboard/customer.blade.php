@@ -83,12 +83,6 @@
                             </li>
 
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-card-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-card" type="button" role="tab" aria-controls="pills-card"
-                                    aria-selected="false"><i data-feather="credit-card"></i> Saved Card</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-address-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-address" type="button" role="tab"
                                     aria-controls="pills-address" aria-selected="false"><i data-feather="map-pin"></i>
@@ -728,8 +722,7 @@
                                                             <td>{{ $invoice->created_at->diffForHumans() }}</td>
                                                             <td>
                                                                 @if ($invoice->delivery_option == 'online' && $invoice->delivery_status == 'unpaid')
-                                                                    <a
-                                                                        href="{{ route('pay.now', $invoice->id) }}">Pay Now
+                                                                    <a href="{{ route('pay.now', $invoice->id) }}">Pay Now
                                                                         <i class="fa-brands fa-amazon-pay"></i></a> ||
                                                                 @endif
                                                                 <a href="{{ route('download.invoice', $invoice->id) }}">Download
@@ -766,314 +759,85 @@
                                     </div>
 
                                     <div class="order-contain">
-                                        <div class="order-box dashboard-bg-box">
-                                            <div class="order-container">
-                                                <div class="order-icon">
-                                                    <i data-feather="box"></i>
+                                        @forelse ($invoices as $invoice)
+                                            <div class="order-box dashboard-bg-box">
+                                                <div class="order-container">
+                                                    <div class="order-icon">
+                                                        <i data-feather="box"></i>
+                                                    </div>
+
+                                                    <div class="order-detail">
+                                                        <h4>Delivere <span>Panding</span></h4>
+                                                        <h6 class="text-content">Gouda parmesan caerphilly mozzarella
+                                                            cottage cheese cauliflower cheese taleggio gouda.</h6>
+                                                    </div>
                                                 </div>
 
-                                                <div class="order-detail">
-                                                    <h4>Delivere <span>Panding</span></h4>
-                                                    <h6 class="text-content">Gouda parmesan caerphilly mozzarella
-                                                        cottage cheese cauliflower cheese taleggio gouda.</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="product-order-detail">
-                                                <a href="product-left-thumbnail.html" class="order-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/vegetable/product/1.png"
-                                                        class="blur-up lazyload" alt="">
-                                                </a>
-
-                                                <div class="order-wrap">
-                                                    <a href="product-left-thumbnail.html">
-                                                        <h3>Fantasy Crunchy Choco Chip Cookies</h3>
+                                                <div class="product-order-detail">
+                                                    <a href="product-left-thumbnail.html" class="order-image">
+                                                        <img src="{{ asset('frontend_assets') }}/images/vegetable/product/1.png"
+                                                            class="blur-up lazyload" alt="">
                                                     </a>
-                                                    <p class="text-content">Cheddar dolcelatte gouda. Macaroni cheese
-                                                        cheese strings feta halloumi cottage cheese jarlsberg cheese
-                                                        triangles say cheese.</p>
-                                                    <ul class="product-size">
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Price : </h6>
-                                                                <h5>$20.68</h5>
-                                                            </div>
-                                                        </li>
 
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Rate : </h6>
-                                                                <div class="product-rating ms-2">
-                                                                    <ul class="rating">
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                    </ul>
+                                                    <div class="order-wrap">
+                                                        <a href="product-left-thumbnail.html">
+                                                            <h3>{{ $invoice }}</h3>
+                                                        </a>
+                                                        <p class="text-content">Cheddar dolcelatte gouda. Macaroni cheese
+                                                            cheese strings feta halloumi cottage cheese jarlsberg cheese
+                                                            triangles say cheese.</p>
+                                                        <ul class="product-size">
+                                                            <li>
+                                                                <div class="size-box">
+                                                                    <h6 class="text-content">Price : </h6>
+                                                                    <h5>$20.68</h5>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
 
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Sold By : </h6>
-                                                                <h5>Fresho</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Quantity : </h6>
-                                                                <h5>250 G</h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="order-box dashboard-bg-box">
-                                            <div class="order-container">
-                                                <div class="order-icon">
-                                                    <i data-feather="box"></i>
-                                                </div>
-
-                                                <div class="order-detail">
-                                                    <h4>Delivered <span class="success-bg">Success</span></h4>
-                                                    <h6 class="text-content">Cheese on toast cheesy grin cheesy grin
-                                                        cottage cheese caerphilly everyone loves cottage cheese the big
-                                                        cheese.</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="product-order-detail">
-                                                <a href="product-left-thumbnail.html" class="order-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/vegetable/product/2.png"
-                                                        alt="" class="blur-up lazyload">
-                                                </a>
-
-                                                <div class="order-wrap">
-                                                    <a href="product-left-thumbnail.html">
-                                                        <h3>Cold Brew Coffee Instant Coffee 50 g</h3>
-                                                    </a>
-                                                    <p class="text-content">Pecorino paneer port-salut when the cheese
-                                                        comes out everybody's happy red leicester mascarpone blue
-                                                        castello cauliflower cheese.</p>
-                                                    <ul class="product-size">
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Price : </h6>
-                                                                <h5>$20.68</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Rate : </h6>
-                                                                <div class="product-rating ms-2">
-                                                                    <ul class="rating">
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                    </ul>
+                                                            <li>
+                                                                <div class="size-box">
+                                                                    <h6 class="text-content">Rate : </h6>
+                                                                    <div class="product-rating ms-2">
+                                                                        <ul class="rating">
+                                                                            <li>
+                                                                                <i data-feather="star" class="fill"></i>
+                                                                            </li>
+                                                                            <li>
+                                                                                <i data-feather="star" class="fill"></i>
+                                                                            </li>
+                                                                            <li>
+                                                                                <i data-feather="star" class="fill"></i>
+                                                                            </li>
+                                                                            <li>
+                                                                                <i data-feather="star" class="fill"></i>
+                                                                            </li>
+                                                                            <li>
+                                                                                <i data-feather="star"></i>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
 
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Sold By : </h6>
-                                                                <h5>Fresho</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Quantity : </h6>
-                                                                <h5>250 G</h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="order-box dashboard-bg-box">
-                                            <div class="order-container">
-                                                <div class="order-icon">
-                                                    <i data-feather="box"></i>
-                                                </div>
-
-                                                <div class="order-detail">
-                                                    <h4>Delivere <span>Panding</span></h4>
-                                                    <h6 class="text-content">Cheesy grin boursin cheesy grin cheesecake
-                                                        blue castello cream cheese lancashire melted cheese.</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="product-order-detail">
-                                                <a href="product-left-thumbnail.html" class="order-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/vegetable/product/3.png"
-                                                        alt="" class="blur-up lazyload">
-                                                </a>
-
-                                                <div class="order-wrap">
-                                                    <a href="product-left-thumbnail.html">
-                                                        <h3>Peanut Butter Bite Premium Butter Cookies 600 g</h3>
-                                                    </a>
-                                                    <p class="text-content">Cow bavarian bergkase mascarpone paneer
-                                                        squirty cheese fromage frais cheese slices when the cheese comes
-                                                        out everybody's happy.</p>
-                                                    <ul class="product-size">
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Price : </h6>
-                                                                <h5>$20.68</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Rate : </h6>
-                                                                <div class="product-rating ms-2">
-                                                                    <ul class="rating">
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                    </ul>
+                                                            <li>
+                                                                <div class="size-box">
+                                                                    <h6 class="text-content">Sold By : </h6>
+                                                                    <h5>Fresho</h5>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
 
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Sold By : </h6>
-                                                                <h5>Fresho</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Quantity : </h6>
-                                                                <h5>250 G</h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="order-box dashboard-bg-box">
-                                            <div class="order-container">
-                                                <div class="order-icon">
-                                                    <i data-feather="box"></i>
-                                                </div>
-
-                                                <div class="order-detail">
-                                                    <h4>Delivered <span class="success-bg">Success</span></h4>
-                                                    <h6 class="text-content">Caerphilly port-salut parmesan pecorino
-                                                        croque monsieur dolcelatte melted cheese cheese and wine.</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="product-order-detail">
-                                                <a href="product-left-thumbnail.html" class="order-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/vegetable/product/4.png"
-                                                        class="blur-up lazyload" alt="">
-                                                </a>
-
-                                                <div class="order-wrap">
-                                                    <a href="product-left-thumbnail.html">
-                                                        <h3>SnackAmor Combo Pack of Jowar Stick and Jowar Chips</h3>
-                                                    </a>
-                                                    <p class="text-content">The big cheese cream cheese pepper jack
-                                                        cheese slices danish fontina everyone loves cheese on toast
-                                                        bavarian bergkase.</p>
-                                                    <ul class="product-size">
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Price : </h6>
-                                                                <h5>$20.68</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Rate : </h6>
-                                                                <div class="product-rating ms-2">
-                                                                    <ul class="rating">
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" class="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                    </ul>
+                                                            <li>
+                                                                <div class="size-box">
+                                                                    <h6 class="text-content">Quantity : </h6>
+                                                                    <h5>250 G</h5>
                                                                 </div>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Sold By : </h6>
-                                                                <h5>Fresho</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Quantity : </h6>
-                                                                <h5>250 G</h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @empty
+                                        @endforelse
                                     </div>
                                 </div>
                             </div>
@@ -1166,173 +930,6 @@
                                                     Address</button>
                                             </tr>
                                         @endforelse
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade show" id="pills-card" role="tabpanel"
-                                aria-labelledby="pills-card-tab">
-                                <div class="dashboard-card">
-                                    <div class="title title-flex">
-                                        <div>
-                                            <h2>My Card Details</h2>
-                                            <span class="title-leaf">
-                                                <svg class="icon-width bg-gray">
-                                                    <use xlink:href="{{ asset('frontend_assets') }}/svg/leaf.svg#leaf">
-                                                    </use>
-                                                </svg>
-                                            </span>
-                                        </div>
-
-                                        <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0 mt-3"
-                                            data-bs-toggle="modal" data-bs-target="#editCard"><i data-feather="plus"
-                                                class="me-2"></i> Add New Card</button>
-                                    </div>
-
-                                    <div class="row g-4">
-                                        <div class="col-xxl-4 col-xl-6 col-lg-12 col-sm-6">
-                                            <div class="payment-card-detail">
-                                                <div class="card-details">
-                                                    <div class="card-number">
-                                                        <h4>XXXX - XXXX - XXXX - 2548</h4>
-                                                    </div>
-
-                                                    <div class="valid-detail">
-                                                        <div class="title">
-                                                            <span>valid</span>
-                                                            <span>thru</span>
-                                                        </div>
-                                                        <div class="date">
-                                                            <h3>08/05</h3>
-                                                        </div>
-                                                        <div class="primary">
-                                                            <span class="badge bg-pill badge-light">primary</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="name-detail">
-                                                        <div class="name">
-                                                            <h5>Audrey Carol</h5>
-                                                        </div>
-                                                        <div class="card-img">
-                                                            <img src="{{ asset('frontend_assets') }}/images/payment-icon/1.jpg"
-                                                                class="img-fluid blur-up lazyloaded" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="edit-card">
-                                                    <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                        href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#removeProfile"><i
-                                                            class="far fa-minus-square"></i> delete</a>
-                                                </div>
-                                            </div>
-
-                                            <div class="edit-card-mobile">
-                                                <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                    href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                <a href="javascript:void(0)"><i class="far fa-minus-square"></i>
-                                                    delete</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-4 col-xl-6 col-lg-12 col-sm-6">
-                                            <div class="payment-card-detail">
-                                                <div class="card-details card-visa">
-                                                    <div class="card-number">
-                                                        <h4>XXXX - XXXX - XXXX - 1536</h4>
-                                                    </div>
-
-                                                    <div class="valid-detail">
-                                                        <div class="title">
-                                                            <span>valid</span>
-                                                            <span>thru</span>
-                                                        </div>
-                                                        <div class="date">
-                                                            <h3>12/23</h3>
-                                                        </div>
-                                                        <div class="primary">
-                                                            <span class="badge bg-pill badge-light">primary</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="name-detail">
-                                                        <div class="name">
-                                                            <h5>Leah Heather</h5>
-                                                        </div>
-                                                        <div class="card-img">
-                                                            <img src="{{ asset('frontend_assets') }}/images/payment-icon/2.jpg"
-                                                                class="img-fluid blur-up lazyloaded" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="edit-card">
-                                                    <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                        href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#removeProfile"><i
-                                                            class="far fa-minus-square"></i> delete</a>
-                                                </div>
-                                            </div>
-
-                                            <div class="edit-card-mobile">
-                                                <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                    href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                <a href="javascript:void(0)"><i class="far fa-minus-square"></i>
-                                                    delete</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-4 col-xl-6 col-lg-12 col-sm-6">
-                                            <div class="payment-card-detail">
-                                                <div class="card-details dabit-card">
-                                                    <div class="card-number">
-                                                        <h4>XXXX - XXXX - XXXX - 1366</h4>
-                                                    </div>
-
-                                                    <div class="valid-detail">
-                                                        <div class="title">
-                                                            <span>valid</span>
-                                                            <span>thru</span>
-                                                        </div>
-                                                        <div class="date">
-                                                            <h3>05/21</h3>
-                                                        </div>
-                                                        <div class="primary">
-                                                            <span class="badge bg-pill badge-light">primary</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="name-detail">
-                                                        <div class="name">
-                                                            <h5>mark jecno</h5>
-                                                        </div>
-                                                        <div class="card-img">
-                                                            <img src="{{ asset('frontend_assets') }}/images/payment-icon/3.jpg"
-                                                                class="img-fluid blur-up lazyloaded" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="edit-card">
-                                                    <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                        href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#removeProfile"><i
-                                                            class="far fa-minus-square"></i> delete</a>
-                                                </div>
-                                            </div>
-
-                                            <div class="edit-card-mobile">
-                                                <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                    href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                <a href="javascript:void(0)"><i class="far fa-minus-square"></i>
-                                                    delete</a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1657,8 +1254,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn theme-bg-color btn-md text-white"
-                            data-bs-dismiss="modal">Save
+                        <button type="submit" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">Save
                             changes</button>
                     </div>
                 </form>
@@ -1668,107 +1264,114 @@
     <!-- Add address modal box end -->
 
     <!-- Edit Profile Start -->
-    {{-- <div class="modal fade theme-modal" id="editProfile" tabindex="-1" aria-labelledby="exampleModalLabel2"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
+    @php
+        $address = App\Models\Address::where('customer_id' , auth()->id())->get()
+    @endphp
+    @if ($address)
+        {{-- <div class="modal fade theme-modal" id="editProfile" tabindex="-1" aria-labelledby="exampleModalLabel2"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down">
+                <div class="modal-content">
 
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel2">Edit Profile</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <form action="{{ route('edit.address', $address->id) }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row g-4">
-                            <div class="modal-body">
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <select name="tag" id="" class="form-select">
-                                        <option value="Home">Home</option>
-                                        <option value="Office">Office</option>
-                                    </select>
-                                    <label for="tag">Tag</label>
-                                    @error('tag')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel2">Edit Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <form action="{{ route('edit.address', $address->id) }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row g-4">
+                                <div class="modal-body">
+                                    <div class="form-floating mb-4 theme-form-floating">
+                                        <select name="tag" id="" class="form-select">
+                                            <option value="Home">Home</option>
+                                            <option value="Office">Office</option>
+                                        </select>
+                                        <label for="tag">Tag</label>
+                                        @error('tag')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="name" name="name" value="{{ $address->customer_id }}">
-                                    <label for="name">Name</label>
-                                    @error('name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                    <div class="form-floating mb-4 theme-form-floating">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                            id="name" name="name" value="{{ $address->customer_id }}">
+                                        <label for="name">Name</label>
+                                        @error('name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-floating mb-4 theme-form-floating">
-                                            <input type="text" name="city" value="{{ $address->city }}"
-                                                class="form-control @error('city') is-invalid @enderror" id="city">
-                                            <label for="city">City</label>
-                                            @error('city')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-floating mb-4 theme-form-floating">
+                                                <input type="text" name="city" value="{{ $address->city }}"
+                                                    class="form-control @error('city') is-invalid @enderror"
+                                                    id="city">
+                                                <label for="city">City</label>
+                                                @error('city')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-floating mb-4 theme-form-floating">
+                                                <input type="text" name="country" value="{{ $address->country }}"
+                                                    class="form-control @error('country') is-invalid @enderror"
+                                                    id="country">
+                                                <label for="country">Country</label>
+                                                @error('country')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="form-floating mb-4 theme-form-floating">
-                                            <input type="text" name="country" value="{{ $address->country }}"
-                                                class="form-control @error('country') is-invalid @enderror"
-                                                id="country">
-                                            <label for="country">Country</label>
-                                            @error('country')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+
+                                    <div class="form-floating mb-4 theme-form-floating">
+                                        <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address"
+                                            style="height: 100px">{{ $address->address }}</textarea>
+                                        <label for="address">Enter Address</label>
+                                        @error('address')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-floating mb-4 theme-form-floating">
+                                        <input type="text"
+                                            class="form-control @error('post_code') is-invalid @enderror"
+                                            name="post_code" id="post_code" value="{{ $address->post_code }}">
+                                        <label for="post_code">Post Code</label>
+                                        @error('post_code')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-floating mb-4 theme-form-floating">
+                                        <input type="text"
+                                            class="form-control @error('phone_number') is-invalid @enderror"
+                                            id="phone" name="phone_number" value="{{ $address->phone_number }}">
+                                        <label for="phone">Phone Number</label>
+                                        @error('phone_number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address"
-                                        style="height: 100px">{{ $address->address }}</textarea>
-                                    <label for="address">Enter Address</label>
-                                    @error('address')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <input type="text" class="form-control @error('post_code') is-invalid @enderror"
-                                        name="post_code" id="post_code" value="{{ $address->post_code }}">
-                                    <label for="post_code">Post Code</label>
-                                    @error('post_code')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-floating mb-4 theme-form-floating">
-                                    <input type="text"
-                                        class="form-control @error('phone_number') is-invalid @enderror" id="phone"
-                                        name="phone_number" value="{{ $address->phone_number }}">
-                                    <label for="phone">Phone Number</label>
-                                    @error('phone_number')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
                             </div>
-
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-animation btn-md fw-bold"
-                            data-bs-dismiss="modal">Close</button>
-                        <button type="submit" data-bs-dismiss="modal"
-                            class="btn theme-bg-color btn-md fw-bold text-light">Save changes</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-animation btn-md fw-bold"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" data-bs-dismiss="modal"
+                                class="btn theme-bg-color btn-md fw-bold text-light">Save changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </div> --}}
+        </div> --}}
+    @endif
     <!-- Edit Profile End -->
     <!-- Remove Profile Modal Start -->
     <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1"
