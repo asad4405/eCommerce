@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Wishlist extends Model
 {
     use HasFactory;
-
-    public function relationToCategory(){
-        return $this->hasOne(Category::class,'id','category_id');
-    }
 }

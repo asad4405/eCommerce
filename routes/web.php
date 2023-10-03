@@ -23,6 +23,7 @@ Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact/post', [FrontendController::class, 'contact_post'])->name('contact.post');
+Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');
 
 Route::get('/product/details/{id}', [FrontendController::class, 'product_details'])->name('product.details');
 

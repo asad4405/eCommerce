@@ -166,7 +166,7 @@
                                         </a>
                                     </li>
                                     <li class="right-side">
-                                        <a href="wishlist.html" class="btn p-0 position-relative header-wishlist">
+                                        <a href="{{ route('wishlist') }}" class="btn p-0 position-relative header-wishlist">
                                             <i data-feather="heart"></i>
                                         </a>
                                     </li>
@@ -387,14 +387,14 @@
             </li>
 
             <li>
-                <a href="wishlist.html" class="notifi-wishlist">
+                <a href="{{ route('wishlist') }}" class="notifi-wishlist">
                     <i class="iconly-Heart icli"></i>
                     <span>My Wish</span>
                 </a>
             </li>
 
             <li>
-                <a href="cart.html">
+                <a href="{{ route('cart') }}">
                     <i class="iconly-Bag-2 icli fly-cate"></i>
                     <span>Cart</span>
                 </a>
@@ -558,7 +558,7 @@
                                     <a href="order-tracking.html" class="text-content">Track Order</a>
                                 </li>
                                 <li>
-                                    <a href="wishlist.html" class="text-content">Your Wishlist</a>
+                                    <a href="{{ route('wishlist') }}" class="text-content">Your Wishlist</a>
                                 </li>
                                 <li>
                                     <a href="search.html" class="text-content">Search</a>
@@ -955,6 +955,12 @@
     <script src="{{ asset('frontend_assets') }}/js/slick/slick.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/slick/slick-animation.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/slick/custom_slick.js"></script>
+
+    <!-- Price Range Js -->
+    <script src="{{ asset('frontend_assets') }}/js/ion.rangeSlider.min.js"></script>
+
+    <!-- sidebar open js -->
+    <script src="{{ asset('frontend_assets') }}/js/filter-sidebar.js"></script>
 
     <!-- Auto Height Js -->
     <script src="{{ asset('frontend_assets') }}/js/auto-height.js"></script>

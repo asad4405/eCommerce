@@ -43,7 +43,13 @@ class FrontendController extends Controller
 
     public function shop()
     {
-        return view('shop');
+        $products = Product::all();
+        return view('shop',compact('products'));
+    }
+
+    public function wishlist ()
+    {
+        return view('wishlist');
     }
 
     public function contact()
