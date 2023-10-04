@@ -23,7 +23,6 @@ Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact/post', [FrontendController::class, 'contact_post'])->name('contact.post');
-Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');
 
 Route::get('/product/details/{id}', [FrontendController::class, 'product_details'])->name('product.details');
 
@@ -35,6 +34,9 @@ Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
 Route::get('/cart/remove/{id}', [FrontendController::class, 'cart_remove'])->name('cart.remove');
 Route::get('/cart/clear', [FrontendController::class, 'cart_clear'])->name('cart.clear');
 Route::post('/cart/update', [FrontendController::class, 'cart_update'])->name('cart.update');
+
+Route::post('/add/wishlist', [FrontendController::class, 'add_wishlist'])->name('add.wishlist');
+Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');
 
 Route::get('/checkout',[FrontendController::class, 'checkout'])->name('checkout');
 Route::post('/final/checkout',[FrontendController::class, 'final_checkout'])->name('final.checkout');

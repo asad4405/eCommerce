@@ -156,7 +156,7 @@
                                 </div>
 
                                 <div class="buy-box">
-                                    <a href="wishlist.html">
+                                    <a href="{{ route('add.wishlist') }}">
                                         <i data-feather="heart"></i>
                                         <span>Add To Wishlist</span>
                                     </a>

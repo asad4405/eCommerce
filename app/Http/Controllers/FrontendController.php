@@ -20,6 +20,7 @@ use App\Models\Product;
 use App\Models\Product_photo;
 use App\Models\Size;
 use App\Models\User;
+use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -33,7 +34,7 @@ class FrontendController extends Controller
         $products = Product::latest()->get();
         $categories = Category::all();
         $modal_products = Product::all();
-        return view('index', compact('categories', 'products','modal_products'));
+        return view('index', compact('categories', 'products', 'modal_products'));
     }
 
     public function about()
@@ -41,15 +42,15 @@ class FrontendController extends Controller
         return view('about');
     }
 
-    public function shop()
+    public function shop(Request $request)
     {
-        $products = Product::all();
-        return view('shop',compact('products'));
-    }
-
-    public function wishlist ()
-    {
-        return view('wishlist');
+        if ($request->category_slug) {
+            $category_id = Category::where('slug', $request->category_slug)->firstOrFail()->id;
+            $products = Product::where('category_id',$category_id)->get();
+        } else {
+            $products = Product::all();
+        }
+        return view('shop', compact('products'));
     }
 
     public function contact()
@@ -180,6 +181,21 @@ class FrontendController extends Controller
         return view('cart', compact('carts', 'coupon_name', 'coupon_discounts', 'highest_discount'));
     }
 
+    public function add_wishlist(Request $request)
+    {
+        Wishlist::insert([
+            'user_id' => auth()->id(),
+            // 'product_id' => ,
+            'created_at' => Carbon::now(),
+        ]);
+        return 'Add to Wishlist';
+    }
+
+    public function wishlist()
+    {
+        return view('wishlist');
+    }
+
     public function checkout()
     {
         if (strpos(url()->previous(), 'cart')) {
@@ -283,7 +299,7 @@ class FrontendController extends Controller
         $api_key = "qgaBxl0v5UCdrPXv2dQJ";
         $senderid = "8809617612922";
         $number = "$request->phone_number";
-        $message = "Your registration verification code is ".$otp.". The code is expire in 2 minutes. Please do not share your OTP.";
+        $message = "Your registration verification code is " . $otp . ". The code is expire in 2 minutes. Please do not share your OTP.";
 
         $data = [
             "api_key" => $api_key,
@@ -358,7 +374,7 @@ class FrontendController extends Controller
         $api_key = "qgaBxl0v5UCdrPXv2dQJ";
         $senderid = "8809617612922";
         $number = "session('S_otp_phone_number')";
-        $message = "Your verification code is ".$resend_otp.". The code is expire in 2 minutes. Please do not share your OTP.";
+        $message = "Your verification code is " . $resend_otp . ". The code is expire in 2 minutes. Please do not share your OTP.";
 
         $data = [
             "api_key" => $api_key,
@@ -403,7 +419,7 @@ class FrontendController extends Controller
             $api_key = "qgaBxl0v5UCdrPXv2dQJ";
             $senderid = "8809617612922";
             $number = "session('S_otp_phone_number')";
-            $message = "Your login verification code is ".$login_otp.". The code is expire in 2 minutes. Please do not share your OTP.";
+            $message = "Your login verification code is " . $login_otp . ". The code is expire in 2 minutes. Please do not share your OTP.";
 
             $data = [
                 "api_key" => $api_key,

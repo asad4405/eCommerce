@@ -149,12 +149,12 @@
                             <h3>Category</h3>
                             <ul>
                                 @foreach ($categories as $category)
-                                    <li>
+                                    <li class="@if($loop->last) pb-30 @endif">
                                         <div class="category-list">
                                             <img src="{{ asset('uploads/category_icons') }}/{{ $category->category_icon }}"
                                                 class="blur-up lazyload" alt="">
                                             <h5>
-                                                <a href="{{ route('shop') }}">{{ $category->category_name }}</a>
+                                                <a href="{{ route('shop') }}?category_slug={{ $category->slug }}">{{ $category->category_name }}</a>
                                             </h5>
                                         </div>
                                     </li>
@@ -471,7 +471,7 @@
                     <div class="category-slider-2 product-wrapper no-arrow">
                         @foreach ($categories as $category)
                             <div>
-                                <a href="" class="category-box category-dark">
+                                <a href="{{ route('shop') }}?category_slug={{ $category->slug }}" class="category-box category-dark">
                                     <div>
                                         <img src="{{ asset('uploads/category_icons') }}/{{ $category->category_icon }}"
                                             class="blur-up lazyload" alt="">

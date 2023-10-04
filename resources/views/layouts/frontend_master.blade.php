@@ -166,7 +166,8 @@
                                         </a>
                                     </li>
                                     <li class="right-side">
-                                        <a href="{{ route('wishlist') }}" class="btn p-0 position-relative header-wishlist">
+                                        <a href="{{ route('wishlist') }}"
+                                            class="btn p-0 position-relative header-wishlist">
                                             <i data-feather="heart"></i>
                                         </a>
                                     </li>
@@ -301,7 +302,7 @@
                                     @endphp
                                     @foreach ($categories as $category)
                                         <li class="onhover-category-list">
-                                            <a href="{{ route('shop') }}" class="category-name">
+                                            <a href="{{ route('shop') }}?category_slug={{ $category->slug }}" class="category-name">
                                                 <img src="{{ asset('uploads/category_icons') }}/{{ $category->category_icon }}"
                                                     alt="">
                                                 <h6>{{ $category->category_name }}</h6>
