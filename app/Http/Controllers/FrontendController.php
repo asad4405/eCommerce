@@ -46,9 +46,12 @@ class FrontendController extends Controller
     {
         if ($request->category_slug) {
             $category_id = Category::where('slug', $request->category_slug)->firstOrFail()->id;
-            $products = Product::where('category_id',$category_id)->get();
+            $products = Product::where('category_id', $category_id)->get();
         } else {
             $products = Product::all();
+        }
+        if ($request->q) {
+            $products = Product::where('product_name','like','%'.$request->q.'%')->get();
         }
         return view('shop', compact('products'));
     }

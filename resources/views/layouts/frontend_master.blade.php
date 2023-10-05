@@ -119,15 +119,17 @@
 
                             <div class="middle-box">
 
-
                                 <div class="search-box">
-                                    <div class="input-group">
-                                        <input type="search" class="form-control" placeholder="I'm searching for..."
-                                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <button class="btn" type="button" id="button-addon2">
-                                            <i data-feather="search"></i>
-                                        </button>
-                                    </div>
+                                    <form action="{{ route('shop') }}" method="GET">
+                                        <div class="input-group">
+                                            <input type="search" class="form-control"
+                                                placeholder="I'm searching for..." name="q"
+                                                value="@isset($_GET['q']) {{ $_GET['q'] }} @endisset">
+                                            <button class="btn" type="submit" id="button-addon2">
+                                                <i data-feather="search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -302,7 +304,8 @@
                                     @endphp
                                     @foreach ($categories as $category)
                                         <li class="onhover-category-list">
-                                            <a href="{{ route('shop') }}?category_slug={{ $category->slug }}" class="category-name">
+                                            <a href="{{ route('shop') }}?category_slug={{ $category->slug }}"
+                                                class="category-name">
                                                 <img src="{{ asset('uploads/category_icons') }}/{{ $category->category_icon }}"
                                                     alt="">
                                                 <h6>{{ $category->category_name }}</h6>
