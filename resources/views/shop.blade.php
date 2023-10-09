@@ -36,48 +36,38 @@
                             </div>
 
                             <div class="ms-auto d-flex align-items-center">
-                                <div class="category-dropdown me-md-3">
-                                    <h5 class="text-content">Sort By :</h5>
-                                    <div class="dropdown">
-                                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                            data-bs-toggle="dropdown">
-                                            <span>Most Popular</span> <i class="fa-solid fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li>
-                                                <a class="dropdown-item" id="pop"
-                                                    href="javascript:void(0)">Popularity</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" id="low" href="javascript:void(0)">Low -
-                                                    High
-                                                    Price</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" id="high" href="javascript:void(0)">High -
-                                                    Low
-                                                    Price</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" id="rating" href="javascript:void(0)">Average
-                                                    Rating</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" id="aToz" href="javascript:void(0)">A - Z
-                                                    Order</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" id="zToa" href="javascript:void(0)">Z - A
-                                                    Order</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" id="off" href="javascript:void(0)">% Off -
-                                                    Hight To
-                                                    Low</a>
-                                            </li>
-                                        </ul>
+                                <form action="{{ route('shop') }}" method="GET">
+                                    <div class="ms-auto d-flex align-items-center">
+                                        <div class="category-dropdown me-md-3">
+                                            <h5 class="text-content">Category :</h5>
+                                            <div class="dropdown">
+                                                <select name="order" class="form-select">
+                                                    <option value="">Choose Category</option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="">{{ $category->category_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="category-dropdown me-md-3">
+                                            <h5 class="text-content">Sort By :</h5>
+                                            <div class="dropdown">
+                                                <select name="order" class="form-select">
+                                                    {{-- <select name="order" class="form-select" onchange="this.form.submit()"> --}}
+                                                    <option value="">Choose Order</option>
+                                                    <option value="">Popularity</option>
+                                                    <option value="">Low - High</option>
+                                                    <option value="">High - Low</option>
+                                                    <option value="az">A - Z Order</option>
+                                                    <option value="za">Z - A Order</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="category-dropdown me-md-3">
+                                            <button type="submit" class="btn btn-sm bg-primary text-white">Filter</button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
 
                                 <div class="grid-option grid-option-2">
                                     <ul>
@@ -573,7 +563,8 @@
                                     </div>
                                     <div class="product-footer">
                                         <div class="product-detail">
-                                            <span class="span-name">{{ $product->relationToCategory->category_name }}</span>
+                                            <span
+                                                class="span-name">{{ $product->relationToCategory->category_name }}</span>
                                             <a href="{{ route('product.details', $product->id) }}">
                                                 <h5 class="name">{{ $product->product_name }}</h5>
                                             </a>
@@ -601,8 +592,7 @@
                                                 @if (lowest_discount_price($product->id) == 0)
                                                     <span class="theme-color">Coming Soon !!</span>
                                                 @else
-                                                    <span
-                                                        class="theme-color">{{ lowest_discount_price($product->id) }}
+                                                    <span class="theme-color">{{ lowest_discount_price($product->id) }}
                                                         taka</span>
                                                     @if (lowest_discount_price($product->id) != lowest_regular_price($product->id))
                                                         <del class="text-danger">{{ lowest_regular_price($product->id) }}

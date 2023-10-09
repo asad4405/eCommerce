@@ -44,6 +44,7 @@ class FrontendController extends Controller
 
     public function shop(Request $request)
     {
+        return $request;
         if ($request->category_slug) {
             $category_id = Category::where('slug', $request->category_slug)->firstOrFail()->id;
             $products = Product::where('category_id', $category_id)->get();
@@ -51,9 +52,22 @@ class FrontendController extends Controller
             $products = Product::all();
         }
         if ($request->q) {
-            $products = Product::where('product_name','like','%'.$request->q.'%')->get();
+            $products = Product::where('product_name', 'like', '%' . $request->q . '%')->get();
         }
-        return view('shop', compact('products'));
+
+        if ($request->order) {
+            if ($request->order == 'az') {
+                $sorted = $products->sortBy('product_name');
+                $products = $sorted->values()->all();
+            } elseif ($request->order == 'za') {
+                $sorted = $products->sortByDesc('product_name');
+                $products = $sorted->values()->all();
+            }
+        }
+
+        $categories = Category::all();
+
+        return view('shop', compact('products', 'categories'));
     }
 
     public function contact()
