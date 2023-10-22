@@ -39,12 +39,21 @@
                                 <form action="{{ route('shop') }}" method="GET">
                                     <div class="ms-auto d-flex align-items-center">
                                         <div class="category-dropdown me-md-3">
+                                            <h5 class="text-content">Search :</h5>
+                                            <div class="dropdown">
+                                                <input type="search" class="form-control" name="q"
+                                                    value="@isset($_GET['q']) {{ $_GET['q'] }} @endisset">
+                                            </div>
+                                        </div>
+                                        <div class="category-dropdown me-md-3">
                                             <h5 class="text-content">Category :</h5>
                                             <div class="dropdown">
-                                                <select name="order" class="form-select">
+                                                <select name="category_slug" class="form-select">
                                                     <option value="">Choose Category</option>
                                                     @foreach ($categories as $category)
-                                                        <option value="">{{ $category->category_name }}</option>
+                                                        <option value="{{ $category->slug }}"
+                                                            @isset($_GET['category_slug']) {{ $_GET['category_slug'] == $category->slug ? 'selected' : '' }} @endisset>
+                                                            {{ $category->category_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -52,15 +61,27 @@
                                         <div class="category-dropdown me-md-3">
                                             <h5 class="text-content">Sort By :</h5>
                                             <div class="dropdown">
-                                                <select name="order" class="form-select">
-                                                    {{-- <select name="order" class="form-select" onchange="this.form.submit()"> --}}
-                                                    <option value="">Choose Order</option>
-                                                    <option value="">Popularity</option>
-                                                    <option value="">Low - High</option>
-                                                    <option value="">High - Low</option>
-                                                    <option value="az">A - Z Order</option>
-                                                    <option value="za">Z - A Order</option>
-                                                </select>
+                                                @if (isset($_GET['order']))
+                                                    <select name="order" class="form-select">
+                                                        {{-- <select name="order" class="form-select" onchange="this.form.submit()"> --}}
+                                                        <option value="">Choose Order</option>
+                                                        <option value="">Popularity</option>
+                                                        <option value="">Low - High</option>
+                                                        <option value="">High - Low</option>
+                                                        <option value="az" {{ ($_GET['order'] == 'az') ? 'selected' : '' }}>A - Z Order</option>
+                                                        <option value="za" {{ ($_GET['order'] == 'za') ? 'selected' : '' }}>Z - A Order</option>
+                                                    </select>
+                                                @else
+                                                    <select name="order" class="form-select">
+                                                        {{-- <select name="order" class="form-select" onchange="this.form.submit()"> --}}
+                                                        <option value="">Choose Order</option>
+                                                        <option value="">Popularity</option>
+                                                        <option value="">Low - High</option>
+                                                        <option value="">High - Low</option>
+                                                        <option value="az">A - Z Order</option>
+                                                        <option value="za">Z - A Order</option>
+                                                    </select>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="category-dropdown me-md-3">
