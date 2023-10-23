@@ -12,4 +12,7 @@ class Product extends Model
     public function relationToCategory(){
         return $this->hasOne(Category::class,'id','category_id');
     }
+    public function relationToInventory(){
+        return $this->hasMany(Inventory::class,'product_id','id');
+    }
 }

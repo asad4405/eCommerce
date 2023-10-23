@@ -111,7 +111,7 @@
 
                                 <div class="procuct-contain">
                                     <p>
-                                        {{ $product->product_short_details }}
+                                        {!! $product->product_short_details !!}
                                     </p>
                                 </div>
 
@@ -258,8 +258,8 @@
                                 <div class="tab-content custom-tab" id="myTabContent">
                                     <div class="tab-pane fade show active" id="description" role="tabpanel"
                                         aria-labelledby="description-tab">
-                                        <div class="product-description">
-                                            {{ $product->product_long_details }}
+                                        <div class="product-description" style="display: list-item">
+                                            {!! $product->product_long_details !!}
                                         </div>
                                     </div>
 

@@ -65,7 +65,7 @@
                         <div class="custome-4-bg b-r-4 card-body">
                             <div class="media static-top-widget">
                                 <div class="media-body p-0">
-                                    <span class="m-0">Total Unpaid Vendor</span>
+                                    <span class="m-0">Total Unpaid Orders</span>
                                     <h4 class="mb-0 counter">
                                         {{ $orders->where('delivery_status', 'unpaid')->count() }}
                                     </h4>
@@ -78,6 +78,46 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-sm-6 col-xxl-3 col-lg-6">
+                    <div class="main-tiles border-5 card-hover border-0 card o-hidden">
+                        <div class="custome-4-bg b-r-4 card-body">
+                            <div class="media static-top-widget">
+                                <div class="media-body p-0">
+                                    <span class="m-0">Total Paid Orders</span>
+                                    <h4 class="mb-0 counter">
+                                        {{ $orders->where('delivery_status', 'paid')->count() }}
+                                    </h4>
+                                </div>
+
+                                <div class="align-self-center text-center">
+                                    <i class="fa fa-hand-holding-usd"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- visitors chart start-->
+                <div class="col-xxl-4 col-md-6">
+                    <div class="h-100">
+                        <div class="card o-hidden card-hover">
+                            <div class="card-header border-0">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="card-header-title">
+                                        <h4>Paid Vs Unpaid Orders</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="pie-chart">
+                                    <div id="pie-chart-visitors"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- visitors chart end-->
 
                 <!-- Recent orders start-->
                 <div class="col-xl-12">
@@ -659,28 +699,6 @@
                 </div>
                 <!-- Transactions end-->
 
-                <!-- visitors chart start-->
-                <div class="col-xxl-4 col-md-6">
-                    <div class="h-100">
-                        <div class="card o-hidden card-hover">
-                            <div class="card-header border-0">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="card-header-title">
-                                        <h4>Visitors</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-0">
-                                <div class="pie-chart">
-                                    <div id="pie-chart-visitors"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- visitors chart end-->
-
-
                 <!-- To Do List start-->
                 <div class="col-xxl-4 col-md-6">
                     <div class="card o-hidden card-hover">
@@ -750,10 +768,277 @@
                     </div>
                 </div>
                 <!-- To Do List end-->
-
-
             </div>
         </div>
     </div>
     <!-- Container-fluid Ends-->
+@endsection
+@section('footer_script')
+    <script>
+        //pie chart for visitors
+        var options = {
+            series: [{{ $orders->where('delivery_status', 'paid')->count() }}, {{ $orders->where('delivery_status', 'unpaid')->count() }}],
+            labels: ['Paid Order', 'Unpaid Order'],
+            chart: {
+                width: "100%",
+                height: 275,
+                type: 'donut',
+            },
+
+            legend: {
+                fontSize: '12px',
+                position: 'bottom',
+                offsetX: 1,
+                offsetY: -1,
+
+                markers: {
+                    width: 10,
+                    height: 10,
+                },
+
+                itemMargin: {
+                    vertical: 2
+                },
+            },
+
+            colors: ['#28c870', '#ffa044', '#9e65c2', '#6670bd', '#FF9800'],
+
+            plotOptions: {
+                pie: {
+                    startAngle: -90,
+                    endAngle: 270
+                }
+            },
+
+            dataLabels: {
+                enabled: false
+            },
+
+            responsive: [{
+                    breakpoint: 1835,
+                    options: {
+                        chart: {
+                            height: 245,
+                        },
+
+                        legend: {
+                            position: 'bottom',
+
+                            itemMargin: {
+                                horizontal: 5,
+                                vertical: 1
+                            },
+                        },
+                    },
+                },
+
+                {
+                    breakpoint: 1388,
+                    options: {
+                        chart: {
+                            height: 330,
+                        },
+
+                        legend: {
+                            position: 'bottom',
+                        },
+                    },
+                },
+
+                {
+                    breakpoint: 1275,
+                    options: {
+                        chart: {
+                            height: 300,
+                        },
+
+                        legend: {
+                            position: 'bottom',
+                        },
+                    },
+                },
+
+                {
+                    breakpoint: 1158,
+                    options: {
+                        chart: {
+                            height: 280,
+                        },
+
+                        legend: {
+                            fontSize: '10px',
+                            position: 'bottom',
+                            offsetY: 10,
+                        },
+                    },
+                },
+
+                {
+                    theme: {
+                        mode: 'dark',
+                        palette: 'palette1',
+                        monochrome: {
+                            enabled: true,
+                            color: '#255aee',
+                            shadeTo: 'dark',
+                            shadeIntensity: 0.65
+                        },
+                    },
+                },
+
+                {
+                    breakpoint: 598,
+                    options: {
+                        chart: {
+                            height: 280,
+                        },
+
+                        legend: {
+                            fontSize: '12px',
+                            position: 'bottom',
+                            offsetX: 5,
+                            offsetY: -5,
+
+                            markers: {
+                                width: 10,
+                                height: 10,
+                            },
+
+                            itemMargin: {
+                                vertical: 1
+                            },
+                        },
+                    },
+                },
+            ],
+        };
+
+        var chart = new ApexCharts(document.querySelector("#pie-chart-visitors"), options);
+        chart.render();
+
+
+        var optionsLine = {
+            chart: {
+                height: 350,
+                type: "line",
+                stacked: true,
+                animations: {
+                    enabled: true,
+                    easing: "linear",
+                    dynamicAnimation: {
+                        speed: 1000
+                    }
+                },
+                dropShadow: {
+                    enabled: true,
+                    opacity: 0.3,
+                    blur: 5,
+                    left: -7,
+                    top: 22
+                },
+                events: {
+                    animationEnd: function(chartCtx) {
+                        const newData1 = chartCtx.w.config.series[0].data.slice();
+                        newData1.shift();
+                        const newData2 = chartCtx.w.config.series[1].data.slice();
+                        newData2.shift();
+                        window.setTimeout(function() {
+                            chartCtx.updateOptions({
+                                    series: [{
+                                            data: newData1
+                                        },
+                                        {
+                                            data: newData2
+                                        }
+                                    ],
+                                    subtitle: {
+                                        text: parseInt(getRandom() * Math.random()).toString()
+                                    }
+                                },
+                                false,
+                                false
+                            );
+                        }, 300);
+                    }
+                },
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: "straight",
+                width: 5
+            },
+            grid: {
+                padding: {
+                    left: 0,
+                    right: 0
+                }
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    size: 0
+                }
+            },
+            series: [{
+                    name: "Running",
+                    data: generateMinuteWiseTimeSeries(
+                        new Date("12/12/2016 00:20:00").getTime(),
+                        12, {
+                            min: 30,
+                            max: 110
+                        }
+                    )
+                },
+                {
+                    name: "Waiting",
+                    data: generateMinuteWiseTimeSeries(
+                        new Date("12/12/2016 00:20:00").getTime(),
+                        12, {
+                            min: 30,
+                            max: 110
+                        }
+                    )
+                }
+            ],
+            xaxis: {
+                type: "datetime",
+                range: 2700000
+            },
+            title: {
+                text: "Processes",
+                align: "left",
+                style: {
+                    fontSize: "12px"
+                }
+            },
+            subtitle: {
+                text: "20",
+                floating: true,
+                align: "right",
+                offsetY: 0,
+                style: {
+                    fontSize: "22px"
+                }
+            },
+            legend: {
+                show: true,
+                floating: true,
+                horizontalAlign: "left",
+                onItemClick: {
+                    toggleDataSeries: false
+                },
+                position: "top",
+                offsetY: -33,
+                offsetX: 60
+            }
+        };
+    </script>
 @endsection

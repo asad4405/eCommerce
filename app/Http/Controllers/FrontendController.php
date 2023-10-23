@@ -49,11 +49,20 @@ class FrontendController extends Controller
         if (!empty($data['order'])) {
             if ($data['order'] == 'az') {
                 $order = 'asc';
+                $price_order = 'lh';
             } elseif ($data['order'] == 'za') {
                 $order = 'desc';
+                $price_order = 'lh';
+            } elseif ($data['order'] == 'lh') {
+                $order = 'asc';
+                $price_order = 'lh';
+            } elseif ($data['order'] == 'hl') {
+                $order = 'asc';
+                $price_order = 'hl';
             }
         } else {
             $order = 'asc';
+            $price_order = 'lh';
         }
 
         $products = Product::where(function ($r) use ($data) {
@@ -68,29 +77,20 @@ class FrontendController extends Controller
             // code end
         })->orderBy('product_name', $order)->get();
 
-        $categories = Category::all();
-        return view('shop', compact('products', 'categories'));
-
-        die();
-
-        if ($request->category_slug) {
-            $category_id = Category::where('slug', $request->category_slug)->firstOrFail()->id;
-            $products = Product::where('category_id', $category_id)->get();
-        } else {
-            $products = Product::all();
-        }
-        if ($request->q) {
-            $products = Product::where('product_name', 'like', '%' . $request->q . '%')->get();
-        }
-
-        if ($request->order) {
-            if ($request->order == 'az') {
-                $sorted = $products->sortBy('product_name');
-                $products = $sorted->values()->all();
-            } elseif ($request->order == 'za') {
-                $sorted = $products->sortByDesc('product_name');
-                $products = $sorted->values()->all();
+        // map function start
+        $products->map(function ($product) {
+            if ($product->relationToInventory->count() == 0) {
+                $product->lowest_price = 0;
+            } else {
+                $product->lowest_price = $product->relationToInventory->min('product_discount_price');
             }
+        });
+        // map function end
+        if($price_order == 'lh'){
+            $products = collect($products)->sortBy('lowest_price')->values()->all();
+        }
+        elseif($price_order == 'hl'){
+            $products = collect($products)->sortByDesc('lowest_price')->values()->all();
         }
 
         $categories = Category::all();
