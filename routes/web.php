@@ -30,32 +30,35 @@ Route::post('/get/size/lists', [FrontendController::class, 'get_size_lists'])->n
 Route::post('/get/price/quantity', [FrontendController::class, 'get_price_quantity'])->name('get.price.quantity');
 Route::post('/add/to/cart', [FrontendController::class, 'add_to_cart'])->name('add.to.cart');
 
+// cart
 Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
 Route::get('/cart/remove/{id}', [FrontendController::class, 'cart_remove'])->name('cart.remove');
 Route::get('/cart/clear', [FrontendController::class, 'cart_clear'])->name('cart.clear');
 Route::post('/cart/update', [FrontendController::class, 'cart_update'])->name('cart.update');
 
-Route::post('/add/wishlist', [FrontendController::class, 'add_wishlist'])->name('add.wishlist');
+// wishlists
+Route::post('/add/wishlist/{id}', [FrontendController::class, 'add_wishlist'])->name('add.wishlist');
 Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');
 
-Route::get('/checkout',[FrontendController::class, 'checkout'])->name('checkout');
-Route::post('/final/checkout',[FrontendController::class, 'final_checkout'])->name('final.checkout');
+// checkout
+Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+Route::post('/final/checkout', [FrontendController::class, 'final_checkout'])->name('final.checkout');
 
 // Register with phone number start
-Route::post('/send/otp',[FrontendController::class, 'send_otp'])->name('send.otp');
-Route::get('/submit/otp',[FrontendController::class, 'submit_otp'])->name('submit.otp');
-Route::post('/validate/otp',[FrontendController::class, 'validate_otp'])->name('validate.otp');
-Route::get('/resend/otp',[FrontendController::class, 'resend_otp'])->name('resend.otp');
-Route::post('/login/otp',[FrontendController::class, 'login_otp'])->name('login.otp');
-Route::get('/submit/login/otp',[FrontendController::class, 'submit_login_otp'])->name('submit.login.otp');
-Route::post('/login/validate/otp',[FrontendController::class, 'login_validate_otp'])->name('login.validate.otp');
+Route::post('/send/otp', [FrontendController::class, 'send_otp'])->name('send.otp');
+Route::get('/submit/otp', [FrontendController::class, 'submit_otp'])->name('submit.otp');
+Route::post('/validate/otp', [FrontendController::class, 'validate_otp'])->name('validate.otp');
+Route::get('/resend/otp', [FrontendController::class, 'resend_otp'])->name('resend.otp');
+Route::post('/login/otp', [FrontendController::class, 'login_otp'])->name('login.otp');
+Route::get('/submit/login/otp', [FrontendController::class, 'submit_login_otp'])->name('submit.login.otp');
+Route::post('/login/validate/otp', [FrontendController::class, 'login_validate_otp'])->name('login.validate.otp');
 // Register with phone number end
 
 // Review
-Route::get('/give/review/{invoice_id}',[ReviewController::class, 'give_review'])->name('give.review')->middleware(['auth','verified','customer.checker']);
-Route::post('/insert/review/{invoice_details_id}',[ReviewController::class, 'insert_review'])->name('insert.review')->middleware(['auth','verified','customer.checker']);
+Route::get('/give/review/{invoice_id}', [ReviewController::class, 'give_review'])->name('give.review')->middleware(['auth', 'verified', 'customer.checker']);
+Route::post('/insert/review/{invoice_details_id}', [ReviewController::class, 'insert_review'])->name('insert.review')->middleware(['auth', 'verified', 'customer.checker']);
 // Review show admin or vendor dashboard
-Route::get('/index/review/',[ReviewController::class, 'index_review'])->name('index.review')->middleware(['auth','verified']);
+Route::get('/index/review/', [ReviewController::class, 'index_review'])->name('index.review')->middleware(['auth', 'verified']);
 
 
 // Dashboard
@@ -68,7 +71,7 @@ Route::post('/remove/address/{id}', [HomeController::class, 'remove_address'])->
 // invoice download
 Route::get('/download/invoice/{id}', [HomeController::class, 'download_invoice'])->name('download.invoice')->middleware(['auth', 'verified', 'customer.checker']);
 
-Route::get('/pay/now/{invoice_id}',[HomeController::class, 'pay_now'])->name('pay.now')->middleware(['auth','verified']);
+Route::get('/pay/now/{invoice_id}', [HomeController::class, 'pay_now'])->name('pay.now')->middleware(['auth', 'verified']);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -103,21 +106,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('size/delete/{id}', [AttributeController::class, 'size_delete'])->name('size.delete');
 
     // coupon
-    Route::resource('coupon',CouponController::class);
+    Route::resource('coupon', CouponController::class);
 
     // Delivery Option
-    Route::resource('delivery',DeliveryController::class)->middleware('admin.checker');
+    Route::resource('delivery', DeliveryController::class)->middleware('admin.checker');
 
     // all user
-    Route::get('/all/users',[HomeController::class,'all_users'])->name('all.users');
+    Route::get('/all/users', [HomeController::class, 'all_users'])->name('all.users');
 });
 
 // vendor
 Route::get('/vendor/register', [VendorController::class, 'vendor_register'])->name('vendor.register');
 Route::post('/vendor/register/post', [VendorController::class, 'vendor_register_post'])->name('vendor.register.post');
 
-Route::get('/make/paid/{invoice_id}', [VendorController::class, 'make_paid'])->name('make.paid')->middleware(['auth','verified','vendor.checker']);
-Route::get('/order/cancel/{invoice_id}', [VendorController::class, 'order_cancel'])->name('order.cancel')->middleware(['auth','verified','vendor.checker']);
+Route::get('/make/paid/{invoice_id}', [VendorController::class, 'make_paid'])->name('make.paid')->middleware(['auth', 'verified', 'vendor.checker']);
+Route::get('/order/cancel/{invoice_id}', [VendorController::class, 'order_cancel'])->name('order.cancel')->middleware(['auth', 'verified', 'vendor.checker']);
 
 // forgot password Start
 Route::get('/forgot-password', function () {
@@ -127,12 +130,12 @@ Route::get('/forgot-password', function () {
 
 // Socialite Login & Register Start
 // Gmail
-Route::get('google/redirect',[SocialiteController::class,'google_redirect'])->name('google.redirect');
-Route::get('google/callback',[SocialiteController::class,'google_callback'])->name('google.callback');
+Route::get('google/redirect', [SocialiteController::class, 'google_redirect'])->name('google.redirect');
+Route::get('google/callback', [SocialiteController::class, 'google_callback'])->name('google.callback');
 
 // Github
-Route::get('github/redirect',[SocialiteController::class,'github_redirect'])->name('github.redirect');
-Route::get('github/callback',[SocialiteController::class,'github_callback'])->name('github.callback');
+Route::get('github/redirect', [SocialiteController::class, 'github_redirect'])->name('github.redirect');
+Route::get('github/callback', [SocialiteController::class, 'github_callback'])->name('github.callback');
 // Socialite Login & Register  End
 
 // SSLCOMMERZ Start

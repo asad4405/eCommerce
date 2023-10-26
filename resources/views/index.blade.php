@@ -149,12 +149,13 @@
                             <h3>Category</h3>
                             <ul>
                                 @foreach ($categories as $category)
-                                    <li class="@if($loop->last) pb-30 @endif">
+                                    <li class="@if ($loop->last) pb-30 @endif">
                                         <div class="category-list">
                                             <img src="{{ asset('uploads/category_icons') }}/{{ $category->category_icon }}"
                                                 class="blur-up lazyload" alt="">
                                             <h5>
-                                                <a href="{{ route('shop') }}?category_slug={{ $category->slug }}">{{ $category->category_name }}</a>
+                                                <a
+                                                    href="{{ route('shop') }}?category_slug={{ $category->slug }}">{{ $category->category_name }}</a>
                                             </h5>
                                         </div>
                                     </li>
@@ -363,7 +364,7 @@
                                             <ul class="product-option">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                                     <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#view">
+                                                        data-bs-target="#view_{{ $product->id }}">
                                                         <i data-feather="eye"></i>
                                                     </a>
                                                 </li>
@@ -452,6 +453,110 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="modal fade theme-modal view-modal" id="view_{{ $product->id }}"
+                                    tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
+                                        <div class="modal-content">
+                                            <div class="modal-header p-0">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row g-sm-4 g-2">
+                                                    <div class="col-lg-6">
+                                                        <div class="slider-image">
+                                                            <img src="{{ asset('uploads/product_photos') }}/{{ App\Models\Product_photo::where('product_id', $product->id)->get()->random()->product_photos }}"
+                                                                class="img-fluid blur-up lazyload" alt="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6">
+                                                        <div class="right-sidebar-modal">
+                                                            <h4 class="title-name"></h4>
+                                                            <h4 class="price">
+                                                                @if (lowest_discount_price($product->id) == 0)
+                                                                    <span class="theme-color price">Coming Soon !!</span>
+                                                                @else
+                                                                    <span
+                                                                        class="theme-color price">{{ lowest_discount_price($product->id) }}
+                                                                        taka</span>&nbsp;&nbsp;&nbsp;
+                                                                    @if (lowest_discount_price($product->id) != lowest_regular_price($product->id))
+                                                                        <del class="text-danger">{{ lowest_regular_price($product->id) }}
+                                                                            taka</del>
+                                                                    @endif
+                                                                @endif
+                                                            </h4>
+                                                            <div class="product-rating">
+                                                                <ul class="rating">
+                                                                    @for ($i = 1; $i <= round(reviews($product->id)->average('rating')); $i++)
+                                                                        <li>
+                                                                            <i data-feather="star" class="fill"></i>
+                                                                        </li>
+                                                                    @endfor
+                                                                    @for ($i = 1; $i <= 5 - round(reviews($product->id)->average('rating')); $i++)
+                                                                        <li>
+                                                                            <i data-feather="star"></i>
+                                                                        </li>
+                                                                    @endfor
+                                                                </ul>
+                                                                <span class="ms-2 text-danger">
+                                                                    {{ reviews($product->id)->count() }}
+                                                                </span>
+                                                                {{-- <span class="ms-2 text-danger">6 sold in last 16
+                                                                    hours</span> --}}
+                                                            </div>
+
+                                                            <div class="product-detail">
+                                                                <h4>Product Details :</h4>
+                                                                <p>{!! $product->product_short_details !!}</p>
+                                                            </div>
+
+                                                            <ul class="brand-list">
+                                                                <li>
+                                                                    <div class="brand-box">
+                                                                        <h5>Brand Name:</h5>
+                                                                        <h6></h6>
+                                                                    </div>
+                                                                </li>
+
+                                                                <li>
+                                                                    <div class="brand-box">
+                                                                        <h5>Product Category:</h5>
+                                                                        <h6>{{ $product->relationToCategory->category_name }}</h6>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+
+                                                            <div class="select-size">
+                                                                <h4>Cake Size :</h4>
+                                                                <select class="form-select select-form-size">
+                                                                    <option selected>Select Size</option>
+                                                                    <option value="1.2">1/2 KG</option>
+                                                                    <option value="0">1 KG</option>
+                                                                    <option value="1.5">1/5 KG</option>
+                                                                    <option value="red">Red Roses</option>
+                                                                    <option value="pink">With Pink Roses</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="modal-button">
+                                                                <button onclick="location.href = '{{ route('cart') }}';"
+                                                                    class="btn btn-md add-cart-button icon">Add
+                                                                    To Cart</button>
+                                                                <button
+                                                                    onclick="location.href = '{{ route('product.details', $product->id) }}';"
+                                                                    class="btn theme-bg-color view-button icon text-white fw-bold btn-md">
+                                                                    View More Details</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -471,7 +576,8 @@
                     <div class="category-slider-2 product-wrapper no-arrow">
                         @foreach ($categories as $category)
                             <div>
-                                <a href="{{ route('shop') }}?category_slug={{ $category->slug }}" class="category-box category-dark">
+                                <a href="{{ route('shop') }}?category_slug={{ $category->slug }}"
+                                    class="category-box category-dark">
                                     <div>
                                         <img src="{{ asset('uploads/category_icons') }}/{{ $category->category_icon }}"
                                             class="blur-up lazyload" alt="">
@@ -1502,108 +1608,4 @@
         </div>
     </section>
     <!-- Newsletter Section End -->
-    <!-- Quick View Modal Box Start -->
-    <div class="modal fade theme-modal view-modal" id="view" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header p-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-sm-4 g-2">
-                        <div class="col-lg-6">
-                            <div class="slider-image">
-                                <img src="{{ asset('frontend_assets') }}/images/product/category/1.jpg" class="img-fluid blur-up lazyload"
-                                    alt="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="right-sidebar-modal">
-                                <h4 class="title-name">Peanut Butter Bite Premium Butter Cookies 600 g</h4>
-                                <h4 class="price">$36.99</h4>
-                                <div class="product-rating">
-                                    <ul class="rating">
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star"></i>
-                                        </li>
-                                    </ul>
-                                    <span class="ms-2">8 Reviews</span>
-                                    <span class="ms-2 text-danger">6 sold in last 16 hours</span>
-                                </div>
-
-                                <div class="product-detail">
-                                    <h4>Product Details :</h4>
-                                    <p>Candy canes sugar plum tart cotton candy chupa chups sugar plum chocolate I love.
-                                        Caramels marshmallow icing dessert candy canes I love soufflé I love toffee.
-                                        Marshmallow pie sweet sweet roll sesame snaps tiramisu jelly bear claw. Bonbon
-                                        muffin I love carrot cake sugar plum dessert bonbon.</p>
-                                </div>
-
-                                <ul class="brand-list">
-                                    <li>
-                                        <div class="brand-box">
-                                            <h5>Brand Name:</h5>
-                                            <h6>Black Forest</h6>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="brand-box">
-                                            <h5>Product Code:</h5>
-                                            <h6>W0690034</h6>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="brand-box">
-                                            <h5>Product Type:</h5>
-                                            <h6>White Cream Cake</h6>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                                <div class="select-size">
-                                    <h4>Cake Size :</h4>
-                                    <select class="form-select select-form-size">
-                                        <option selected>Select Size</option>
-                                        <option value="1.2">1/2 KG</option>
-                                        <option value="0">1 KG</option>
-                                        <option value="1.5">1/5 KG</option>
-                                        <option value="red">Red Roses</option>
-                                        <option value="pink">With Pink Roses</option>
-                                    </select>
-                                </div>
-
-                                <div class="modal-button">
-                                    <button onclick="location.href = 'cart.html';"
-                                        class="btn btn-md add-cart-button icon">Add
-                                        To Cart</button>
-                                    <button onclick="location.href = 'product-left.html';"
-                                        class="btn theme-bg-color view-button icon text-white fw-bold btn-md">
-                                        View More Details</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Quick View Modal Box End -->
 @endsection

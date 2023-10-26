@@ -86,10 +86,9 @@ class FrontendController extends Controller
             }
         });
         // map function end
-        if($price_order == 'lh'){
+        if ($price_order == 'lh') {
             $products = collect($products)->sortBy('lowest_price')->values()->all();
-        }
-        elseif($price_order == 'hl'){
+        } elseif ($price_order == 'hl') {
             $products = collect($products)->sortByDesc('lowest_price')->values()->all();
         }
 
@@ -225,11 +224,11 @@ class FrontendController extends Controller
         return view('cart', compact('carts', 'coupon_name', 'coupon_discounts', 'highest_discount'));
     }
 
-    public function add_wishlist(Request $request)
+    public function add_wishlist(Request $request, $id)
     {
         Wishlist::insert([
             'user_id' => auth()->id(),
-            // 'product_id' => ,
+            'product_id' => $id,
             'created_at' => Carbon::now(),
         ]);
         return 'Add to Wishlist';

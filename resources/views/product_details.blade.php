@@ -156,10 +156,14 @@
                                 </div>
 
                                 <div class="buy-box">
-                                    <a href="{{ route('add.wishlist') }}">
+                                    {{-- <a href="{{ route('add.wishlist') }}">
                                         <i data-feather="heart"></i>
                                         <span>Add To Wishlist</span>
-                                    </a>
+                                    </a> --}}
+                                    <form action="{{ route('add.wishlist', $product->id) }}" method="POST">
+                                        @csrf
+                                        <button><i data-feather="heart"></i> Add To Wishlist</button>
+                                    </form>
                                 </div>
 
                                 <div class="pickup-box">
