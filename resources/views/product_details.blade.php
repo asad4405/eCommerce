@@ -838,6 +838,7 @@
                         color_id: color_id
                     },
                     success: function(data) {
+                        // alert(data)
                         $('#add_to_cart').addClass('d-none');
                         $('#discount_price').removeClass('text-danger');
                         $('#discount_price').html('100 taka');

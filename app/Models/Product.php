@@ -9,13 +9,16 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function relationToCategory(){
-        return $this->hasOne(Category::class,'id','category_id');
+    public function relationToCategory()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
-    public function relationToVendor(){
-        return $this->hasOne(User::class, 'id','user_id');
+    public function relationToVendor()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
-    public function relationToInventory(){
-        return $this->hasMany(Inventory::class,'product_id','id');
+    public function relationToInventory()
+    {
+        return $this->hasMany(Inventory::class, 'product_id', 'id');
     }
 }

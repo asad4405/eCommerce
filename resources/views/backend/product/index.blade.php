@@ -25,8 +25,8 @@
                                                 <th>Product Image</th>
                                                 <th>Product Name</th>
                                                 <th>Category</th>
-                                                <th>Current Qty</th>
-                                                <th>Price</th>
+                                                {{-- <th>Current Qty</th>
+                                                <th>Price</th> --}}
                                                 <th>Option</th>
                                             </tr>
                                         </thead>
@@ -45,12 +45,11 @@
 
                                                     <td>{{ $product->relationToCategory->category_name }}</td>
 
-                                                    <td>-</td>
-
-                                                    <td class="td-price">-</td>
+                                                    {{-- <td>{{ $produc }}</td> --}}
 
                                                     <td>
                                                         <ul>
+                                                            </li>
 
                                                             <li>
                                                                 <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm bg-info">

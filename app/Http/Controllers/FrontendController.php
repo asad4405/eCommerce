@@ -236,7 +236,8 @@ class FrontendController extends Controller
 
     public function wishlist()
     {
-        return view('wishlist');
+        $wishlists = Wishlist::where('user_id',auth()->id())->get();
+        return view('wishlist',compact('wishlists'));
     }
 
     public function checkout()
