@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Invoice;
 use App\Models\Invoice_detail;
 use App\Models\User;
+use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -23,9 +24,10 @@ class HomeController extends Controller
             $orders = Invoice::where('vendor_id',auth()->id())->latest()->paginate(5);
             return view('dashboard.vendor',compact('orders'));
         } else {
+            $wishlists = Wishlist::where('user_id',auth()->id())->get();
             $addresses = Address::where('customer_id', auth()->id())->get();
             $invoices = Invoice::where('customer_id', auth()->id())->latest()->paginate(5);
-            return view('dashboard.customer', compact('addresses', 'invoices'));
+            return view('dashboard.customer', compact('addresses', 'invoices','wishlists'));
         }
     }
 

@@ -719,9 +719,12 @@
 
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Wishlist">
-                                                        <a href="wishlist.html" class="notifi-wishlist">
+                                                        <form action="{{ route('add.wishlist', $related_product->id) }}" method="POST">
+                                                            @csrf
+                                                        <button class="notifi-wishlist">
                                                             <i data-feather="heart"></i>
-                                                        </a>
+                                                        </button>
+                                                    </form>
                                                     </li>
                                                 </ul>
                                         </div>
@@ -838,7 +841,6 @@
                         color_id: color_id
                     },
                     success: function(data) {
-                        // alert(data)
                         $('#add_to_cart').addClass('d-none');
                         $('#discount_price').removeClass('text-danger');
                         $('#discount_price').html('100 taka');

@@ -226,18 +226,31 @@ class FrontendController extends Controller
 
     public function add_wishlist(Request $request, $id)
     {
-        Wishlist::insert([
+        if (Wishlist::where([
             'user_id' => auth()->id(),
             'product_id' => $id,
-            'created_at' => Carbon::now(),
-        ]);
-        return 'Add to Wishlist';
+        ])->exists()) {
+            return redirect('wishlist')->with('wishlist-error', 'Wishlist Alerady Added !!');
+        } else {
+            Wishlist::insert([
+                'user_id' => auth()->id(),
+                'product_id' => $id,
+                'created_at' => Carbon::now(),
+            ]);
+            return redirect('wishlist');
+        }
     }
 
     public function wishlist()
     {
-        $wishlists = Wishlist::where('user_id',auth()->id())->get();
-        return view('wishlist',compact('wishlists'));
+        $wishlists = Wishlist::where('user_id', auth()->id())->get();
+        return view('wishlist', compact('wishlists'));
+    }
+
+    public function wishlist_remove($id)
+    {
+        Wishlist::where('id', $id)->delete();
+        return back();
     }
 
     public function checkout()

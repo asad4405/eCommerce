@@ -376,9 +376,12 @@
                                                 </li>
 
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                                    <a href="wishlist.html" class="notifi-wishlist">
-                                                        <i data-feather="heart"></i>
-                                                    </a>
+                                                    <form action="{{ route('add.wishlist', $product->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button class="notifi-wishlist">
+                                                            <i data-feather="heart"></i>
+                                                        </button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -524,7 +527,8 @@
                                                                 <li>
                                                                     <div class="brand-box">
                                                                         <h5>Product Category:</h5>
-                                                                        <h6>{{ $product->relationToCategory->category_name }}</h6>
+                                                                        <h6>{{ $product->relationToCategory->category_name }}
+                                                                        </h6>
                                                                     </div>
                                                                 </li>
                                                             </ul>
@@ -660,9 +664,12 @@
 
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Wishlist">
-                                                        <a href="wishlist.html" class="notifi-wishlist">
-                                                            <i data-feather="heart"></i>
-                                                        </a>
+                                                        <form action="{{ route('add.wishlist', $product->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button class="notifi-wishlist">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -750,9 +757,12 @@
 
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Wishlist">
-                                                        <a href="wishlist.html" class="notifi-wishlist">
-                                                            <i data-feather="heart"></i>
-                                                        </a>
+                                                        <form action="{{ route('add.wishlist', $product->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button class="notifi-wishlist">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -840,9 +850,12 @@
 
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Wishlist">
-                                                        <a href="wishlist.html" class="notifi-wishlist">
-                                                            <i data-feather="heart"></i>
-                                                        </a>
+                                                        <form action="{{ route('add.wishlist', $product->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button class="notifi-wishlist">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -930,9 +943,12 @@
 
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Wishlist">
-                                                        <a href="wishlist.html" class="notifi-wishlist">
-                                                            <i data-feather="heart"></i>
-                                                        </a>
+                                                        <form action="{{ route('add.wishlist', $product->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button class="notifi-wishlist">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1020,9 +1036,12 @@
 
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Wishlist">
-                                                        <a href="wishlist.html" class="notifi-wishlist">
-                                                            <i data-feather="heart"></i>
-                                                        </a>
+                                                        <form action="{{ route('add.wishlist', $product->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button class="notifi-wishlist">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1110,9 +1129,12 @@
 
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Wishlist">
-                                                        <a href="wishlist.html" class="notifi-wishlist">
-                                                            <i data-feather="heart"></i>
-                                                        </a>
+                                                        <form action="{{ route('add.wishlist', $product->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button class="notifi-wishlist">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
                                                     </li>
                                                 </ul>
                                             </div>

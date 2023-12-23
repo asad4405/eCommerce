@@ -39,6 +39,7 @@ Route::post('/cart/update', [FrontendController::class, 'cart_update'])->name('c
 // wishlists
 Route::post('/add/wishlist/{id}', [FrontendController::class, 'add_wishlist'])->name('add.wishlist');
 Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');
+Route::get('/wishlist/remove/{id}', [FrontendController::class, 'wishlist_remove'])->name('wishlist.remove');
 
 // checkout
 Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');

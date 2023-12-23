@@ -28,6 +28,10 @@
     <section class="wishlist-section section-b-space">
         <div class="container-fluid-lg">
             <div class="row g-sm-3 g-2">
+                @if (session('wishlist-error'))
+                    <div class="alert alert-danger">{{ session('wishlist-error') }}</div>
+                @endif
+
                 @forelse ($wishlists as $wishlist)
                     <div class="col-xxl-2 col-lg-3 col-md-4 col-6 product-box-contain">
                         <div class="product-box-3 h-100">
@@ -39,9 +43,9 @@
                                     </a>
 
                                     <div class="product-header-top">
-                                        <button class="btn wishlist-button close_button">
+                                        <a href="{{ route('wishlist.remove',$wishlist->id) }}" class="btn wishlist-button close_button">
                                             <i data-feather="x"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -52,12 +56,17 @@
                                         <h5 class="name">{{ $wishlist->relationToWishlist->product_name }}</h5>
                                     </a>
 
-                                    
-                                    <h6 class="unit mt-1">250 ml</h6>
+                                    {{-- <h6 class="unit mt-1">250 ml</h6> --}}
                                     <h5 class="price">
-                                        <span class="theme-color">{{ $inventory->product_discount_price }}</span>
-                                        @if ($inventory->product_discount_price != $inventory->product_regular_price)
-                                            <del>{{ $inventory->product_regular_price }}</del>
+                                        @if (lowest_discount_price($wishlist->product_id) == 0)
+                                            <span class="theme-color">Coming Soon !!</span>
+                                        @else
+                                            <span class="theme-color">{{ lowest_discount_price($wishlist->product_id) }}
+                                                taka</span>
+                                            @if (lowest_discount_price($wishlist->product_id) != lowest_regular_price($wishlist->product_id))
+                                                <del class="text-danger">{{ lowest_regular_price($wishlist->product_id) }}
+                                                    taka</del>
+                                            @endif
                                         @endif
                                     </h5>
 

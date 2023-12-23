@@ -25,4 +25,8 @@ class Invoice extends Model
     {
         return $this->hasOne(Address::class,'id','address_id');
     }
+    public function invoice_detail()
+    {
+        return $this->hasOne(Invoice_detail::class,'id','invoice_id');
+    }
 }
