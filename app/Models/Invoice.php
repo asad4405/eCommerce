@@ -27,6 +27,18 @@ class Invoice extends Model
     }
     public function invoice_detail()
     {
-        return $this->hasOne(Invoice_detail::class,'id','invoice_id');
+        return $this->hasOne(Invoice_detail::class,'invoice_id','id');
+    }
+    function relationtoProduct()
+    {
+        return $this->hasOne(Product::class,'id','product_id');
+    }
+    function relationtoColor()
+    {
+        return $this->hasOne(Color::class,'id','color_id');
+    }
+    function relationtoSize()
+    {
+        return $this->hasOne(Size::class,'id','size_id');
     }
 }

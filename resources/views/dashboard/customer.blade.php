@@ -403,69 +403,78 @@
                                                     </div>
 
                                                     <div class="order-detail">
-                                                        <h4>Delivere <span>Panding</span></h4>
-                                                        <h6 class="text-content">Gouda parmesan caerphilly mozzarella
-                                                            cottage cheese cauliflower cheese taleggio gouda.</h6>
+                                                        <h4>Delivere
+                                                            @if ($invoice->delivery_status == 'unpaid')
+                                                                <span>Panding</span>
+                                                            @else
+                                                                <span class="success-bg">Success</span>
+                                                            @endif
+                                                        </h4>
+                                                        <h6 class="text-content">
+                                                            Gouda parmesan caerphilly mozzarella
+                                                            cottage cheese cauliflower cheese taleggio gouda.
+                                                        </h6>
                                                     </div>
                                                 </div>
 
                                                 <div class="product-order-detail">
-                                                    <a href="product-left-thumbnail.html" class="order-image">
-                                                        <img src="{{ asset('frontend_assets') }}/images/vegetable/product/1.png"
-                                                            class="blur-up lazyload" alt="">
+                                                    <a href="{{ route('product.details', $invoice->invoice_detail->relationtoProduct->id) }}"
+                                                        class="order-image">
+
+                                                        <img src="{{ asset('uploads/product_photos') }}/{{ App\Models\Product_photo::where('product_id', $invoice->invoice_detail->relationtoProduct->id)->first()->product_photos }}"
+                                                            class="blur-up lazyload" alt="" width="120">
                                                     </a>
 
                                                     <div class="order-wrap">
-                                                        <a href="product-left-thumbnail.html">
-                                                            <h3>{{ $invoice->invoice_detail }}</h3>
+                                                        <a
+                                                            href="{{ route('product.details', $invoice->invoice_detail->relationtoProduct->id) }}">
+                                                            <h3>{{ $invoice->invoice_detail->relationtoProduct->product_name }}
+                                                            </h3>
                                                         </a>
-                                                        <p class="text-content">Cheddar dolcelatte gouda. Macaroni cheese
-                                                            cheese strings feta halloumi cottage cheese jarlsberg cheese
-                                                            triangles say cheese.</p>
+                                                        <p class="text-content">
+                                                            {{ $invoice->invoice_detail->relationtoProduct->product_short_details }}
+                                                        </p>
                                                         <ul class="product-size">
                                                             <li>
                                                                 <div class="size-box">
                                                                     <h6 class="text-content">Price : </h6>
-                                                                    <h5>$20.68</h5>
+                                                                    <h5>{{ $invoice->total_amount }} taka</h5>
                                                                 </div>
                                                             </li>
 
                                                             <li>
                                                                 <div class="size-box">
-                                                                    <h6 class="text-content">Rate : </h6>
-                                                                    <div class="product-rating ms-2">
-                                                                        <ul class="rating">
-                                                                            <li>
-                                                                                <i data-feather="star" class="fill"></i>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i data-feather="star" class="fill"></i>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i data-feather="star" class="fill"></i>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i data-feather="star" class="fill"></i>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i data-feather="star"></i>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
+                                                                    <h6 class="text-content">Coupon Discount : </h6>
+                                                                    <h5>{{ $invoice->coupon_discount_amount }}</h5>
+                                                                </div>
+                                                            </li>
+
+                                                            <li>
+                                                                <div class="size-box">
+                                                                    <h6 class="text-content">Delivery Charge : </h6>
+                                                                    <h5>{{ $invoice->delivery_cost }}</h5>
+                                                                </div>
+                                                            </li>
+
+                                                            <li>
+                                                                <div class="size-box">
+                                                                    <h6 class="text-content">Total : </h6>
+                                                                    <h5>{{ $invoice->sub_total - $invoice->coupon_discount_amount + $invoice->delivery_cost }}
+                                                                    </h5>
                                                                 </div>
                                                             </li>
 
                                                             <li>
                                                                 <div class="size-box">
                                                                     <h6 class="text-content">Sold By : </h6>
-                                                                    <h5>Fresho</h5>
+                                                                    <h5>{{ $invoice->relationtoVendor->name }}</h5>
                                                                 </div>
                                                             </li>
 
                                                             <li>
                                                                 <div class="size-box">
                                                                     <h6 class="text-content">Quantity : </h6>
-                                                                    <h5>250 G</h5>
+                                                                    <h5>{{ $invoice->invoice_detail->user_input }}</h5>
                                                                 </div>
                                                             </li>
                                                         </ul>
