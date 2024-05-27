@@ -626,7 +626,7 @@
 
             <div class="sub-footer section-small-space">
                 <div class="reserve">
-                    <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
+                    <h6 class="text-content">©2023 Fastkart All rights reserved</h6>
                 </div>
 
                 <div class="payment">
