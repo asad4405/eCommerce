@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DeliveryController;
@@ -80,6 +81,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/change/profile/photo', [ProfileController::class, 'change_profile_photo'])->name('change.profile.photo');
+
+    // banner
+    Route::get('/banner', [BannerController::class,'banner'])->name('banner')->middleware('admin.checker');
+    Route::post('/update/banner/{id}', [BannerController::class,'update_banner'])->name('update.banner')->middleware('admin.checker');
 
     // category
     Route::resource('category', CategoryController::class)->middleware('admin.checker');

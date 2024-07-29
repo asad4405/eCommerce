@@ -1,25 +1,23 @@
 @extends('layouts.frontend_master')
 @section('content')
     <!-- Home Section Start -->
-    <section class="home-section pt-2">
+    <section class="pt-2 home-section">
         <div class="container-fluid-lg">
             <div class="row g-4">
                 <div class="col-xl-8 ratio_65">
                     <div class="home-contain h-100">
                         <div class="h-100">
-                            <img src="{{ asset('frontend_assets') }}/images/vegetable/banner/1.jpg"
-                                class="bg-img blur-up lazyload" alt="">
+                            <img src="{{ asset('uploads/banner') }}/{{ $banner->first()->photo }}" class="bg-img blur-up lazyload"
+                                alt="">
                         </div>
                         <div class="home-detail p-center-left w-75">
                             <div>
-                                <h6>Exclusive offer <span>30% Off</span></h6>
-                                <h1 class="text-uppercase">Stay home & delivered your <span class="daily">Daily
-                                        Needs</span></h1>
-                                <p class="w-75 d-none d-sm-block">Vegetables contain many vitamins and minerals that
-                                    are
-                                    good for your health.</p>
-                                <button onclick="location.href = 'shop-left-sidebar.html';"
-                                    class="btn btn-animation mt-xxl-4 mt-2 home-button mend-auto">Shop Now <i
+                                <h6>{{ $banner->first()->title }} <span>{{ $banner->first()->offer_persentage }}% Off</span>
+                                </h6>
+                                <h1 class="text-uppercase">{{ $banner->first()->name }}</h1>
+                                <p class="w-75 d-none d-sm-block">{{ $banner->first()->short_detail }}</p>
+                                <button onclick="location.href = '{{ $banner->first()->button_link }}';"
+                                    class="mt-2 btn btn-animation mt-xxl-4 home-button mend-auto">Shop Now <i
                                         class="fa-solid fa-right-long icon"></i></button>
                             </div>
                         </div>
@@ -81,7 +79,7 @@
                                 <h5>Hot Deals on New Items</h5>
                                 <h6 class="text-content">Daily Essentials Eggs & Dairy</h6>
                             </div>
-                            <a href="shop-left-sidebar.html" class="banner-button text-white">Shop Now <i
+                            <a href="shop-left-sidebar.html" class="text-white banner-button">Shop Now <i
                                     class="fa-solid fa-right-long ms-2"></i></a>
                         </div>
                     </div>
@@ -97,7 +95,7 @@
                                 <h5>Buy More & Save More</h5>
                                 <h6 class="text-content">Fresh Vegetables</h6>
                             </div>
-                            <a href="shop-left-sidebar.html" class="banner-button text-white">Shop Now <i
+                            <a href="shop-left-sidebar.html" class="text-white banner-button">Shop Now <i
                                     class="fa-solid fa-right-long ms-2"></i></a>
                         </div>
                     </div>
@@ -113,7 +111,7 @@
                                 <h5>Organic Meat Prepared</h5>
                                 <h6 class="text-content">Delivered to Your Home</h6>
                             </div>
-                            <a href="shop-left-sidebar.html" class="banner-button text-white">Shop Now <i
+                            <a href="shop-left-sidebar.html" class="text-white banner-button">Shop Now <i
                                     class="fa-solid fa-right-long ms-2"></i></a>
                         </div>
                     </div>
@@ -129,7 +127,7 @@
                                 <h5>Buy More & Save More</h5>
                                 <h6 class="text-content">Nuts & Snacks</h6>
                             </div>
-                            <a href="shop-left-sidebar.html" class="banner-button text-white">Shop Now <i
+                            <a href="shop-left-sidebar.html" class="text-white banner-button">Shop Now <i
                                     class="fa-solid fa-right-long ms-2"></i></a>
                         </div>
                     </div>
@@ -212,7 +210,7 @@
                                 <div class="home-detail p-top-left home-p-medium">
                                     <div>
                                         <h4 class="text-yellow text-exo home-banner">Organic</h4>
-                                        <h2 class="text-uppercase fw-normal mb-0 text-russo theme-color">fresh</h2>
+                                        <h2 class="mb-0 text-uppercase fw-normal text-russo theme-color">fresh</h2>
                                         <h2 class="text-uppercase fw-normal text-title">Vegetables</h2>
                                         <p class="mb-3">Super Offer to 50% Off</p>
                                         <button onclick="location.href = 'shop-left-sidebar.html';"
@@ -227,7 +225,7 @@
                             <div class="category-menu">
                                 <h3>Trending Products</h3>
 
-                                <ul class="product-list border-0 p-0 d-block">
+                                <ul class="p-0 border-0 product-list d-block">
                                     <li>
                                         <div class="offer-product">
                                             <a href="" class="offer-image">
@@ -350,11 +348,14 @@
                     <div class="container">
                         <div class="row">
                             @foreach ($products as $product)
-                                <div class="col-3 px-0">
+                                <div class="px-0 col-3">
                                     <div class="product-box" style="border-right: 0px">
                                         <div class="product-image">
                                             @php
-                                                $product_photos = App\Models\Product_photo::where('product_id', $product->id)->get();
+                                                $product_photos = App\Models\Product_photo::where(
+                                                    'product_id',
+                                                    $product->id,
+                                                )->get();
                                             @endphp
 
                                             <a href="{{ route('product.details', $product->id) }}">
@@ -405,7 +406,7 @@
                                                 @endif
                                             </h5>
 
-                                            <div class="product-rating mt-sm-2 mt-1">
+                                            <div class="mt-1 product-rating mt-sm-2">
                                                 @if (review_checker($product->id))
                                                     <ul class="rating">
                                                         @for ($i = 1; $i <= round(reviews($product->id)->average('rating')); $i++)
@@ -460,7 +461,7 @@
                                     tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
                                         <div class="modal-content">
-                                            <div class="modal-header p-0">
+                                            <div class="p-0 modal-header">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close">
                                                     <i class="fa-solid fa-xmark"></i>
@@ -551,7 +552,7 @@
                                                                     To Cart</button>
                                                                 <button
                                                                     onclick="location.href = '{{ route('product.details', $product->id) }}';"
-                                                                    class="btn theme-bg-color view-button icon text-white fw-bold btn-md">
+                                                                    class="text-white btn theme-bg-color view-button icon fw-bold btn-md">
                                                                     View More Details</button>
                                                             </div>
                                                         </div>
@@ -598,10 +599,10 @@
                                 <div class="banner-contain hover-effect">
                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/banner/9.jpg"
                                         class="bg-img blur-up lazyload" alt="">
-                                    <div class="banner-details p-center-left p-4">
+                                    <div class="p-4 banner-details p-center-left">
                                         <div>
                                             <h3 class="text-exo">50% offer</h3>
-                                            <h4 class="text-russo fw-normal theme-color mb-2">Testy Mushrooms</h4>
+                                            <h4 class="mb-2 text-russo fw-normal theme-color">Testy Mushrooms</h4>
                                             <button onclick="location.href = 'shop-left-sidebar.html';"
                                                 class="btn btn-animation btn-sm mend-auto">Shop Now <i
                                                     class="fa-solid fa-arrow-right icon"></i></button>
@@ -613,10 +614,10 @@
                                 <div class="banner-contain hover-effect">
                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/banner/10.jpg"
                                         class="bg-img blur-up lazyload" alt="">
-                                    <div class="banner-details p-center-left p-4">
+                                    <div class="p-4 banner-details p-center-left">
                                         <div>
                                             <h3 class="text-exo">50% offer</h3>
-                                            <h4 class="text-russo fw-normal theme-color mb-2">Fresh MEAT</h4>
+                                            <h4 class="mb-2 text-russo fw-normal theme-color">Fresh MEAT</h4>
                                             <button onclick="location.href = 'shop-left-sidebar.html';"
                                                 class="btn btn-animation btn-sm mend-auto">Shop Now <i
                                                     class="fa-solid fa-arrow-right icon"></i></button>
@@ -637,11 +638,11 @@
                         <p>A virtual assistant collects the products from your list</p>
                     </div>
 
-                    <div class="product-border overflow-hidden wow fadeInUp">
+                    <div class="overflow-hidden product-border wow fadeInUp">
                         <div class="product-box-slider no-arrow">
                             <div>
-                                <div class="row m-0">
-                                    <div class="col-12 px-0">
+                                <div class="m-0 row">
+                                    <div class="px-0 col-12">
                                         <div class="product-box">
                                             <div class="product-image">
                                                 <a href="">
@@ -673,6 +674,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
+
                                             <div class="product-detail">
                                                 <a href="">
                                                     <h6 class="name h-100">Chocalate Powder</h6>
@@ -683,7 +685,7 @@
                                                     <del>28.56</del>
                                                 </h5>
 
-                                                <div class="product-rating mt-sm-2 mt-1">
+                                                <div class="mt-1 product-rating mt-sm-2">
                                                     <ul class="rating">
                                                         <li>
                                                             <i data-feather="star" class="fill"></i>
@@ -733,8 +735,8 @@
                             </div>
 
                             <div>
-                                <div class="row m-0">
-                                    <div class="col-12 px-0">
+                                <div class="m-0 row">
+                                    <div class="px-0 col-12">
                                         <div class="product-box">
                                             <div class="product-image">
                                                 <a href="">
@@ -776,7 +778,7 @@
                                                     <del>28.56</del>
                                                 </h5>
 
-                                                <div class="product-rating mt-sm-2 mt-1">
+                                                <div class="mt-1 product-rating mt-sm-2">
                                                     <ul class="rating">
                                                         <li>
                                                             <i data-feather="star" class="fill"></i>
@@ -826,8 +828,8 @@
                             </div>
 
                             <div>
-                                <div class="row m-0">
-                                    <div class="col-12 px-0">
+                                <div class="m-0 row">
+                                    <div class="px-0 col-12">
                                         <div class="product-box">
                                             <div class="product-image">
                                                 <a href="">
@@ -869,7 +871,7 @@
                                                     <del>28.56</del>
                                                 </h5>
 
-                                                <div class="product-rating mt-sm-2 mt-1">
+                                                <div class="mt-1 product-rating mt-sm-2">
                                                     <ul class="rating">
                                                         <li>
                                                             <i data-feather="star" class="fill"></i>
@@ -919,8 +921,8 @@
                             </div>
 
                             <div>
-                                <div class="row m-0">
-                                    <div class="col-12 px-0">
+                                <div class="m-0 row">
+                                    <div class="px-0 col-12">
                                         <div class="product-box">
                                             <div class="product-image">
                                                 <a href="">
@@ -962,7 +964,7 @@
                                                     <del>28.56</del>
                                                 </h5>
 
-                                                <div class="product-rating mt-sm-2 mt-1">
+                                                <div class="mt-1 product-rating mt-sm-2">
                                                     <ul class="rating">
                                                         <li>
                                                             <i data-feather="star" class="fill"></i>
@@ -1012,8 +1014,8 @@
                             </div>
 
                             <div>
-                                <div class="row m-0">
-                                    <div class="col-12 px-0">
+                                <div class="m-0 row">
+                                    <div class="px-0 col-12">
                                         <div class="product-box">
                                             <div class="product-image">
                                                 <a href="">
@@ -1055,7 +1057,7 @@
                                                     <del>28.56</del>
                                                 </h5>
 
-                                                <div class="product-rating mt-sm-2 mt-1">
+                                                <div class="mt-1 product-rating mt-sm-2">
                                                     <ul class="rating">
                                                         <li>
                                                             <i data-feather="star" class="fill"></i>
@@ -1105,8 +1107,8 @@
                             </div>
 
                             <div>
-                                <div class="row m-0">
-                                    <div class="col-12 px-0">
+                                <div class="m-0 row">
+                                    <div class="px-0 col-12">
                                         <div class="product-box">
                                             <div class="product-image">
                                                 <a href="">
@@ -1148,7 +1150,7 @@
                                                     <del>28.56</del>
                                                 </h5>
 
-                                                <div class="product-rating mt-sm-2 mt-1">
+                                                <div class="mt-1 product-rating mt-sm-2">
                                                     <ul class="rating">
                                                         <li>
                                                             <i data-feather="star" class="fill"></i>
@@ -1203,7 +1205,7 @@
                         <div class="banner-contain">
                             <img src="{{ asset('frontend_assets') }}/images/vegetable/banner/15.jpg"
                                 class="bg-img blur-up lazyload" alt="">
-                            <div class="banner-details p-center p-4 text-white text-center">
+                            <div class="p-4 text-center text-white banner-details p-center">
                                 <div>
                                     <h3 class="lh-base fw-bold offer-text">Get $3 Cashback! Min Order of $30</h3>
                                     <h6 class="coupon-code">Use Code : GROCERY1920</h6>
@@ -1218,7 +1220,7 @@
                                 <div class="banner-contain hover-effect">
                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/banner/12.jpg"
                                         class="bg-img blur-up lazyload" alt="">
-                                    <div class="banner-details p-center-left p-4">
+                                    <div class="p-4 banner-details p-center-left">
                                         <div>
                                             <h2 class="text-kaushan fw-normal theme-color">Get Ready To</h2>
                                             <h3 class="mt-2 mb-3">TAKE ON THE DAY!</h3>
@@ -1237,7 +1239,7 @@
                                 <a href="shop-left-sidebar.html" class="banner-contain hover-effect h-100">
                                     <img src="{{ asset('frontend_assets') }}/images/vegetable/banner/13.jpg"
                                         class="bg-img blur-up lazyload" alt="">
-                                    <div class="banner-details p-center-left p-4 h-100">
+                                    <div class="p-4 banner-details p-center-left h-100">
                                         <div>
                                             <h2 class="text-kaushan fw-normal text-danger">20% Off</h2>
                                             <h3 class="mt-2 mb-2 theme-color">SUMMRY</h3>
@@ -1507,13 +1509,13 @@
                         <div class="banner-contain hover-effect">
                             <img src="{{ asset('frontend_assets') }}/images/vegetable/banner/14.jpg"
                                 class="bg-img blur-up lazyload" alt="">
-                            <div class="banner-details p-center banner-b-space w-100 text-center">
+                            <div class="text-center banner-details p-center banner-b-space w-100">
                                 <div>
-                                    <h6 class="ls-expanded theme-color mb-sm-3 mb-1">SUMMER</h6>
+                                    <h6 class="mb-1 ls-expanded theme-color mb-sm-3">SUMMER</h6>
                                     <h2 class="banner-title">VEGETABLE</h2>
-                                    <h5 class="lh-sm mx-auto mt-1 text-content">Save up to 5% OFF</h5>
+                                    <h5 class="mx-auto mt-1 lh-sm text-content">Save up to 5% OFF</h5>
                                     <button onclick="location.href = 'shop-left-sidebar.html';"
-                                        class="btn btn-animation btn-sm mx-auto mt-sm-3 mt-2">Shop Now <i
+                                        class="mx-auto mt-2 btn btn-animation btn-sm mt-sm-3">Shop Now <i
                                             class="fa-solid fa-arrow-right icon"></i></button>
                                 </div>
                             </div>
@@ -1605,7 +1607,7 @@
     <section class="newsletter-section section-b-space">
         <div class="container-fluid-lg">
             <div class="newsletter-box newsletter-box-2">
-                <div class="newsletter-contain py-5">
+                <div class="py-5 newsletter-contain">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xxl-4 col-lg-5 col-md-7 col-sm-9 offset-xxl-2 offset-md-1">
@@ -1616,7 +1618,7 @@
                                         <input type="email" class="form-control" id="exampleFormControlInput1"
                                             placeholder="Enter Your Email">
                                         <i class="fa-solid fa-envelope arrow"></i>
-                                        <button class="sub-btn  btn-animation">
+                                        <button class="sub-btn btn-animation">
                                             <span class="d-sm-block d-none">Subscribe</span>
                                             <i class="fa-solid fa-arrow-right icon"></i>
                                         </button>

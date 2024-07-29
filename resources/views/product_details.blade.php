@@ -843,7 +843,6 @@
                     success: function(data) {
                         $('#add_to_cart').addClass('d-none');
                         $('#discount_price').removeClass('text-danger');
-                        $('#discount_price').html('100 taka');
                         $('#size_dropdown').html(data);
                     }
                 })

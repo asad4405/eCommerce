@@ -6,6 +6,7 @@ use App\Http\Requests\ContactPostRequest;
 use App\Http\Requests\FinalCheckoutPostRequest;
 use App\Http\Requests\SendOtpPostRequest;
 use App\Models\Address;
+use App\Models\Banner;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Color;
@@ -31,10 +32,11 @@ class FrontendController extends Controller
 {
     public function index()
     {
+        $banner = Banner::all();
         $products = Product::latest()->get();
         $categories = Category::all();
         $modal_products = Product::all();
-        return view('index', compact('categories', 'products', 'modal_products'));
+        return view('index', compact('categories', 'products', 'modal_products', 'banner'));
     }
 
     public function about()

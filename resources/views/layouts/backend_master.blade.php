@@ -85,8 +85,8 @@
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
         <!-- Page Header Start-->
         <div class="page-header">
-            <div class="header-wrapper m-0">
-                <div class="header-logo-wrapper p-0">
+            <div class="m-0 header-wrapper">
+                <div class="p-0 header-logo-wrapper">
                     <div class="logo-wrapper">
                         <a href="{{ route('dashboard') }}">
                             <img class="img-fluid main-logo" src="{{ asset('backend_assets') }}/images/logo/1.png"
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="nav-right col-6 pull-right right-header p-0">
+                <div class="p-0 nav-right col-6 pull-right right-header">
                     <ul class="nav-menus">
                         <li>
                             <span class="header-search">
@@ -134,7 +134,7 @@
                             <ul class="notification-dropdown onhover-show-div">
                                 <li>
                                     <i class="ri-notification-line"></i>
-                                    <h6 class="f-18 mb-0">Notitications</h6>
+                                    <h6 class="mb-0 f-18">Notitications</h6>
                                 </li>
                                 <li>
                                     <p>
@@ -272,6 +272,19 @@
                                         <a class="linear-icon-link sidebar-link sidebar-title"
                                             href="javascript:void(0)">
                                             <i class="ri-list-check-2"></i>
+                                            <span>Banner</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="{{ route('banner') }}">Update Banner</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title"
+                                            href="javascript:void(0)">
+                                            <i class="ri-list-check-2"></i>
                                             <span>Category</span>
                                         </a>
                                         <ul class="sidebar-submenu">
@@ -304,23 +317,22 @@
                                 @endif
 
                                 @if (auth()->user()->role == 'Vendor')
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title"
+                                            href="javascript:void(0)">
+                                            <i class="ri-list-settings-line"></i>
+                                            <span>Attributes</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="{{ route('attribute.create') }}">Add Attributes</a>
+                                            </li>
 
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title"
-                                        href="javascript:void(0)">
-                                        <i class="ri-list-settings-line"></i>
-                                        <span>Attributes</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{ route('attribute.create') }}">Add Attributes</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{ route('attribute.index') }}">Attributes</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                            <li>
+                                                <a href="{{ route('attribute.index') }}">Attributes</a>
+                                            </li>
+                                        </ul>
+                                    </li>
 
                                     <li class="sidebar-list">
                                         <a class="linear-icon-link sidebar-link sidebar-title"
@@ -451,7 +463,7 @@
             <div class="container-fluid">
                 <footer class="footer">
                     <div class="row">
-                        <div class="col-md-12 footer-copyright text-center">
+                        <div class="text-center col-md-12 footer-copyright">
                             <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
                         </div>
                     </div>
@@ -469,7 +481,7 @@
     <!-- Modal Start -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
                     <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
@@ -477,7 +489,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <div class="button-box">
                         <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
-                        <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                        <button type="button" class="btn btn--yes btn-primary">Yes</button>
                     </div>
                 </div>
             </div>
